@@ -169,7 +169,7 @@
 <br/>
 
 <p><strong><em>在了解垃圾回收之前我们需要知道一下JVM中主要产生GC的一个内存空间</em>：堆</strong></p>
-<p><img src="ae1213df6360ba4a0ed26f1246f23c06.jpg" alt="第08章_堆空间细节.jpg"></p>
+<p><img src="img/ae1213df6360ba4a0ed26f1246f23c06.jpg" alt="第08章_堆空间细节.jpg"></p>
 <p>堆中主要存储程序运行过程中所产生的类的对象  </p>
 <p>从次数上讲：<br>            频繁收集Young区<br>            较少收集Old区<br>            基本不收集Perm区（元空间）<br>GC主要关注于方法区和堆中的垃圾收集（在虚拟机规范中并未强调一定要对方法区中的内存进行回收  所以不是所有的垃圾回收器都堆方法区中的数据进行了回收）</p>
 <br/>
@@ -184,7 +184,7 @@
 <p>（循环引用图示）</p>
 <br/>
 
-<p><img src="a1c7aa3b4607e7707750c449a2774955.png" alt="截图"></p>
+<p><img src="img/a1c7aa3b4607e7707750c449a2774955.png" alt="截图"></p>
 <h3 id="2-可达性分析（GCRoots）"><a href="#2-可达性分析（GCRoots）" class="headerlink" title="2.可达性分析（GCRoots）"></a>2.可达性分析（GCRoots）</h3><p>所谓”GCRoots”根集合就是一组必须活跃的引用，其基本思路如下：</p>
 <p>1.可达性分析算法是以根对象集合（GCRoots）为起始点，按照从上至下的方式搜索被根对象集合所连接的目标对象是否可达。<br>2.使用可达性分析算法后，内存中的存活对象都会被根对象集合直接或间接连接着，搜索所走过的路径称为引用链（Reference Chain）<br>3.如果目标对象没有任何引用链相连，则是不可达的，就意味着该对象己经死亡，可以标记为垃圾对象。<br>4.在可达性分析算法中，只有能够被根对象集合直接或者间接连接的对象才是存活对象。</p>
 <h3 id="哪些节点可以作为可达性分析的Root节点"><a href="#哪些节点可以作为可达性分析的Root节点" class="headerlink" title="哪些节点可以作为可达性分析的Root节点"></a>哪些节点可以作为可达性分析的Root节点</h3><p>1.虚拟机栈中引用的对象，比如：各个线程被调用的方法中使用到的参数、局部变量等。<br>2.本地方法栈内JNI（通常说的本地方法）引用的对象方法区中类静态属性引用的对象，比如：Java类的引用类型静态变量<br>3.方法区中常量引用的对象，比如：字符串常量池（StringTable）里的引用<br>4.所有被同步锁synchronized持有的对象<br>5.Java虚拟机内部的引用。<br>6.基本数据类型对应的Class对象，一些常驻的异常对象（如：NullPointerException、OutofMemoryError），系统类加载器。<br>7.反映java虚拟机内部情况的JMXBean、JVMTI中注册的回调、本地代码缓存等。</p>
@@ -199,11 +199,11 @@
 <h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><p>通过GCRoots分析过可达对象之后我们就对垃圾进行回收通俗易懂</p>
 <p>优点：速度快 逻辑简单</p>
 <p>缺点：实际内存中是分块的 在垃圾回收之后 会产生大量发碎片内存 不方便大对象的存储 并且需要一个空闲列表来维护  空闲的内存</p>
-<p><img src="ecb07bcd75c9f8ea31d1fb83d84a7a01.png" alt="截图"></p>
+<p><img src="/img/ecb07bcd75c9f8ea31d1fb83d84a7a01.png" alt="截图"></p>
 <h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>图示很明显就是把 不是垃圾的对象复制到另一位块内存空间</p>
 <p>优点：没有标记和清除过程，实现简单，运行高效   复制过去以后保证空间的连续性，不会出现“碎片”问题。</p>
 <p>缺点:   内存空间占用大 而且需要对引用地址进行更改 </p>
-<p><img src="8a9f0c9a0918ceb3d67e998e8b699f30.png" alt="截图"></p>
+<p><img src="/img/8a9f0c9a0918ceb3d67e998e8b699f30.png" alt="截图"></p>
 <h3 id="标记压缩算法"><a href="#标记压缩算法" class="headerlink" title="标记压缩算法"></a>标记压缩算法</h3><p>基于第一种算法的优化  </p>
 <p>对零散的内存进行重新的整理</p>
 <br/>
@@ -212,9 +212,9 @@
 <p>缺点：从效率上来说，标记-整理算法要低于复制算法。<br>            移动对象的同时，如果对象被其他对象引用，则还需要调整引用的地址<br>            移动过程中，需要全程暂停用户应用程序。即：STW（Stop  the  world）</p>
 <br/>
 
-<p><img src="d132350f0ee7bd376241f7ff6dbb2285.png" alt="截图"></p>
+<p><img src="/img/d132350f0ee7bd376241f7ff6dbb2285.png" alt="截图"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基于以上三种算法总结</p>
-<p><img src="bb65db7ef5005819ebb16e822ed1ab00.png" alt="截图"></p>
+<p><img src="/img/bb65db7ef5005819ebb16e822ed1ab00.png" alt="截图"></p>
 
       
 
