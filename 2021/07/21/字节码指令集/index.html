@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="J V M 垃圾回收, lang">
+    <meta name="keywords" content="字节码指令集, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>J V M 垃圾回收 | lang</title>
+    <title>字节码指令集 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">J V M 垃圾回收</h1>
+                    <h1 class="description center-align post-title">字节码指令集</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
-                                <span class="chip bg-color">垃圾回收</span>
+                            <a href="/tags/%E5%AD%97%E8%8A%82%E7%A0%81/">
+                                <span class="chip bg-color">字节码</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-07-20
+                    2021-07-21
                 </div>
                 
 
@@ -468,138 +468,127 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈垃圾回收"><a href="#浅谈垃圾回收" class="headerlink" title="浅谈垃圾回收"></a>浅谈垃圾回收</h1><br/>
-
-<p>垃圾回收是很多语言都所必须的一项功能 就java而言java的垃圾回收机制算得上java的招牌了</p>
-<h2 id="为什么要学习进行垃圾回收"><a href="#为什么要学习进行垃圾回收" class="headerlink" title="为什么要学习进行垃圾回收"></a>为什么要学习进行垃圾回收</h2><p>如果不进行垃圾回收  你的程序可能会在短短几分钟就报OOM，如果对于JVM虚拟机内存分配机制不熟悉的我们来说  拿着报错信息就是一顿百度</p>
-<p>结果还是错误。就像是你买了一套300平的大别墅  如果你不断地在家里造垃圾而不回收总有一天 你会没有地方放新的东西  仔细想想垃圾回收对</p>
-<p>于一个java程序员来说是多么重要</p>
-<p>就功利的一面来说垃圾回收在许多的大厂面试中 如果我们熟悉JVM的内存结构  垃圾回收机制  也是一项非常好的加分项</p>
-<h2 id="如何进行垃圾回收"><a href="#如何进行垃圾回收" class="headerlink" title="如何进行垃圾回收"></a>如何进行垃圾回收</h2><p>对于用过c和c++的同学来说内存溢出所引发的error是非常头痛的 他们需要手动的去开辟内存空间 当对象使用结束后也需要手动的删除</p>
-<p>而java则有一套垃圾回收机制可以用来自动的管理虚拟机中内存空间的分配</p>
-<br/>
-
-<p><strong><em>在了解垃圾回收之前我们需要知道一下JVM中主要产生GC的一个内存空间</em>：堆</strong></p>
-<p><img src="/img/ae1213df6360ba4a0ed26f1246f23c06.jpg" alt="第08章_堆空间细节.jpg"></p>
-<p>堆中主要存储程序运行过程中所产生的类的对象  </p>
-<p>从次数上讲：<br>            频繁收集Young区<br>            较少收集Old区<br>            基本不收集Perm区（元空间）<br>GC主要关注于方法区和堆中的垃圾收集（在虚拟机规范中并未强调一定要对方法区中的内存进行回收  所以不是所有的垃圾回收器都堆方法区中的数据进行了回收）</p>
-<br/>
-
-<h1 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h1><br/>
-
-<p>在垃圾回收的过程中我们主要将其分成两大步骤   <strong>标记——删除</strong></p>
-<br/>
-
-<h2 id="标记阶段"><a href="#标记阶段" class="headerlink" title="标记阶段"></a>标记阶段</h2><h3 id="1-引用计数器"><a href="#1-引用计数器" class="headerlink" title="1 .引用计数器"></a>1 .引用计数器</h3><pre><code>    说白了就是有一个引用指向你你就＋1，当你等于0的时候就被销毁了  由于这种计数器方式存在一个很大的问题会产生循环引用 导致内存泄漏 在java这样一个强类型的语言中 这无疑是一个致命的问题所以java采用了另外一种标记方法
-</code></pre>
-<p>（循环引用图示）</p>
-<br/>
-
-<p><img src="/img/a1c7aa3b4607e7707750c449a2774955.png" alt="截图"></p>
-<h3 id="2-可达性分析（GCRoots）"><a href="#2-可达性分析（GCRoots）" class="headerlink" title="2.可达性分析（GCRoots）"></a>2.可达性分析（GCRoots）</h3><p>所谓”GCRoots”根集合就是一组必须活跃的引用，其基本思路如下：</p>
-<p>1.可达性分析算法是以根对象集合（GCRoots）为起始点，按照从上至下的方式搜索被根对象集合所连接的目标对象是否可达。<br>2.使用可达性分析算法后，内存中的存活对象都会被根对象集合直接或间接连接着，搜索所走过的路径称为引用链（Reference Chain）<br>3.如果目标对象没有任何引用链相连，则是不可达的，就意味着该对象己经死亡，可以标记为垃圾对象。<br>4.在可达性分析算法中，只有能够被根对象集合直接或者间接连接的对象才是存活对象。</p>
-<h3 id="哪些节点可以作为可达性分析的Root节点"><a href="#哪些节点可以作为可达性分析的Root节点" class="headerlink" title="哪些节点可以作为可达性分析的Root节点"></a>哪些节点可以作为可达性分析的Root节点</h3><p>1.虚拟机栈中引用的对象，比如：各个线程被调用的方法中使用到的参数、局部变量等。<br>2.本地方法栈内JNI（通常说的本地方法）引用的对象方法区中类静态属性引用的对象，比如：Java类的引用类型静态变量<br>3.方法区中常量引用的对象，比如：字符串常量池（StringTable）里的引用<br>4.所有被同步锁synchronized持有的对象<br>5.Java虚拟机内部的引用。<br>6.基本数据类型对应的Class对象，一些常驻的异常对象（如：NullPointerException、OutofMemoryError），系统类加载器。<br>7.反映java虚拟机内部情况的JMXBean、JVMTI中注册的回调、本地代码缓存等。</p>
-<br/>
-
-<h3 id="finalization机制"><a href="#finalization机制" class="headerlink" title="finalization机制"></a>finalization机制</h3><p>好了 在对象被标记过之后我们要对垃圾对象进行回收之前我们需要对finalization机制有一定的了解</p>
-<p>①finalize（）方法是对象在被回收之前必须调用的一个方法</p>
-<p>②finalize（）方法只能被调用一次   在第一次回收对象时可以在finalize（）方法中进行一次自我救赎  当第二次再被标记成垃圾之后就不会再调用finalize（）方法</p>
-<br/>
-
-<h2 id="清除阶段的算法"><a href="#清除阶段的算法" class="headerlink" title="清除阶段的算法"></a>清除阶段的算法</h2><p>作为面试过程中最重要的东西  特地偷了几张图来</p>
-<h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><p>通过GCRoots分析过可达对象之后我们就对垃圾进行回收通俗易懂</p>
-<p>优点：速度快 逻辑简单</p>
-<p>缺点：实际内存中是分块的 在垃圾回收之后 会产生大量发碎片内存 不方便大对象的存储 并且需要一个空闲列表来维护  空闲的内存</p>
-<p><img src="/img/ecb07bcd75c9f8ea31d1fb83d84a7a01" alt="截图"></p>
-<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>图示很明显就是把 不是垃圾的对象复制到另一位块内存空间</p>
-<p>优点：没有标记和清除过程，实现简单，运行高效   复制过去以后保证空间的连续性，不会出现“碎片”问题。</p>
-<p>缺点:   内存空间占用大 而且需要对引用地址进行更改 </p>
-<p><img src="/img/8a9f0c9a0918ceb3d67e998e8b699f30" alt="截图"></p>
-<h3 id="标记压缩算法"><a href="#标记压缩算法" class="headerlink" title="标记压缩算法"></a>标记压缩算法</h3><p>基于第一种算法的优化  </p>
-<p>对零散的内存进行重新的整理</p>
-<br/>
-
-<p>优点：消除了标记-清除算法当中，内存区域分散的缺点，我们需要给新对象分配内存时，JVM只需要持有一个内存的起始地址即可。<br>            消除了复制算法当中，内存减半的高额代价。</p>
-<p>缺点：从效率上来说，标记-整理算法要低于复制算法。<br>            移动对象的同时，如果对象被其他对象引用，则还需要调整引用的地址<br>            移动过程中，需要全程暂停用户应用程序。即：STW（Stop  the  world）</p>
-<br/>
-
-<p><img src="/img/d132350f0ee7bd376241f7ff6dbb2285" alt="截图"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基于以上三种算法总结</p>
-<p><img src="/img/bb65db7ef5005819ebb16e822ed1ab00" alt="截图"></p>
-<br/>
-
-<h2 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h2><p>在Jdk1.9之后的版本都是默认的采用分代收集算法</p>
-<p>使用的G1垃圾收集器</p>
-<p>核心思想：将堆内存拆分成一个一个的region 每个region只属于一个区域  每次垃圾回收时在region内部采用复制算法 </p>
-<p>在region之间采用标记压缩算法  </p>
-<p>算法特点:  为了更好地控制GC产生的停顿时间，将一块大的内存区域分割成多个小块，根据目标的停顿时间，每次合理地回收若干个小区间，而不是整个堆空间，从而减少一次GC所产生的停顿</p>
-<p>分代算法将按照对象的生命周期长短划分成两个部分，分区算法将整个堆空间划分成连续的不同小区间。每一个小区间都独立使用，独立回收。这种算法的好处是可以控制一次回收多少个小区间。</p>
-<br/>
-
-<p><img src="/img/fd9b1dc56efb3d08f04342fb455f35eb.png" alt="截图"></p>
-<h1 id="垃圾回收的相关概念"><a href="#垃圾回收的相关概念" class="headerlink" title="垃圾回收的相关概念"></a>垃圾回收的相关概念</h1><br/>
-
-<h3 id="内存泄漏与内存溢出"><a href="#内存泄漏与内存溢出" class="headerlink" title="内存泄漏与内存溢出"></a>内存泄漏与内存溢出</h3><p>内存溢出：Javadoc中对OutofMemoryError的解释是，没有空闲内存，并且垃圾收集器也无法提供更多内存。</p>
-<p>内存泄漏：也称作“存储渗漏”。严格来说，只有对象不会再被程序用到了，但是GC又不能回收他们的情况，才叫内存泄漏</p>
-<br/>
-
-<p>内存泄漏：例如：</p>
-<p>1.单例的生命周期和应用程序是一样长的，所以在单例程序中，如果持有对外部对象的引用的话，那么这个外部对象是不能被回收的，则会导致内存泄漏的产生。</p>
-<br/>
-
-<h3 id="Stop-the-World"><a href="#Stop-the-World" class="headerlink" title="Stop the World"></a>Stop the World</h3><p>Stop-the-World，简称STW，指的是GC事件发生过程中，会产生应用程序的停顿。停顿产生时整个应用程序线程都会被暂停，没有任何响应，有点像卡死的感觉，这个停顿称为STW。</p>
-<h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><p>两张图解释并发与并行</p>
-<p>并发</p>
-<p><img src="/img/74cf57788a59c393bbceb57b523a3ec5.png" alt="截图"></p>
-<p>并行</p>
-<p><img src="/img/c0db388c4d138bdf512cf4210e625d1c.png" alt="截图"></p>
-<br/>
-
-<h2 id="简述java中的引用类型"><a href="#简述java中的引用类型" class="headerlink" title="简述java中的引用类型"></a>简述java中的引用类型</h2><p>强引用（Strong Reference）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">只要GCRoots 就不可能会被回收</span><br></pre></td></tr></table></figure>
-
-<p>软引用（Soft Reference）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">即使GCRoots 如果系统需要GC则会被标记 第二次GC时会被垃圾回收</span><br></pre></td></tr></table></figure>
-
-<p>弱引用（Weak Reference）</p>
-<pre><code>只要被发现就会被回收
-</code></pre>
-<p>虚引用（Phantom Reference）</p>
-<pre><code>没有生命周期  用来做对象的回收跟踪
-</code></pre>
-<br/>
-
-<h1 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h1><br/>
-
-<p>评估GC主要的的性能指标</p>
-<p>吞吐量：运行用户代码的时间占总运行时间的比例（总运行时间 = 程序的运行时间 + 内存回收的时间）</p>
-<p>暂停时间：执行垃圾收集时，程序的工作线程被暂停的时间。</p>
-<p>内存占用：Java堆区所占的内存大小。</p>
-<br/>
-
-<p>在最新的orcel官方发布的ZGC中主打低暂停时间</p>
-<br/>
-
-<h3 id="七种经典的垃圾收集器"><a href="#七种经典的垃圾收集器" class="headerlink" title="七种经典的垃圾收集器"></a>七种经典的垃圾收集器</h3><p>串行回收器：Serial、Serial old<br>并行回收器：ParNew、Parallel Scavenge、Parallel old<br>并发回收器：CMS、G1</p>
-<br/>
-
-<h2 id="目前最流行的垃圾收集器G1"><a href="#目前最流行的垃圾收集器G1" class="headerlink" title="目前最流行的垃圾收集器G1"></a>目前最流行的垃圾收集器G1</h2><br/>
-
-<p>与其他GC收集器相比，G1使用了全新的分区算法，其特点如下所示：</p>
-<p>1.并行与并发兼具<br>        并行性：G1在回收期间，可以有多个GC线程同时工作，有效利用多核计算能力。此时用户线程STW<br>        并发性：G1拥有与应用程序交替执行的能力，部分工作可以和应用程序同时执行，因此，一般来说，不会在整个回收阶段发生完全阻塞应用程序的情况<br>2.分代收集<br>        从分代上看，G1依然属于分代型垃圾回收器，它会区分年轻代和老年代，年轻代依然有Eden区和Survivor区。但从堆的结构上看，它不要求整个Eden区、年轻代或者老年代都是连续的，也不再坚持固定大小和固定数量。<br>将堆空间分为若干个区域（Region），这些区域中包含了逻辑上的年轻代和老年代。<br>和之前的各类回收器不同，它同时兼顾年轻代和老年代。对比其他回收器，或者工作在年轻代，或者工作在老年代；</p>
-<h3 id="G1的回收器分区"><a href="#G1的回收器分区" class="headerlink" title="G1的回收器分区"></a>G1的回收器分区</h3><br/>
-
-<p><img src="/img/b53a4fe6e304cb4a0d7ba188d7990d38.png" alt="截图"></p>
-<br/>
-
-<h3 id="空间整合"><a href="#空间整合" class="headerlink" title="空间整合"></a>空间整合</h3><p>1.CMS：“标记-清除”算法、内存碎片、若干次GC后进行一次碎片整理<br>2.G1将内存划分为一个个的region。内存的回收是以region作为基本单位的。Region之间是复制算法，但整体上实际可看作是标记-压缩（Mark-Compact）算法，两种算法都可以避免内存碎片。<br>3.这种特性有利于程序长时间运行，分配大对象时不会因为无法找到连续内存空间而提前触发下一次GC。尤其是当Java堆非常大的时候，G1的优势更加明显。</p>
-<h3 id="可预测的停顿时间模型"><a href="#可预测的停顿时间模型" class="headerlink" title="可预测的停顿时间模型"></a>可预测的停顿时间模型</h3><p>可预测的停顿时间模型（即：软实时soft real-time）</p>
-<p>这是G1相对于CMS的另一大优势，G1除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</p>
-<p>由于分区的原因，G1可以只选取部分区域进行内存回收，这样缩小了回收的范围，因此对于全局停顿情况的发生也能得到较好的控制。<br>G1跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region。保证了G1收集器在有限的时间内可以获取尽可能高的收集效率。<br>相比于CMS GC，G1未必能做到CMS在最好情况下的延时停顿，但是最差情况要好很多。</p>
-<h3 id="Regio的内部结构"><a href="#Regio的内部结构" class="headerlink" title="Regio的内部结构"></a>Regio的内部结构</h3><p>1.每个Region都是通过指针碰撞来分配空间<br>2.每个Region都有TLAB，提高对象分配的效率</p>
-<p><img src="/img/1374f878eeab53fd2535164c10c0608a.png" alt="截图"></p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.相较于CMS，G1还不具备全方位、压倒性优势。比如在用户程序运行过程中，G1无论是为了垃圾收集产生的内存占用（Footprint）还是程序运行时的额外执行负载（overload）都要比CMS要高。<br>2.从经验上来说，在小内存应用上CMS的表现大概率会优于G1，而G1在大内存应用上则发挥其优势。平衡点在6-8GB之间。</p>
-
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>java字节码指令对于虚拟机 就相当于汇编语言对于计算机  属于基本执行指令</p>
+<p>字节码指令 = 操作码  +  操作数</p>
+<p>Java虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字(称为操作码，Opcode) 以及跟随其后的零至多个代表此操作所需参数(称为操作数，Operands) 而构成。由于Java 虚拟机采用面向操作数栈而不是寄存器的结构，所以大多数的指令都不包含操作数，只有一一个操作码。</p>
+<h5 id="执行模型"><a href="#执行模型" class="headerlink" title="执行模型"></a>执行模型</h5><p>do{</p>
+<p>自动计算PC寄存器的值加1;</p>
+<p>根据PC寄存器的指示位置，从字节码流中取出操作码;</p>
+<p>if(字节码存在操作数)从字节码流中取出操作数;</p>
+<p>执行操作码所定义的操作;</p>
+<p>}while(字节码长度&gt;0);</p>
+<h2 id="加载与存储指令"><a href="#加载与存储指令" class="headerlink" title="加载与存储指令"></a>加载与存储指令</h2><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>将数据从栈帧的局部变量表和操作数栈之间来回传递</p>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><h5 id="局部变量表压栈指令"><a href="#局部变量表压栈指令" class="headerlink" title="局部变量表压栈指令"></a>局部变量表压栈指令</h5><p>xload_n  ( x 可以是  i，l，d，f  n可以是1-3)</p>
+<h5 id="常量入栈指令"><a href="#常量入栈指令" class="headerlink" title="常量入栈指令"></a>常量入栈指令</h5><h6 id="指令const系列"><a href="#指令const系列" class="headerlink" title="指令const系列"></a>指令const系列</h6><p>iconst_<i> ( i从-1到5)   i=-1时  表示  iconst_m1</p>
+<p>fconst_<f> f 0-2</p>
+<p>dconst_<d> d 0-1</p>
+<p>aconst_null</p>
+<h6 id="指令push系列"><a href="#指令push系列" class="headerlink" title="指令push系列"></a>指令push系列</h6><p>主要由bipush和sipush 区别在于接受数据类型的不同  前者8位参数  （2的8次方） 后者16位参数（2的16次方）</p>
+<h6 id="指令ldc系列"><a href="#指令ldc系列" class="headerlink" title="指令ldc系列"></a>指令ldc系列</h6><p>超出上两种指令的范围是  使用ldc</p>
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p><img src="/img/image-20210721101909350.png" alt="image-20210721101909350"></p>
+<h5 id="出栈装入局部变量表"><a href="#出栈装入局部变量表" class="headerlink" title="出栈装入局部变量表"></a>出栈装入局部变量表</h5><p>​    主要以store的形式存在  比如 xstore _n(x为i,l,f,d,a) (n表示为0-3)</p>
+<h5 id="所有的算数指令"><a href="#所有的算数指令" class="headerlink" title="所有的算数指令"></a>所有的算数指令</h5><p>加法指令: iadd、 ladd、fadd、 dadd</p>
+<p>减法指令: isub、lsub、fsub、dsub</p>
+<p>乘法指令:imul、1mul、 fmul、dmul</p>
+<p>除法指令:idiv、ldiv、 fdiv、 ddiv</p>
+<p>求余指令: irem、lrem、frem、drem</p>
+<p>求余指令: irem、lrem、frem、drem    //remainder:余数</p>
+<p>取反指令: ineg、lneg、fneg、dneg    //negation:取反</p>
+<p>自增指令: iinc</p>
+<p>位运算指令，又可分为:</p>
+<ul>
+<li>​    位移指令: ishl、 ishr、iushr、 lshl、 lshr、lushr</li>
+<li>​    按位或指令: ior、 lor</li>
+<li>​    按位异或指令: ixor、lxor</li>
+<li>​    按位与指令: iand、land</li>
+</ul>
+<p>比较指令: dcmpg、 dcmpl、fcmpg、fcmp1、 lcmp</p>
+<p>在不涉及其他赋值运算的时候不管前++还是后++在字节码指令中都是一样的</p>
+<p><img src="/img/image-20210721145513343.png" alt="image-20210721145513343"></p>
+<p><img src="/img/image-20210721145553856.png" alt="image-20210721145553856"></p>
+<p>从字节码的角度来看就能彻底解决  i++和 ++i的问题了</p>
+<h3 id="类型转换指令"><a href="#类型转换指令" class="headerlink" title="类型转换指令"></a>类型转换指令</h3><h4 id="宽化类型转换"><a href="#宽化类型转换" class="headerlink" title="宽化类型转换"></a>宽化类型转换</h4><p>可以将两种不同的数值类型进行相互的转换</p>
+<p>一般用于显示的类型转换  ，或者用来处理字节码指令集中类型相关指令转换与数据类型的一一对相应的问题</p>
+<h5 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h5><p> int —&gt;long —-&gt; float—&gt;double</p>
+<h5 id="精度损失问题"><a href="#精度损失问题" class="headerlink" title="精度损失问题"></a>精度损失问题</h5><p>2.1宽化类型转换是不会因为超过目标类型最大值而丢失信息的，例如，从int转换到long， 或者从int转换到double,都不会丢失任何信息，转换前后的值是精确相等的。</p>
+<p>2.2从int、long类型数值转换到float，或者long类型数值转换到double时，将可能发生精度丢失一–可能丢失掉几个最低有效位上的值，转换后的浮点数值是根据IEEE754最接近舍入模式所得到的正确整数值。</p>
+<p>尽管宽化类型转换实际上是可能发生精度丢失的，但是这种转换永远不会导致Java虚拟机抛出运行时异常。</p>
+<p><em>从byte、char和short类型到int类型的宽化类型转换实际上是不存在的。对于byte类型转为int，虚拟机并没有做实质性的转化处理，只是简单地通过操作数栈交换了两个数据。而将byte转为long时， 使用的是i21,可以看到在内部byte在这里已经等同于int类型处理，类似的还有short类型，这种处理方式有两个特点:-</em></p>
+<p><em>一方面可以减少实际的数据类型，如果为short和byte都准备一套指令，那么指令的数量就会大增，而虚拟机目前的设计上，只愿意使用一个字节表示指令，因此指令总数不能超过256个，为了节省指令资源，将short和byte当做int处理也在情理之中。</em></p>
+<h4 id="窄化类型转换"><a href="#窄化类型转换" class="headerlink" title="窄化类型转换"></a>窄化类型转换</h4><p>即从容量大的类型转向类型小的类型</p>
+<p>double—&gt;float—&gt;long—&gt;int</p>
+<p>例如   d2f    类似的指令</p>
+<p>而装换成byte short    char类型都是使用  i2b，i2s， i2c</p>
+<p>不能直接由 d2b</p>
+<h5 id="精度损失问题-1"><a href="#精度损失问题-1" class="headerlink" title="精度损失问题"></a>精度损失问题</h5><p>窄化类型转换可能会导致转换结果具备不同的正负号、不同的数量级，因此，转换过程很可能会导致数值丢失精度。</p>
+<p>尽管数据类型窄化转换可能会发生上限溢出、下限溢出和精度丢失等情况，但是Java虚拟机规范中明确规定数值类型的窄化转换指令永远不可能导致虚拟机抛出运行时异常</p>
+<h5 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h5><p>1当将一个浮点值窄化转换为整数类型T (T限于int或long类型之- -) 的时候，将遵循以下转换规则:</p>
+<ul>
+<li>如果浮点值是NaN,那转换结果就是int或1ong类型的0。</li>
+<li>如果浮点值不是无穷大的话，浮点值使用IEEE 754的向零舍入模式取整，获得整数值v，如果v在目标类型T (int或long)的表示范围之内，那转换结果就是v。否则，将根据v的符号，转换为T所能表示的最大或者最小正数</li>
+</ul>
+<p>2当将一个double 类型窄化转换为float 类型时，将遵循以下转换规则:</p>
+<p>通过向最接近数舍入模式舍入一个可以使用float类型表示的数字。最后结果根据下面这3条规则判断:</p>
+<ul>
+<li>如果转换结果的绝对值太小而无法使用float来表示， 将返回float类型的正负零。</li>
+<li>如果转换结果的绝对值太大而无法使用float来表示，将返回float类型的正负无穷大。</li>
+<li>对于double类型的NaN值将按规定转换为float类型的NaN值。</li>
+</ul>
+<h3 id="对象创建与访问指令"><a href="#对象创建与访问指令" class="headerlink" title="对象创建与访问指令"></a>对象创建与访问指令</h3><h4 id="创建类实例的指令"><a href="#创建类实例的指令" class="headerlink" title="创建类实例的指令"></a>创建类实例的指令</h4><p>new</p>
+<p>接受一个操作数，为指向常量池的索引，表示要创建的类型，执行完成后，将对象的引用压入栈</p>
+<p>创建数组的指令</p>
+<p>newarray创建基本类型数组</p>
+<p>multianewarray（多维数组的创建）</p>
+<p>anewarray创建引用类型数组</p>
+<h4 id="字段访问指令"><a href="#字段访问指令" class="headerlink" title="字段访问指令"></a>字段访问指令</h4><p>访问类字段（static） getstatic，putstatic</p>
+<p>访问实例字段（非static） getfiled，putfiled</p>
+<h4 id="数组操作指令"><a href="#数组操作指令" class="headerlink" title="数组操作指令"></a>数组操作指令</h4><p><img src="/img/image-20210721155049862.png" alt="image-20210721155049862"></p>
+<ul>
+<li>指令xaload表示将数组的元素压栈，比如saload、 caload分别表示压入short数组和char数组。指令xaload在执行时，要求操作数中栈顶元素为数组索引i,栈顶顺位第2个元素为数组引用a,该指令会弹出栈顶这两个元素，并将a[i]重新压入栈。</li>
+<li>xastore则专门针 对数组操作，以iastore为例， 它用于给个 int数组的给 定索引赋值。在iastore执行 前，操作数栈顶需要以此准备3个元素:值、索引、数组引用，iastore 会弹出这3个值，并将值赋给数组中指定索引的位置。</li>
+</ul>
+<h4 id="类型检查指令"><a href="#类型检查指令" class="headerlink" title="类型检查指令"></a>类型检查指令</h4><p>检查类实例或数组类型的指令: instanceof、 checkcast。</p>
+<ul>
+<li>指令checkcast用于检查类型强制转换是否可以进行。如果可以进行，那么checkcast指令不会改变操作数栈否则它会抛出ClassCastException异常。</li>
+<li>指令instanceof用来判断给定对象是否是某-一个类的实例，它会将判断结果压入操作数栈。</li>
+</ul>
+<h3 id="方法调用与返回指令"><a href="#方法调用与返回指令" class="headerlink" title="方法调用与返回指令"></a>方法调用与返回指令</h3><h4 id="方法调用指令"><a href="#方法调用指令" class="headerlink" title="方法调用指令"></a>方法调用指令</h4><p>invokevirtual、invokeinterface. invokespecial、 invokestatic 、invokedynamic</p>
+<ul>
+<li><p>invokevirtual指令用于调用对象的实例方法，根据对象的实际类型进行分派(虚方法分派)，支持多态。这也是Java语言中最常见的方法分派方式。</p>
+</li>
+<li><p>invokeinterface指令用于调用接口方法，它会在运行时搜索由特定对象所实现的这个接口方法，并找出适合的方法进行调用。<br>invokespecial指令用于调用- -些需要特殊处理的实例方法，包括实例初始化方法(构造器)、私有方法和父类方法。这些方法都是静态类型绑定的，不会在调用时进行动态派发。</p>
+</li>
+<li><p>invokestatic指令用于调用命名类中的类方法(static方法)。这是静态绑定的。</p>
+</li>
+<li><p>invokedynamic:调用动态绑定的方法，这个是JDK 1. 7后新加入的指令。用于在运行时动态解析出调用点限定符所引用的方法，并执行该方法。前面4条调用指令的分派逻辑都固化在java 虚拟机内部，而invokedynamic指令的分派逻辑是由用户所设定的引导方法决定的。</p>
+</li>
+</ul>
+<h4 id="方法返回指令"><a href="#方法返回指令" class="headerlink" title="方法返回指令"></a>方法返回指令</h4><p><img src="/img/image-20210721164005533.png" alt="image-20210721164005533"></p>
+<p>如果当前返回的时synchronized方法，那么还会执行一个隐含的monitorexit指令退出临界区</p>
+<h3 id="操作数栈管理指令"><a href="#操作数栈管理指令" class="headerlink" title="操作数栈管理指令"></a>操作数栈管理指令</h3><p>这些指令属于通用型，对栈的压入或者弹出无需指明数据类型</p>
+<ul>
+<li>将一个或两个元素从栈顶弹出，并且直接废弃:pop，pop2;</li>
+<li>复制栈顶一个或两个数值并将复制值或双份的复制值重新压入栈顶:dup, dup2, dup_ <em>x1,dup2</em> x1, dup_ <em>x2, dup2</em> _x2;</li>
+<li>将栈最顶端的两个Slot数值位置交换:swap。Java虛拟机没有提供交换两个64位数据类型(long、double) 数值的指令。</li>
+<li>指令nop,是一个非常特殊的指令，它的字节码为0x00。和汇编语言中的nop一样，它表示什么都不。这条指令-般可用于调试、占位等。</li>
+</ul>
+<h3 id="控制转移指令"><a href="#控制转移指令" class="headerlink" title="控制转移指令"></a>控制转移指令</h3><h4 id="比较指令"><a href="#比较指令" class="headerlink" title="比较指令"></a>比较指令</h4><p>比较指令有: dcmpg, dcmpl、 fcmpg、 fcmpl、 1cmp.</p>
+<ul>
+<li>与前面讲解的指令类似，首字符d表示double类型， f表示float, 1表示long。</li>
+<li>对于double和float类型的数字，由于NaN的存在，各有两个版本的比较指令。以float为例，有fcmpg和fcmp1两个指令，它们的区别在于在数字比较时，若遇到NaN值，处理结果不同。</li>
+<li>指令dcmp1和dcmpg也是类似的，根据其命名可以推测其含义，在此不再赘述。</li>
+<li>指令1cmp针对1ong型整数，由于long型整数没有NaN值，故无需准备两套指令。</li>
+</ul>
+<h4 id="条件跳转指令"><a href="#条件跳转指令" class="headerlink" title="条件跳转指令"></a>条件跳转指令</h4><p><img src="/img/image-20210721170433871.png" alt="image-20210721170433871"></p>
+<h4 id="比较条件跳转指令"><a href="#比较条件跳转指令" class="headerlink" title="比较条件跳转指令"></a>比较条件跳转指令</h4><p><img src="/img/image-20210721171748640.png" alt="image-20210721171748640"></p>
+<h4 id="多条件分支跳转"><a href="#多条件分支跳转" class="headerlink" title="多条件分支跳转"></a>多条件分支跳转</h4><p><img src="/img/image-20210721172343511.png" alt="image-20210721172343511"></p>
+<h4 id="无条件跳转"><a href="#无条件跳转" class="headerlink" title="无条件跳转"></a>无条件跳转</h4><p><img src="/img/image-20210721173433277.png" alt="image-20210721173433277"></p>
+<p>注：后三个指令都已经不怎么用了在后面异常处理的指令中有更好的</p>
+<h3 id="异常处理指令"><a href="#异常处理指令" class="headerlink" title="异常处理指令"></a>异常处理指令</h3><h4 id="抛出异常指令"><a href="#抛出异常指令" class="headerlink" title="抛出异常指令"></a>抛出异常指令</h4><p>1、抛出异常指令:</p>
+<p>(1)athrow指令在Java程序中显示抛出异常的操作( throw语句)都是由athrow指令来实现。</p>
+<p>除了使用throw语句显示抛出异常情况之外，JVM规范还规定了许多运行时异常会在其他Java虛拟机指令检测到异常状况时自动抛出。例如，在之前介绍的整数运算时，当除数为零时，虚拟机会在idiv或 ldiv指令中抛出ArithmeticException异常。</p>
+<p>(2)注意正常情况下，操作数栈的压入弹出都是一条条指令完成的。唯一的例外情况是在抛异常时，Java 虚拟机会清除操作数栈上的所有内容，而后将异常实例压入调用者操作数栈上。</p>
+<h4 id="异常处理与异常表"><a href="#异常处理与异常表" class="headerlink" title="异常处理与异常表"></a>异常处理与异常表</h4><h3 id="同步控制指令"><a href="#同步控制指令" class="headerlink" title="同步控制指令"></a>同步控制指令</h3><h4 id="方法级同步"><a href="#方法级同步" class="headerlink" title="方法级同步"></a>方法级同步</h4><h4 id="方法内指定指令序列的同步"><a href="#方法内指定指令序列的同步" class="headerlink" title="方法内指定指令序列的同步"></a>方法内指定指令序列的同步</h4>
                 
             </div>
             <hr/>
@@ -625,7 +614,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lang./2021/07/20/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">https://lang./2021/07/20/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</a>
+                    <a href="https://lang./2021/07/21/%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E9%9B%86/">https://lang./2021/07/21/%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E9%9B%86/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -663,8 +652,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
-                                    <span class="chip bg-color">垃圾回收</span>
+                                <a href="/tags/%E5%AD%97%E8%8A%82%E7%A0%81/">
+                                    <span class="chip bg-color">字节码</span>
                                 </a>
                             
                         </div>
@@ -836,17 +825,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2021/07/20/Class%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+                <a href="/2021/07/21/%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E9%9B%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Class文件结构">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="字节码指令集">
                         
-                        <span class="card-title">Class文件结构</span>
+                        <span class="card-title">字节码指令集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -856,9 +846,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -867,11 +857,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6/">
-                        <span class="chip bg-color">JVM字节码文件</span>
+                    <a href="/tags/%E5%AD%97%E8%8A%82%E7%A0%81/">
+                        <span class="chip bg-color">字节码</span>
                     </a>
                     
                 </div>
@@ -882,16 +873,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/20/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+                <a href="/2021/07/20/Class%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="J V M 垃圾回收">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Class文件结构">
                         
-                        <span class="card-title">J V M 垃圾回收</span>
+                        <span class="card-title">Class文件结构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -912,12 +903,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
-                        <span class="chip bg-color">垃圾回收</span>
+                    <a href="/tags/JVM%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6/">
+                        <span class="chip bg-color">JVM字节码文件</span>
                     </a>
                     
                 </div>
