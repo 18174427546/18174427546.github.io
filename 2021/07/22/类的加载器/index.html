@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="类加载系统的详细过程, lang">
+    <meta name="keywords" content="类的加载器, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>类加载系统的详细过程 | lang</title>
+    <title>类的加载器 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">类加载系统的详细过程</h1>
+                    <h1 class="description center-align post-title">类的加载器</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">类加载系统</span>
+                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+                                <span class="chip bg-color">类加载器</span>
                             </a>
                         
                     </div>
@@ -468,82 +468,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="类的加载详细过程"><a href="#类的加载详细过程" class="headerlink" title="类的加载详细过程"></a>类的加载详细过程</h1><h2 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h2><p>​            在java中数据类型分为基本数据类型和引用数据类型。基本数据类型由虚拟机预先定义，引用数据类型则需要进行类的记载。</p>
-<p>包括如下七个阶段</p>
-<p><img src="/img/image-20210722084747765.png" alt="image-20210722084747765"></p>
-<h2 id="过程一：Loading阶段"><a href="#过程一：Loading阶段" class="headerlink" title="过程一：Loading阶段"></a>过程一：Loading阶段</h2><h3 id="加载完成的操作"><a href="#加载完成的操作" class="headerlink" title="加载完成的操作"></a>加载完成的操作</h3><p>​        所谓加载，简而言之就是将Java类的字节码文件加载到机器内存中，并在内存中构建出Java类的原型一一类模板对象。 所谓类模板对象，其实就是Java类在JVM内存中的-个快照，JVM将从字节码文件中解析出的常量池、类字段、类方法等信息存储到类模板中，这样JVM在运行期便能通过类模板而获取Java类中的任意信息，能够对Java类的成员变量进行遍历，也能进行Java方法的调用。</p>
-<p>反射的机制即基于这一基础。 如果JVM没有将Java类的声明信息存储起来，则JVM在运 行期也无法反射。</p>
-<h6 id="加载完成的操作-1"><a href="#加载完成的操作-1" class="headerlink" title="加载完成的操作"></a>加载完成的操作</h6><p>加载阶段，简言之，查找并加载类的二进制数据，生成Class的实例。</p>
-<p>在加载类时，Java虚拟机必须完成以下3件事情:</p>
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>ClassLoader的作用:<br>ClassLoader是Java的核心组件，所有的Class都是由ClassLoader进行加载的，ClassLoader负责通过各种方式将Class信息的二进制数据流读入JVM内部，转换为一个与目标类对应的java. lang . Class对象实例。然后交给Java虚拟机进行链接、初始化等操作。因此，ClassLoader 在整个装载阶段，只能影响到类的加载，而无法通过ClassLoader去改变类的链接和初始化行为。至于它是否可以运行，则由Execution Engine决定。</p>
+<h2 id="类加载的分类"><a href="#类加载的分类" class="headerlink" title="类加载的分类"></a>类加载的分类</h2><p>类的加载分类:显式加载vs隐式加载<br>class文件的显式加载与隐式加载的方式是指JVM加载class文件到内存的方式。</p>
 <ul>
-<li>通过类的全名，获取类的二进制数据流。</li>
-<li>解析类的二进制数据流为方法区内的数据结构(Java类模型)</li>
-<li>创建java . lang . Class类的实例，表示该类型。作为方法区这个类的各种数据的访问入口</li>
+<li>​    显式加载指的是在代码中通过调用ClassLoader加载class对象， 如直接使用Class . forName( name )或this . getClass(). getClassLoader() . loadClass( )加载class对象。</li>
+<li>​    隐式加载则是不直接在代码中调用ClassLoader的方法加载class对象，而是通过虚拟机自动加载到内存中，如在加载某个类的class文件时，该类的class文件中引用了另外一个类的对象，此时额外引用的类将通过JVM自动加载到内存中。</li>
 </ul>
-<h3 id="二进制流的获取方式"><a href="#二进制流的获取方式" class="headerlink" title="二进制流的获取方式"></a>二进制流的获取方式</h3><p>对于类的二进制数据流，虚拟机可以通过多种途径产生或获得。 (只要所读取的字节码符合JVM规范即可)</p>
+<h2 id="类加载器的必要性"><a href="#类加载器的必要性" class="headerlink" title="类加载器的必要性"></a>类加载器的必要性</h2><p>一般情况下，Java开发人员并不需要在程序中显式地使用类加载器，但是了解类加载器的加载机制却显得至关重要。从以下几个方面说: </p>
 <ul>
-<li>虚拟机可能通过文件系统读入-个class后缀的文件 (最常见)</li>
-<li>读入jar、zip等归档数据包，提取类文件。</li>
-<li>事先存放在数据库中的类的二进制数据</li>
-<li>使用类似于HTTP之类的协议通过网络进行加载</li>
-<li>在运行时生成-一段Class的二进制信息等</li>
+<li>​            避免在开发中遇到java. lang. ClassNotFoundException异常或java.lang.NoClassDefFoundError异常时手足无措。只有了解类加载器的加载机制才能够在出现异常的时候快速地根据错误异常日志定位问题和解决问题</li>
+<li>​    需要支持类的动态加载或需要对编译后的字节码文件进行加解密操作时，就需要与类加载器打交道了。</li>
+<li>​    开发人员可以在程序中编写自定义类加载器来重新定义类的加载规则，以便实现-些自定义的处理逻辑。</li>
 </ul>
-<p>在获取到类的二进制信息后，Java 虚拟机就会处理这些数据，并最终转为- 个java.lang. Class的实例。</p>
-<p>如果输入数据不是ClassFile的结构，则会抛出ClassFormatError.</p>
-<h3 id="类模型与Class实例的位置"><a href="#类模型与Class实例的位置" class="headerlink" title="类模型与Class实例的位置"></a>类模型与Class实例的位置</h3><p>​    加载的类在JVM中创建相应的类结构，类结构会存储在方法区</p>
-<p><img src="/img/image-20210722094649829.png" alt="image-20210722094649829"></p>
-<p>Class类的构造方法是私有的，只有JVM能够创建。    </p>
-<p>java. lang. Class实例是访问类型元数据的接口，也是实现反射的关键数据、入口。通过Class类提供的接口，可以获得目标类所关联的. class文件中具体的数据结构:方法、字段等信息。</p>
-<h3 id="数组类的加载"><a href="#数组类的加载" class="headerlink" title="数组类的加载"></a>数组类的加载</h3><p>创建数组类的情况稍微有些特殊，因为数组类本身并不是由类加载器负责创建，而是由JVM在运行时根据需要而直接创建的，但数组的元素类型仍然需要依靠类加载器去创建。创建数组类(下述简称A)的过程:</p>
-<p>​    1.如果数组的元素类型是引用类型，那么就遵循定义的加载过程递归加载和创建数组A的元素类型;</p>
-<p>​    2.JVM使用指定的元素类型和数组维度来创建新的数组类。</p>
-<p>如果数组的元素类型是引用类型，数组类的可访问性就由元素类型的可访问性决定。否则数组类的可访问性将被缺省定义为public。</p>
-<h2 id="过程二：Linking阶段"><a href="#过程二：Linking阶段" class="headerlink" title="过程二：Linking阶段"></a>过程二：Linking阶段</h2><h3 id="环节一：链接阶段之Verification"><a href="#环节一：链接阶段之Verification" class="headerlink" title="环节一：链接阶段之Verification"></a>环节一：链接阶段之Verification</h3><p>​        保证字节码是合法，合理并符合规范的。</p>
-<p><img src="/img/image-20210722095115120.png" alt="image-20210722095115120"></p>
-<h3 id="环节二：链接阶段之Preparation"><a href="#环节二：链接阶段之Preparation" class="headerlink" title="环节二：链接阶段之Preparation"></a>环节二：链接阶段之Preparation</h3><p>为静态的变量赋初始值</p>
-<p><img src="/img/image-20210722100034130.png" alt="image-20210722100034130"></p>
-<h3 id="环节三：链接阶段之Resolution"><a href="#环节三：链接阶段之Resolution" class="headerlink" title="环节三：链接阶段之Resolution"></a>环节三：链接阶段之Resolution</h3><p>​        将类，接口，字段和方法的符号应用转换成直接应用 </p>
-<p>​        所谓解析就是将符号引用转为直接引用，也就是得到类、字段、方法在内存中的指针或者偏移量。因此，可以说，如果直接引用存在，那么可以肯定系统中存在该类、方法或者字段。但只存在符号引用，不能确定系统中- -定存在该结构。</p>
-<p>​        不过Java虚拟机规范并没有明确要求解析阶段一定要按照顺序执行。在HotSpotVM中，加载、验证、准备和初始化会按照顺序有条不紊地执行，但链接阶段中的解析操作往往会伴随着JVM在执行完初始化之后再执行。</p>
-<h2 id="过程三：Initialization阶段"><a href="#过程三：Initialization阶段" class="headerlink" title="过程三：Initialization阶段"></a>过程三：Initialization阶段</h2><p>类的初始化是类装载的最后-个阶段。 如果前面的步骤都没有问题，那么表示类可 以顺利装载到系统中。此时，类才会开始执行Java字节码。(即: 到了初始化阶段，才真正开始执行类中定义的Java程序代码。)</p>
-<p>​    初始化阶段的重要工作是执行类的初始化方法:<clinit>()方法。</p>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>1.何为类的唯一 性?<br>对于任意一个类，都需要由加载它的类加载器和这个类本身一同确认其在Java虚拟机中的唯一性。每一个类加载器，都拥有一个独立的类名称空间:比较两个类是否相等，只有在这两个类是由同一个类加载器加载的前提下才有意义。否则，即使这两个类源自同一个Class文件，被同一个虚拟机加载，只要加载他们的类加载器不同，那这两个类就必定不相等。<br>2.命名空间</p>
 <ul>
-<li>​    该方法仅能由Java编译器生成并由JVM调用，程序开发者无法自定义一个同名的方法，更无法直接在Java程序中调用该方法，虽然该方法也是由字节码指令所组成。</li>
-<li>​    它是由类静态成员的赋值语句以及static语句块合并产生的。</li>
+<li>每个类加载器都有自己的命名空间，命名空间由该加载器及所有的父加载器所加载的类组成</li>
+<li>在同一命名空间中，不会出现类的完整名字(包括类的包名)相同的两个类</li>
+<li>在不同的命名空间中，有可能会出现类的完整名字(包括类的包名)相同的两个类在大型应用中，我们往往借助这一特性，来运行同一个类的不同版本。</li>
 </ul>
-<p>什么情况下不会生成clint</p>
-<p><img src="/img/image-20210722102646136.png" alt="image-20210722102646136"></p>
-<h3 id="static与final的搭配问题"><a href="#static与final的搭配问题" class="headerlink" title="static与final的搭配问题"></a>static与final的搭配问题</h3><h5 id="在static修饰的情况下"><a href="#在static修饰的情况下" class="headerlink" title="在static修饰的情况下"></a>在static修饰的情况下</h5><p>​        不在初始化阶段clinit  赋值的情况</p>
-<p>​        1.基本数据类型  如果使用static final修饰  则显示赋值是在准备环节赋值的</p>
-<p>​        2.对于string来说如果使用字面量方式赋值，使用static final修饰的话，则显示赋值实在链接阶段的准备环节进行</p>
-<p>​        在初始化阶段 clinit中赋值的情况</p>
-<p>​        除以上的在准备环节赋值的情况之外的情况</p>
-<p>最终结论:使用static + final 修饰，且显示赋值中不涉及到方法或构造器调用的基本数据类型或string类型的显式赋值，是在链接阶段的准备环节进行。</p>
-<h3 id="clinit（）的线程安全性"><a href="#clinit（）的线程安全性" class="headerlink" title="clinit（）的线程安全性"></a>clinit（）的线程安全性</h3><p>对于<clinit>()方法的调用，也就是类的初始化，虚拟机会在内部确保其多线程环境中的安全性。</p>
-<p>虚拟机会保证-个类的<clinit>()方法在 多线程环境中被正确地加锁、同步，如果多个线程同时去初始化一个类，那么只会有一个线程去执行这个类的<clinit>()方法，其他线程都需要阻塞等待，直到活动线程执行<clinit>()方法完毕。</p>
-<p>正是因为函数<clinit>( )带锁线程安全的，因此，如果在一个类的<clinit>()方法中有耗时很长的操作，就可能造成多个线程阻塞，引发死锁。并且这种死锁是很难发现的，因为看起来它们并没有可用的锁信息。</p>
-<p>如果之前的线程成功加载了类，则等在队列中的线程就没有机会再执行<clinit>()方法了。那么，当需要使用这个类时虚拟机会直接返回给它已经准备好的信息。</p>
-<h3 id="类的初始化情况：主动使用VS被动使用"><a href="#类的初始化情况：主动使用VS被动使用" class="headerlink" title="类的初始化情况：主动使用VS被动使用"></a>类的初始化情况：主动使用VS被动使用</h3><h4 id="主动使用（即调用了clinit方法）"><a href="#主动使用（即调用了clinit方法）" class="headerlink" title="主动使用（即调用了clinit方法）"></a>主动使用（即调用了clinit方法）</h4><p> Xx-TraceClassloading  参数可以追踪类的加载过程</p>
-<p>Class只有在必须要首次使用的时候才会被装载，Java虚拟机不会无条件地装载Class类型。Java虚拟机规定，一个类或接口在初次使用前，必须要进行初始化。这里指的“使用”，是指主动使用，主动使用只有下列几种情况: (即: 如果出现如下的情况，则会对类进行初始化操作。而初始化操作之前的加载、验证、准备已经完成。)</p>
-<p>1.当创建一个类的实例时，比如使用new关键字，或者通过反射、克隆、反序列化。</p>
-<p>2.当调用类的静态方法时，即当使用了字节码invokestatic指令。</p>
-<p>3.当使用类、接口的静态字段时(final修饰特殊考虑)，比如，使用getstatic或者putstatic指令。 (对应访问变量，赋值变量操作）</p>
-<p>4.当使用java. lang. reflect包中的方法反射类的方法时。比如: Class . forName(“ com. atguigu. java. Test”)</p>
-<p>5.当初始化子类时，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。</p>
-<p>6.如果一个接口定义了default方法，那么直接实现或者间接实现该接口的类的初始化，该接口要在其之前被初始化。</p>
-<p>7.当虚拟机启动时，用户需要指定-一个要执行的主类(包含main( )方法的那个类)，虚拟机会先初始化这个主类。</p>
-<p>8.当初次调用MethodHandle 实例时，初始化该MethodHandle 指向的方法所在的类。 (涉及解析REF_ getStatic、 REF_ putStatic、 REF _invokeStatic方 法句柄对应的类)</p>
-<h4 id="被动使用"><a href="#被动使用" class="headerlink" title="被动使用"></a>被动使用</h4><p>除了以上的情况属于主动使用，其他的情况均属于被动使用。被动使用不会引起类的初始化。也就是说:并不是在代码中出现的类，就一定会被加载或者初始化。如果不符合主动使用的条件，类就不会初始化。</p>
-<p>1.当访问一个静态字段时，只有真正声明这个字段的类才会被初始化。</p>
-<p>​    当通过子类引用父类的静态变量，不会导致子类初始化</p>
-<p>2.通过数组定义类引用，不会触发此类的初始化</p>
-<p>3.引用常量不会触发此类或接口的初始化。因为常量在链接阶段就已经被显式赋值了。</p>
-<p>4.调用ClassLoader类的loadClass()方法加载-一个类，并不是对类的主动使用，不会导致类的初始化。</p>
-<h2 id="过程四：类的使用阶段"><a href="#过程四：类的使用阶段" class="headerlink" title="过程四：类的使用阶段"></a>过程四：类的使用阶段</h2><p>  即 再程序中访问和调用它的静态成员信息</p>
-<h2 id="过程五：类的Unloading阶段"><a href="#过程五：类的Unloading阶段" class="headerlink" title="过程五：类的Unloading阶段"></a>过程五：类的Unloading阶段</h2><h3 id="方法区的垃圾回收"><a href="#方法区的垃圾回收" class="headerlink" title="方法区的垃圾回收"></a>方法区的垃圾回收</h3><p>一、类、类的加载器、类的实例之间的引用关系<br>在类加载器的内部实现中，用一个Java集合来存放所加载类的引用。另一方面，一个Class对象总是会引用它的类加载器，调用Class对 象的getClassLoader()方法，就能获得它的类加载器。由此可见，代表某个类的Class实例与其类的加载器之间为双向关联关系。<br>一个类的实例总是引用代表这个类的Class对 象。在0bject类中定 义了getClass()方法， 这个方法返回代表对象所属类的Class对象的引用。此外，所有的Java类都有一个静态属性class，它引用代表这个类的Class对象。<br>二  类的生命周期<br>当Sample类被加载、链接和初始化后，它的生命周期就开始了。当代表Sample类的Class对象不再被引用，即不可触及时，Class对象就会结束生命周期，Sample类 在方法区内的数据也会被卸载，从而结束Sample类的生命周期。</p>
-<p><img src="/img/image-20210722200404168.png" alt="image-20210722200404168"></p>
-<p>四、类的卸载<br>(1)启动类加载器加载的类型在整个运行期间是不可能被卸载的(jvm和j1s规范)<br>(2)被系统类加载器和扩展类加载器加载的类型在运行期间不太可能被卸载，因为系统类加载器实例或者扩展类的实例基本上在整个运行期间总能直接或者间接的访问的到，其达到unreachable的可能性极小。<br>(3)被开发者自定义的类加载器实例加载的类型只有在很简单的上下文环境中才能被卸载，而且一-般还要借助于强制调用虚拟机的垃圾收集功能才可以做到。可以预想，稍微复杂点的应用场景中(比如:很多时候用户在开发自定义类加载器实例的时候采用缓存的策略以提高系统性能)，被加载的类型在运行期间也是几乎不太可能被卸载的(至少卸载的时间是不确定的)。<br>综合以上三点一个已经加载的类型被卸载的几率很小至少被卸载的时间是不确定的。同时我们可以看的出来，开发者在开发代码时候，不应该对虚拟机的类型卸载做任何假设的前提下，来实现系统中的特定功能。</p>
-
+<h2 id="类加载机制的基本特征"><a href="#类加载机制的基本特征" class="headerlink" title="类加载机制的基本特征"></a>类加载机制的基本特征</h2><h1 id="类加载器的分类"><a href="#类加载器的分类" class="headerlink" title="类加载器的分类"></a>类加载器的分类</h1><h2 id="引导类加载器"><a href="#引导类加载器" class="headerlink" title="引导类加载器"></a>引导类加载器</h2><h2 id="拓展类加载器"><a href="#拓展类加载器" class="headerlink" title="拓展类加载器"></a>拓展类加载器</h2><h2 id="系统类加载器"><a href="#系统类加载器" class="headerlink" title="系统类加载器"></a>系统类加载器</h2><h2 id="用户自定义加载器"><a href="#用户自定义加载器" class="headerlink" title="用户自定义加载器"></a>用户自定义加载器</h2><h1 id="Classloader源码解析"><a href="#Classloader源码解析" class="headerlink" title="Classloader源码解析"></a>Classloader源码解析</h1><h2 id="Classloader的主要方法"><a href="#Classloader的主要方法" class="headerlink" title="Classloader的主要方法"></a>Classloader的主要方法</h2><h2 id="SecureClassLoader与URLClassloader"><a href="#SecureClassLoader与URLClassloader" class="headerlink" title="SecureClassLoader与URLClassloader"></a>SecureClassLoader与URLClassloader</h2><h2 id="ExtClassLoader与AppClassLoader"><a href="#ExtClassLoader与AppClassLoader" class="headerlink" title="ExtClassLoader与AppClassLoader"></a>ExtClassLoader与AppClassLoader</h2><h2 id="ClassforName-与ClassLoader-loadClass（）"><a href="#ClassforName-与ClassLoader-loadClass（）" class="headerlink" title="ClassforName()与ClassLoader.loadClass（）"></a>ClassforName()与ClassLoader.loadClass（）</h2><h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="定义与本质"><a href="#定义与本质" class="headerlink" title="定义与本质"></a>定义与本质</h2><h2 id="优劣势"><a href="#优劣势" class="headerlink" title="优劣势"></a>优劣势</h2><h2 id="破坏双亲委派机制"><a href="#破坏双亲委派机制" class="headerlink" title="破坏双亲委派机制"></a>破坏双亲委派机制</h2><h2 id="热替换的实现"><a href="#热替换的实现" class="headerlink" title="热替换的实现"></a>热替换的实现</h2><h1 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h1><h2 id="jdk1-0"><a href="#jdk1-0" class="headerlink" title="jdk1.0"></a>jdk1.0</h2><h2 id="jdk1-1"><a href="#jdk1-1" class="headerlink" title="jdk1.1"></a>jdk1.1</h2><h2 id="jdk1-2"><a href="#jdk1-2" class="headerlink" title="jdk1.2"></a>jdk1.2</h2><h2 id="jdk1-6"><a href="#jdk1-6" class="headerlink" title="jdk1.6"></a>jdk1.6</h2><h1 id="自定义类的加载器"><a href="#自定义类的加载器" class="headerlink" title="自定义类的加载器"></a>自定义类的加载器</h1><h1 id="Java9新特性"><a href="#Java9新特性" class="headerlink" title="Java9新特性"></a>Java9新特性</h1>
                 
             </div>
             <hr/>
@@ -569,7 +512,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lang./2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B/">https://lang./2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B/</a>
+                    <a href="https://lang./2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%99%A8/">https://lang./2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%99%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -607,8 +550,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">类加载系统</span>
+                                <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+                                    <span class="chip bg-color">类加载器</span>
                                 </a>
                             
                         </div>
@@ -780,9 +723,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%99%A8/">
                     <div class="card-image">
@@ -800,9 +744,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -811,6 +755,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -829,13 +774,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/21/%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E9%9B%86/">
+                <a href="/2021/07/22/%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="字节码指令集">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="类加载系统的详细过程">
                         
-                        <span class="card-title">字节码指令集</span>
+                        <span class="card-title">类加载系统的详细过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -846,7 +791,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-22
                             </span>
                         <span class="publish-author">
                             
@@ -859,8 +804,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AD%97%E8%8A%82%E7%A0%81/">
-                        <span class="chip bg-color">字节码</span>
+                    <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">类加载系统</span>
                     </a>
                     
                 </div>
