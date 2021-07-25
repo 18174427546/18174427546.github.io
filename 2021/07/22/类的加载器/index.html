@@ -538,8 +538,8 @@ protected final Class<?> findLoadedClass(String name )<br>            查找名�
 <li>ClassLoader. loadClass(): 这是一个实例方法，需要一个ClassLoader 对象来调用该方法。该方法将Class文件加载到内存时，并不会执行类的初始化，直到这个类第一次 使用时才进行初始化。该方法因为需要得到一个ClassLoader 对象，所以可以根据需要指定使用哪个类加载器. 如: ClassLoader c1=…….;c1.loadClass(“com. atguigu. java.HelloWorld”);</li>
 </ul>
 <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="定义与本质"><a href="#定义与本质" class="headerlink" title="定义与本质"></a>定义与本质</h2><p>1.定义<br>如果一个类加载器在接到加载类的请求时，它首先不会自己尝试去加载这个类，而是把这个请求任务委托给父类加去完成，依次递归，如果父类加载器可以完成类加载任务，就成功返回。只有父类加载器无法完成此加载任务时，才自己去加载。<br>2.本质<br>规定了类加载的顺序是:引导类加载器先加载，若加载不到，由扩展类加载器加载，若还加载不到，才会由系统类加载</p>
-<p><img src="D:\blog\langBlog\public\img\image-20210724225550388.png" alt="image-20210724225550388"></p>
-<p><img src="D:\blog\langBlog\public\img\image-20210724225624727.png" alt="image-20210724225624727"></p>
+<p><img src="/img/image-20210724225550388.png" alt="image-20210724225550388"></p>
+<p><img src="/img/image-20210724225624727.png" alt="image-20210724225624727"></p>
 <h2 id="优劣势"><a href="#优劣势" class="headerlink" title="优劣势"></a>优劣势</h2><h5 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h5><p>●避免类的重复加载，确保一个类的全局唯一 -性Java类随着它的类加载器一起具备 了一种带有优先级的层次关系，通过这种层级关可以避免类的重复加载，当父亲已经加载了该类时，就没有必要子ClassLoader再加载一次。<br>●保护程序安全，防止核心API被随意篡改</p>
 <h5 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h5><p>检查类是否加载的委托过程是单向的，这个方式虽然从结构上说比较清晰，使各个ClassLoader的职责非常明确，但是同时会带来一个问题， 即顶层的ClassLoader无法访 问底层ClassLoader所加载的类。通常情况下，启动类加载器中的类为系统核心类，包括- -些重要的系统接口，而在应用类加载器中，为应用类。按照这种模式，应用类访问系统类自然是没有问题，但是系统类访问应用类就会出现问题。比如在系统类中提供了-一个接口，该接口需要在应用类中得以实现该接口还绑定一个工厂方法，用于创建该接口的实例，而接口和工厂方法都在启动类</p>
 <h5 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h5><p>由于Java虚拟机规范并没有明确要求类加载器的加载机制一定要使用双亲委派模型，只是建议采用这种方式而已。比如在Tomcat中，类加载器所采用的加载机制就和传统的双亲委派模型有一定区别， 当缺省的类加载器接收到-个类的加载任务时，首先会由它自行加载，当它加载失败时，才会将类的加载任务委派给它的超类加载器去执行，这同时也是Servlet规范推荐的一种做法。</p>
@@ -550,7 +550,7 @@ protected final Class<?> findLoadedClass(String name )<br>            查找名�
 <h2 id="热替换的实现"><a href="#热替换的实现" class="headerlink" title="热替换的实现"></a>热替换的实现</h2><p>热替换是指在程序的运行过程中，不停止服务，只通过替换程序文件来修改程序的行为。热替换的关键需求在于服务不能中断，修改必须立即表现正在运行的系统之中。基本上大部分脚本语言都是天生支持热替换的，比如: PHP， 只要替换了PHP源文件，这种改动就会立即生效，而无需重启Web服务器。</p>
 <p>但对Java来说，热替换并非天生就支持，如果一个类已经加载到系统中，通过修改类文件，并无法让系统再来加载并重定义这个类。因此，在Java中实现这一 功能的- 个可行的方法就是灵活运用ClassLoader.</p>
 <p>注意:由不同ClassLoader加载的同 名类属于不同的类型，不能相互转换和兼容。即两个不同的ClassLoader加载同一个类，在虚拟机内部，会认为这2个类是完全不同的。</p>
-<p><img src="D:\blog\langBlog\public\img\image-20210724225707915.png" alt="image-20210724225707915"></p>
+<p><img src="/img/image-20210724225707915.png" alt="image-20210724225707915"></p>
 <h1 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h1><h2 id="jdk1-0"><a href="#jdk1-0" class="headerlink" title="jdk1.0"></a>jdk1.0</h2><p><img src="/img/image-20210724103518341.png" alt="image-20210724103518341"></p>
 <h2 id="jdk1-1"><a href="#jdk1-1" class="headerlink" title="jdk1.1"></a>jdk1.1</h2><p><img src="/img/image-20210724103541212.png" alt="image-20210724103541212"></p>
 <h2 id="jdk1-2"><a href="#jdk1-2" class="headerlink" title="jdk1.2"></a>jdk1.2</h2><p><img src="/img/image-20210724103604973.png" alt="image-20210724103604973"></p>
