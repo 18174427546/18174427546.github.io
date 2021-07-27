@@ -468,7 +468,165 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="背景说明"><a href="#背景说明" class="headerlink" title="背景说明"></a>背景说明</h1><h2 id="生产环境中的问题"><a href="#生产环境中的问题" class="headerlink" title="生产环境中的问题"></a>生产环境中的问题</h2><h3 id="生产环境发生了内存溢出该如何处理"><a href="#生产环境发生了内存溢出该如何处理" class="headerlink" title="生产环境发生了内存溢出该如何处理"></a>生产环境发生了内存溢出该如何处理</h3><h3 id="生产环境应该给服务器分配多少内存合适"><a href="#生产环境应该给服务器分配多少内存合适" class="headerlink" title="生产环境应该给服务器分配多少内存合适"></a>生产环境应该给服务器分配多少内存合适</h3><h3 id="如何对垃圾回收器的性能进行调优"><a href="#如何对垃圾回收器的性能进行调优" class="headerlink" title="如何对垃圾回收器的性能进行调优"></a>如何对垃圾回收器的性能进行调优</h3><h3 id="生产环境CPU负载飙高该如何处理"><a href="#生产环境CPU负载飙高该如何处理" class="headerlink" title="生产环境CPU负载飙高该如何处理"></a>生产环境CPU负载飙高该如何处理</h3><h3 id="生产环境应该给应用分配多少线程合适"><a href="#生产环境应该给应用分配多少线程合适" class="headerlink" title="生产环境应该给应用分配多少线程合适"></a>生产环境应该给应用分配多少线程合适</h3><h3 id="不加log，如何确定请求是否执行了某一行代码"><a href="#不加log，如何确定请求是否执行了某一行代码" class="headerlink" title="不加log，如何确定请求是否执行了某一行代码"></a>不加log，如何确定请求是否执行了某一行代码</h3><h3 id="不加log，如何实时查看某个方法的传入参数与返回值"><a href="#不加log，如何实时查看某个方法的传入参数与返回值" class="headerlink" title="不加log，如何实时查看某个方法的传入参数与返回值"></a>不加log，如何实时查看某个方法的传入参数与返回值</h3><h2 id="为什么要调优"><a href="#为什么要调优" class="headerlink" title="为什么要调优"></a>为什么要调优</h2><h3 id="防止出现OOM"><a href="#防止出现OOM" class="headerlink" title="防止出现OOM"></a>防止出现OOM</h3><h3 id="解决OOM"><a href="#解决OOM" class="headerlink" title="解决OOM"></a>解决OOM</h3><h3 id="减少Full-GC-出现的频率"><a href="#减少Full-GC-出现的频率" class="headerlink" title="减少Full GC 出现的频率"></a>减少Full GC 出现的频率</h3><h1 id="调优概述"><a href="#调优概述" class="headerlink" title="调优概述"></a>调优概述</h1><h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="监控的依据"><a href="#监控的依据" class="headerlink" title="监控的依据"></a>监控的依据</h2><h3 id="运行日志"><a href="#运行日志" class="headerlink" title="运行日志"></a>运行日志</h3><h3 id="异常堆栈"><a href="#异常堆栈" class="headerlink" title="异常堆栈"></a>异常堆栈</h3><h3 id="GC日志"><a href="#GC日志" class="headerlink" title="GC日志"></a>GC日志</h3><h3 id="线程快照"><a href="#线程快照" class="headerlink" title="线程快照"></a>线程快照</h3><h3 id="堆转储快照"><a href="#堆转储快照" class="headerlink" title="堆转储快照"></a>堆转储快照</h3><h2 id="调优的大方向"><a href="#调优的大方向" class="headerlink" title="调优的大方向"></a>调优的大方向</h2><h3 id="合理的编写代码"><a href="#合理的编写代码" class="headerlink" title="合理的编写代码"></a>合理的编写代码</h3><h3 id="充分并合理的使用硬件资源"><a href="#充分并合理的使用硬件资源" class="headerlink" title="充分并合理的使用硬件资源"></a>充分并合理的使用硬件资源</h3><h3 id="合理地进行JVM调优"><a href="#合理地进行JVM调优" class="headerlink" title="合理地进行JVM调优"></a>合理地进行JVM调优</h3><h1 id="性能优化的步骤"><a href="#性能优化的步骤" class="headerlink" title="性能优化的步骤"></a>性能优化的步骤</h1><h2 id="第一步（发现问题）：性能监控"><a href="#第一步（发现问题）：性能监控" class="headerlink" title="第一步（发现问题）：性能监控"></a>第一步（发现问题）：性能监控</h2><h3 id="GC频繁"><a href="#GC频繁" class="headerlink" title="GC频繁"></a>GC频繁</h3><h3 id="cpu-load过高"><a href="#cpu-load过高" class="headerlink" title="cpu  load过高"></a>cpu  load过高</h3><h3 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h3><h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h3 id="程序响应时间长"><a href="#程序响应时间长" class="headerlink" title="程序响应时间长"></a>程序响应时间长</h3><h2 id="第二步（排查问题）：性能分析"><a href="#第二步（排查问题）：性能分析" class="headerlink" title="第二步（排查问题）：性能分析"></a>第二步（排查问题）：性能分析</h2><h3 id="打印GC日志，通过GCviewer或者http-gceasy-io来分析日志信息"><a href="#打印GC日志，通过GCviewer或者http-gceasy-io来分析日志信息" class="headerlink" title="打印GC日志，通过GCviewer或者http://gceasy.io来分析日志信息"></a>打印GC日志，通过GCviewer或者<a target="_blank" rel="noopener" href="http://gceasy.io来分析日志信息/">http://gceasy.io来分析日志信息</a></h3><h3 id="灵活运用命令行工具，jstack，jmap，jinfo等"><a href="#灵活运用命令行工具，jstack，jmap，jinfo等" class="headerlink" title="灵活运用命令行工具，jstack，jmap，jinfo等"></a>灵活运用命令行工具，jstack，jmap，jinfo等</h3><h3 id="dump出对文件，使用内存分析工具分析文件"><a href="#dump出对文件，使用内存分析工具分析文件" class="headerlink" title="dump出对文件，使用内存分析工具分析文件"></a>dump出对文件，使用内存分析工具分析文件</h3><h3 id="使用阿里Arthas，或Jconsole，JVisualVM来实时查看JVM状态"><a href="#使用阿里Arthas，或Jconsole，JVisualVM来实时查看JVM状态" class="headerlink" title="使用阿里Arthas，或Jconsole，JVisualVM来实时查看JVM状态"></a>使用阿里Arthas，或Jconsole，JVisualVM来实时查看JVM状态</h3><h3 id="jstack查看堆栈信息"><a href="#jstack查看堆栈信息" class="headerlink" title="jstack查看堆栈信息"></a>jstack查看堆栈信息</h3><h2 id="第三步（解决问题）：性能调优"><a href="#第三步（解决问题）：性能调优" class="headerlink" title="第三步（解决问题）：性能调优"></a>第三步（解决问题）：性能调优</h2><h3 id="适当增加内存，根据业务背景选择垃圾回收器"><a href="#适当增加内存，根据业务背景选择垃圾回收器" class="headerlink" title="适当增加内存，根据业务背景选择垃圾回收器"></a>适当增加内存，根据业务背景选择垃圾回收器</h3><h3 id="优化代码，控制内存使用"><a href="#优化代码，控制内存使用" class="headerlink" title="优化代码，控制内存使用"></a>优化代码，控制内存使用</h3><h3 id="增加机器，分散节点压力"><a href="#增加机器，分散节点压力" class="headerlink" title="增加机器，分散节点压力"></a>增加机器，分散节点压力</h3><h3 id="合理设置线程池线程数量"><a href="#合理设置线程池线程数量" class="headerlink" title="合理设置线程池线程数量"></a>合理设置线程池线程数量</h3><h3 id="使用中间件提升程序效率，比如缓存，消息队列等"><a href="#使用中间件提升程序效率，比如缓存，消息队列等" class="headerlink" title="使用中间件提升程序效率，比如缓存，消息队列等"></a>使用中间件提升程序效率，比如缓存，消息队列等</h3><h1 id="性能评价"><a href="#性能评价" class="headerlink" title="性能评价"></a>性能评价</h1><h3 id="停顿时间"><a href="#停顿时间" class="headerlink" title="停顿时间"></a>停顿时间</h3><h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><h3 id="并发数"><a href="#并发数" class="headerlink" title="并发数"></a>并发数</h3><h3 id="内存占用"><a href="#内存占用" class="headerlink" title="内存占用"></a>内存占用</h3><h3 id="相互间关系"><a href="#相互间关系" class="headerlink" title="相互间关系"></a>相互间关系</h3>
+                <h1 id="背景说明"><a href="#背景说明" class="headerlink" title="背景说明"></a>背景说明</h1><h2 id="生产环境中的问题"><a href="#生产环境中的问题" class="headerlink" title="生产环境中的问题"></a>生产环境中的问题</h2><ul>
+<li>生产环境发生了内存溢出该如何处理</li>
+<li>生产环境应该给服务器分配多少内存合适</li>
+<li>如何对垃圾回收器的性能进行调优</li>
+<li>生产环境CPU负载飙高该如何处理</li>
+<li>生产环境应该给应用分配多少线程合适</li>
+<li>不加log，如何确定请求是否执行了某一行代码</li>
+<li>不加log，如何实时查看某个方法的传入参数与返回值</li>
+</ul>
+<h2 id="为什么要调优"><a href="#为什么要调优" class="headerlink" title="为什么要调优"></a>为什么要调优</h2><ul>
+<li>防止出现OOM</li>
+<li>解决OOM</li>
+<li>减少Full GC 出现的频率</li>
+</ul>
+<h1 id="调优概述"><a href="#调优概述" class="headerlink" title="调优概述"></a>调优概述</h1><h2 id="监控的依据"><a href="#监控的依据" class="headerlink" title="监控的依据"></a>监控的依据</h2><ul>
+<li>运行日志</li>
+<li>异常堆栈</li>
+<li>GC日志</li>
+<li>线程快照</li>
+<li>堆转储快照</li>
+</ul>
+<h2 id="调优的大方向"><a href="#调优的大方向" class="headerlink" title="调优的大方向"></a>调优的大方向</h2><ul>
+<li>合理的编写代码</li>
+<li>充分并合理的使用硬件资源</li>
+<li>合理地进行JVM调优</li>
+</ul>
+<h1 id="性能优化的步骤"><a href="#性能优化的步骤" class="headerlink" title="性能优化的步骤"></a>性能优化的步骤</h1><h2 id="第一步（发现问题）：性能监控"><a href="#第一步（发现问题）：性能监控" class="headerlink" title="第一步（发现问题）：性能监控"></a>第一步（发现问题）：性能监控</h2><ol>
+<li>一种以非强行或者入侵方式收集或查看应用运营性能数据的活动。</li>
+<li>监控通常是指一种在生产、质量评估或者开发环境下实施的带有预防或主动性的活<br>动。</li>
+<li>当应用相关干系人提出性能问题却没有提供足够多的线索时，首先我们需要进行性<br>能监控，随后是性能分析。</li>
+</ol>
+<ul>
+<li>GC频繁</li>
+<li>cpu  load过高</li>
+<li>OOM</li>
+<li>内存泄漏</li>
+<li>死锁</li>
+<li>程序响应时间长</li>
+</ul>
+<h2 id="第二步（排查问题）：性能分析"><a href="#第二步（排查问题）：性能分析" class="headerlink" title="第二步（排查问题）：性能分析"></a>第二步（排查问题）：性能分析</h2><p>一种以侵入方式收集运行性能数据的活动，它会影响应用的吞吐量或响应性。<br>性能分析是针对性能问题的答复结果，关注的范围通常比性能监控更加集中。<br>性能分析很少在生产环境下进行，通常是在质量评估、系统测试或者开发环境下进<br>行，是性能监控之后的步骤。</p>
+<ul>
+<li>打印GC日志，通过GCviewer或者<a target="_blank" rel="noopener" href="http://gceasy.io来分析日志信息/">http://gceasy.io来分析日志信息</a></li>
+<li>灵活运用命令行工具，jstack，jmap，jinfo等</li>
+<li>dump出对文件，使用内存分析工具分析文件</li>
+<li>使用阿里Arthas，或Jconsole，JVisualVM来实时查看JVM状态</li>
+<li>jstack查看堆栈信息</li>
+</ul>
+<h2 id="第三步（解决问题）：性能调优"><a href="#第三步（解决问题）：性能调优" class="headerlink" title="第三步（解决问题）：性能调优"></a>第三步（解决问题）：性能调优</h2><p>通过将减少 full  gc 次数 以较小的内存获得更高的参数一种为改善应用响应性或吞吐量而更改参数、源代码、属性配置的活动，性能调优是在性能监控、性能分析之后的活动.</p>
+<p>适当增加内存，根据业务背景选择垃圾回收器</p>
+<ul>
+<li>优化代码，控制内存使用</li>
+<li>增加机器，分散节点压力</li>
+<li>合理设置线程池线程数量</li>
+<li>使用中间件提升程序效率，比如缓存，消息队列等</li>
+</ul>
+<h1 id="性能评价"><a href="#性能评价" class="headerlink" title="性能评价"></a>性能评价</h1><h3 id="停顿时间"><a href="#停顿时间" class="headerlink" title="停顿时间"></a>停顿时间</h3><p>提交请求和返回该请求的响应之间使用的时间，一般比较关注平均响应时间</p>
+<h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><p>单位时间内完成的工作量</p>
+<h3 id="并发数"><a href="#并发数" class="headerlink" title="并发数"></a>并发数</h3><p>同一时刻，对服务器有实际交互的请求数</p>
+<h3 id="内存占用"><a href="#内存占用" class="headerlink" title="内存占用"></a>内存占用</h3><p>java堆区所占的内存大小</p>
+<h1 id="JVM命令行监控工具"><a href="#JVM命令行监控工具" class="headerlink" title="JVM命令行监控工具"></a>JVM命令行监控工具</h1><h2 id="jps：查看正在运行的java进程"><a href="#jps：查看正在运行的java进程" class="headerlink" title="jps：查看正在运行的java进程"></a>jps：查看正在运行的java进程</h2><ul>
+<li>-q :仅仅显示LVMID (local virtual machine id)， 即本地虚拟机唯一id.不显示主类的名称等</li>
+<li>-l:输出应用程序主类的全类名或如果进程执行的是jar包，则输出jar完整路径</li>
+<li>-m:输出虚拟机进程启动时传递给主类main()的参数</li>
+<li>-v:列出虚拟机进程启动时的JVM参数。 比如: -Xms20m - Xmx50m是启动程序指定的jvm参数。</li>
+</ul>
+<p>hostid参数</p>
+<p>用来访问远程Java程序</p>
+<h2 id="jstat-查看JVM统计信息"><a href="#jstat-查看JVM统计信息" class="headerlink" title="jstat:查看JVM统计信息"></a>jstat:查看JVM统计信息</h2><p>用来监控运行时虚拟机状态信息的命令行工具常用于检测gc问题以及内存泄漏问题</p>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>jstat -<option> [ -t] [ -h<lines>] <vmid> [ <interval> [ &lt; count&gt; ]</p>
+<h3 id="option参数"><a href="#option参数" class="headerlink" title="option参数"></a>option参数</h3><h4 id="类装载相关的"><a href="#类装载相关的" class="headerlink" title="类装载相关的"></a>类装载相关的</h4><p>​    -class ：显示Classloader的相关信息：类的装在，卸载数量，总空间，类装载所消耗的时间等</p>
+<h4 id="GC相关的"><a href="#GC相关的" class="headerlink" title="GC相关的"></a>GC相关的</h4><ul>
+<li>gc:显示与GC相关的堆信息。包括Eden区、两个Survivor区、老年代、永久代等的容量、已用空间GC时间合计等信息。</li>
+<li>gccapacity: 显示内容与-gc基本相同， 但输出主要关注Java堆各个区域使用到的最大、最小空间。</li>
+<li>gcutil: 显示内容与-gc基本相同，但输出主要关注己使用空间占总空间的百分比。gccause:与-</li>
+<li>gcutil功能一样，但是会额外输出导致最后一次或当前正在发生的GC产生的原因。</li>
+<li>gcnew: 显示新生代GC状况</li>
+<li>gcnewcapacity: 显示内容与-gcnew基 本相同，输出主要关注使用到的最大、 最小空间</li>
+<li>geold: 显示老年代GC状况</li>
+<li>gcoldcapacity: 显示内容与-gcold基本相同，输出主要关注使用到的最大、最小空间</li>
+<li>gcpermcapacity:显示永久代使用到的最大、最小空间。</li>
+</ul>
+<p>GC相关信息</p>
+<p><img src="D:\blog\langBlog\public\img\image-20210725171454633.png" alt="image-20210725171454633"></p>
+<h4 id="jit相关的"><a href="#jit相关的" class="headerlink" title="jit相关的"></a>jit相关的</h4><ul>
+<li>-compiler:显示JIT编译器编译过的方法、耗时等信息</li>
+<li>-printcompilation:输出已经被JIT编译的方法</li>
+</ul>
+<h3 id="interval参数"><a href="#interval参数" class="headerlink" title="interval参数"></a>interval参数</h3><p>用于指定输出统计数据的周期，单位为毫秒   </p>
+<h3 id="count参数"><a href="#count参数" class="headerlink" title="count参数"></a>count参数</h3><p>用于指定查询的总次数</p>
+<h3 id="t参数"><a href="#t参数" class="headerlink" title="-t参数"></a>-t参数</h3><p>可以在输出信息钱加上一个timestamp列，显示程序的运行时间</p>
+<h3 id="h参数"><a href="#h参数" class="headerlink" title="-h参数"></a>-h参数</h3><p>可以周期行数据输出时，输出多少行数据后输出一个表头信息</p>
+<h2 id="jinfo-实时查看和修改JVM配置参数"><a href="#jinfo-实时查看和修改JVM配置参数" class="headerlink" title="jinfo:实时查看和修改JVM配置参数"></a>jinfo:实时查看和修改JVM配置参数</h2><p>可以查看和修改JVM虚拟机的参数</p>
+<h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><p>-sysorios pid  查看由System。getProperties()取得的参数</p>
+<p>-flags  pid 查看曾经赋值的一些参数</p>
+<p>-flag 具体参数 PID  查看某Java进程的具体参数的值</p>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><p>并不是所有的参数都能动态的修改</p>
+<p>boolean类型的   jinfo  -flag  [+ | -] 具体参数 PID</p>
+<p>非boolean    jinfo  -flag  具体参数=具体参数值 PID</p>
+<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>java -XX:+PrintFlagsinitial  查看所有JVM参数启动的初始值</p>
+<p>java -XX:+PrintFlagsFinal  查看所有JVM参数的最终值</p>
+<p>java -XX:+PrintCommandLineFlags  查看哪些已经被用户或者JVM设置过的详细的XX参数的名称和值</p>
+<h2 id="jmap-导出内存映像文件-amp-内存使用情况"><a href="#jmap-导出内存映像文件-amp-内存使用情况" class="headerlink" title="jmap:导出内存映像文件&amp;内存使用情况"></a>jmap:导出内存映像文件&amp;内存使用情况</h2><p>一方面是获取dump文件，它还可以获取目标Java进程的内存相关信息，包括Java堆各区域的使用情况,堆中对象的统计信息，类加载信息等</p>
+<h4 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h4><p>jmap   [option]  &lt; pid &gt;</p>
+<p>jmap   [option]  &lt; executable &lt; core &gt;</p>
+<p>jmap   [option]  [server_id@]  &lt; remote server IP or hostname &gt;</p>
+<h4 id="options参数"><a href="#options参数" class="headerlink" title="options参数"></a>options参数</h4><p>-dump  生成Java堆转储快照：dump文件</p>
+<p>-heap  输出整个堆空间的详细信息，包括GC的使用，堆配置信息，以及内存的信息</p>
+<p>-histo  输出堆中对象的统计信息，包括类，实例数量的合计容量</p>
+<p>​            特别的：-histo ：live 只统计堆中的存活对象</p>
+<p>-permstat：以Classloader 为统计口径输出永久代的内存状态信息</p>
+<p>​                    仅Linux/solaris有效</p>
+<p>-finalizerinfo: 显示在F-Queue 中等待 Finalizer线程执行finalize方法的对象</p>
+<p>-F :当虚拟机进程堆-dump选项没有任何响应时，可使用此选项强制执行生成</p>
+<p>​        仅Linux/solaris有效</p>
+<p>-J <flag>   传参数给Jmap启动的jvm</p>
+<h4 id="使用1：导出内存映像文件"><a href="#使用1：导出内存映像文件" class="headerlink" title="使用1：导出内存映像文件"></a>使用1：导出内存映像文件</h4><p>手动使用 </p>
+<p>jmap  -dump：format=b，file&lt;filename.hprof&gt;  &lt; pid &gt;</p>
+<p>jmap  -dump：live,format=b，file&lt;filename.hprof&gt;  &lt; pid &gt;</p>
+<p>前者产生所有堆中对象  后者只产生存活的</p>
+<p>format=b  格式采用prof文件格式</p>
+<p>自动使用</p>
+<p>-XX：+HeapDumpOnOutOfMemoryError</p>
+<p>-XX：HeapDumpPath=&lt;filename.hprof&gt;（指定自动生成的dump文件位置）</p>
+<p>自动使用即在OOM情况下  程序自动产生dump文件    </p>
+<h3 id="使用2：显示堆内存相关信息"><a href="#使用2：显示堆内存相关信息" class="headerlink" title="使用2：显示堆内存相关信息"></a>使用2：显示堆内存相关信息</h3><p>jmap  -heap  pid</p>
+<p>jmap -histo    pid</p>
+<h3 id="使用3：其他作用"><a href="#使用3：其他作用" class="headerlink" title="使用3：其他作用"></a>使用3：其他作用</h3><p>jmap -permstat pid    查看系统的ClassLoader信息</p>
+<p>jmap -finalizerinfo       查看堆积在finalizer队列中的对象</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>由于jmap将访问堆中的所有对象，为了保证在此过程中不被应用线程干扰，jmap 需要借助安全点机制，让所有线程停留在不改变堆中数据的状态。也就是说，由jmap 导出的堆快照必定是安全点位置的。这可能导致基于该堆快照的分析结果存在偏差。</p>
+<p>举个例子，假设在编译生成的机器码中，某些对象的生命周期在两个安全点之间，那么: live选项将无法探知到这些对象。</p>
+<p>另外，如果某线程长时间无法跑到安全点，jmap将一 直等 下去。与前面讲的jstat则不同，垃圾回收器会主动将jstat所需要的摘要数据保存至固定位置之中而jstat只需直接读取即可。</p>
+<h2 id="jhat：jdk自带堆分析工具"><a href="#jhat：jdk自带堆分析工具" class="headerlink" title="jhat：jdk自带堆分析工具"></a>jhat：jdk自带堆分析工具</h2><p>用来分析dump文件   默认端口号7000    建议使用    VisualVM查看</p>
+<p>option参数: -stack falseltrue        关闭|打开对象分配调用栈跟踪<br>option参数: -refs false|true        关闭|打开对象引用跟踪设置jhat HTTP<br>option参数: -port port- number        Server的端口号，默认7000<br>option参数: -exclude exclude-file        执行对象查询时需要排除的数据成员<br>option参数: - baseline exclud file        指定一个基准堆转储<br>option参数: -debug int        设置debug级别<br>option参数: -version            启动后显示版本信息就退出<br>option参数: J&lt; flag &gt;            传 入启动参数，比如-J -Xmx512m</p>
+<h2 id="jstack：打印JVM中线程快照"><a href="#jstack：打印JVM中线程快照" class="headerlink" title="jstack：打印JVM中线程快照"></a>jstack：打印JVM中线程快照</h2><p>jstack(JVM Stack Trace): 用于生成虚拟机指定进程当前时刻的线程快照(虚拟机堆栈跟踪。线程快照就 是当前虚拟机内指定进程的每一条线程 正在执行的方法堆栈的集合。生成线程快照的作用:可用于定位线程出现长时间停顿的原因，如线程间死锁、死循环、请求外部资源导致的长时间等待等问题。这些都是导致线程长时间停顿的常见原因。当线程出现停顿时，就可以用jstack显示各个线程调用的堆栈情况。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>jstack  [option]  &lt; pid &gt;</p>
+<h4 id="option参数-1"><a href="#option参数-1" class="headerlink" title="option参数"></a>option参数</h4><p>-F   当正常输出的请求不被响应时，强制输出线程堆栈</p>
+<p>-l    除堆栈外，显示关于锁的附加信息</p>
+<p>-m  如果调用到本地方法的话，可以显示C/C++的堆栈</p>
+<h2 id="jcmd：多功能命令行"><a href="#jcmd：多功能命令行" class="headerlink" title="jcmd：多功能命令行"></a>jcmd：多功能命令行</h2><p>jdk1.7以后的新增功能用来导出堆，内存使用，查看java进程，导出线程信息，执行FC，jvm运行时间</p>
+<p>可以用来代替jmap</p>
+<h4 id="基本语法-2"><a href="#基本语法-2" class="headerlink" title="基本语法"></a>基本语法</h4><p>jcmd -l  列出所有JVM进程</p>
+<p>jcmd  pid  help    针对指定进程；列出支持的所有命令    </p>
+<p>具体的使用可以使用help查看（与之前的命令作用相似）</p>
+<p>jcmd  pid   具体命令    显示指定进程的指令命令的数据</p>
+<h2 id="jstatd：远程主机信息收集"><a href="#jstatd：远程主机信息收集" class="headerlink" title="jstatd：远程主机信息收集"></a>jstatd：远程主机信息收集</h2><p>之前的指令只涉及到监控本机的Java应用程序，而在这些工具中，- - 些监控工具也支持对远程计算机的监控(如jps、jstat)。为了启用远程监控，则需要配合使用jstatd工具。<br>命令jstatd是一个RMI服务端程序，它的作用相当于代理服务器，建立本地计算机与远程监控工具的通信。jstatd服 务器将本机的Java应用程序信息传递到远程计算机。</p>
+<h1 id="JVM监控及诊断工具-GUI"><a href="#JVM监控及诊断工具-GUI" class="headerlink" title="JVM监控及诊断工具-GUI"></a>JVM监控及诊断工具-GUI</h1><p>使用上一章命令行工具或组合能帮您获取目标Java应用性能相关的基础信息，但它们存在下列局限:</p>
+<p>1.无法获取方法级别的分析数据，如方法间的调用关系、各方法的调用次数和调用时间等(这对定位应用性能瓶颈至关重要)。<br>2.要求用户登录到目标Java应用所在的宿主机上，使用起来不是很方便。<br>3.分析数据通过终端输出，结果展示不够直观。</p>
+<p>工具的使用如果有感兴趣的可以自己选择其中一个去学习</p>
+<ol>
+<li>jConsole（JDK自带）</li>
+<li>VisualVM（JDK自带）</li>
+<li>eclipse  MAT</li>
+<li>JProfiler（本人喜欢使用需要付费的产品的破解版）</li>
+<li>Arthas（Alibaba开源的Java的诊断工具）</li>
+<li>Java  Mission Control</li>
+<li>Brtrace</li>
+<li>Flame Graphs</li>
+</ol>
+
                 
             </div>
             <hr/>
@@ -709,7 +867,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/07/24/%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/">
+                <a href="/2021/07/24/%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%82%E6%95%B0/">
                     <div class="card-image">
                         
                         
