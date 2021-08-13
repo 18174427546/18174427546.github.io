@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="lang">
+    <meta name="keywords" content="hive复习, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>lang</title>
+    <title>hive复习 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">hive复习</h1>
                 </div>
             </div>
         </div>
@@ -429,9 +429,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/hive-%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">hive  面试</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -464,10 +468,161 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<p>title:hive复习<br>tags:hive</p>
-<hr>
-<h1 id="Hive-基本概念"><a href="#Hive-基本概念" class="headerlink" title="Hive  基本概念"></a>Hive  基本概念</h1><h2 id="什么是hive"><a href="#什么是hive" class="headerlink" title="什么是hive"></a>什么是hive</h2><h2 id="hive的特点"><a href="#hive的特点" class="headerlink" title="hive的特点"></a>hive的特点</h2><h2 id="hive的基本数据类型"><a href="#hive的基本数据类型" class="headerlink" title="hive的基本数据类型"></a>hive的基本数据类型</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h1 id="HIVE-高级使用"><a href="#HIVE-高级使用" class="headerlink" title="HIVE  高级使用"></a>HIVE  高级使用</h1><h2 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h2><h2 id="DML语句"><a href="#DML语句" class="headerlink" title="DML语句"></a>DML语句</h2><h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="压缩支持"><a href="#压缩支持" class="headerlink" title="压缩支持"></a>压缩支持</h2><h2 id="hive优化"><a href="#hive优化" class="headerlink" title="hive优化"></a>hive优化</h2><h1 id="HIVE-面试题"><a href="#HIVE-面试题" class="headerlink" title="HIVE 面试题"></a>HIVE 面试题</h1><ul>
+                <h1 id="Hive-基本概念"><a href="#Hive-基本概念" class="headerlink" title="Hive  基本概念"></a>Hive  基本概念</h1><h2 id="什么是hive"><a href="#什么是hive" class="headerlink" title="什么是hive"></a>什么是hive</h2><p>hive是一个基于Hadoop的数据仓库工具  可以将结构化的数据映射为一张表并且提供类sql 查询功能</p>
+<p>hive的本质其实是将hql转化为MR程序</p>
+<h2 id="hive的特点"><a href="#hive的特点" class="headerlink" title="hive的特点"></a>hive的特点</h2><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>避免了去写MapReduce，减少开发人员的学习成本</li>
+<li>Hive的执行延迟比较高，因此Hive常用于数据分析，对实时性要求不高的场合。</li>
+<li>Hive优势在于处理大数据，对于处理小数据没有优势，因为Hive的执行延迟比较高</li>
+<li>Hive支持用户自定义函数，用户可以根据自己的需求来实现自己的函数</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>Hive的HQL表达能力有限，迭代式算法无法表达，数据挖掘方面不擅长</li>
+<li>Hive自动生成的MapReduce作业，通常情况下不够智能化，Hive调优比较困难，粒度较粗</li>
+</ul>
+<p>很明显你想要操作简单那就当然粒度会粗</p>
+<h2 id="hive的基本架构"><a href="#hive的基本架构" class="headerlink" title="hive的基本架构"></a>hive的基本架构</h2><p><img src="D:\blog\langBlog\public\img\wps1.png" alt="img"></p>
+<p>1.用户接口</p>
+<p>2.元数据 ：表名，表所属数据库，表的拥有者，列/分区字段，表的类型（是否为外部表），表的结构所在目录</p>
+<p>默认的元数据存储在自带的derby数据库中，推荐使用Mysql存储元数据</p>
+<p>3.hadoop  ：HDFS用来存储，MR框架进行计算</p>
+<p>4.驱动器:Driver</p>
+<ul>
+<li> 解析器：将sql字符串转换成抽象语法树AST，对AST进行语法分析，比如表是否存在，字段是否存在，sql予以是否有误</li>
+<li>编译器：将AST编译生成逻辑执行计划</li>
+<li>优化器：对逻辑执行计划进行优化</li>
+<li>执行器：吧逻辑执行计划转换成可以运行的物理计划，对于hive来说就是MR</li>
+</ul>
+<h2 id="hive常用参数指令"><a href="#hive常用参数指令" class="headerlink" title="hive常用参数指令"></a>hive常用参数指令</h2><p>-d,–define &lt;key=value&gt;      Variable subsitution to apply to hive</p>
+<p>​                 commands. e.g. -d A=B or –define A=B     在启动hive是定义参数  ***</p>
+<p>  –database <databasename>   Specify the database to use</p>
+<p> -e <quoted-query-string>     SQL from command line    不进如hive交互窗口执行sql语句 ***</p>
+<p> -f <filename>           SQL from files            执行sql脚本语句     ***</p>
+<p> -H,–help             Print help information        查看命令帮助    ***</p>
+<p>  –hiveconf &lt;property=value&gt;  Use value for given property     指定对应参数的设置</p>
+<p>  –hivevar &lt;key=value&gt;     Variable subsitution to apply to hive</p>
+<p>​                 commands. e.g. –hivevar A=B</p>
+<p> -i <filename>           Initialization SQL file</p>
+<p> -S,–silent            Silent mode in interactive shell</p>
+<p> -v,–verbose           Verbose mode (echo executed SQL to the console)</p>
+<h2 id="hive的基本数据类型"><a href="#hive的基本数据类型" class="headerlink" title="hive的基本数据类型"></a>hive的基本数据类型</h2><table>
+<thead>
+<tr>
+<th>Hive数据类型</th>
+<th>Java数据类型</th>
+<th>长度</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>byte</td>
+<td>1byte有符号整数</td>
+<td>20</td>
+</tr>
+<tr>
+<td>SMALINT</td>
+<td>short</td>
+<td>2byte有符号整数</td>
+<td>20</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>int</td>
+<td>4byte有符号整数</td>
+<td>20</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>long</td>
+<td>8byte有符号整数</td>
+<td>20</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>boolean</td>
+<td>布尔类型，true或者false</td>
+<td>TRUE  FALSE</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>float</td>
+<td>单精度浮点数</td>
+<td>3.14159</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>double</td>
+<td>双精度浮点数</td>
+<td>3.14159</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td>string</td>
+<td>字符系列。可以指定字符集。可以使用单引号或者双引号。</td>
+<td>‘now is the time’ “for all good men”</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td></td>
+<td>时间类型</td>
+<td></td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td></td>
+<td>字节数组</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="数据集合类型"><a href="#数据集合类型" class="headerlink" title="数据集合类型"></a>数据集合类型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+<th>语法示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>STRUCT</strong></td>
+<td>和c语言中的struct类似，都可以通过“点”符号访问元素内容。例如，如果某个列的数据类型是STRUCT{first STRING, last STRING},那么第1个元素可以通过字段.first来引用。</td>
+<td>struct()</td>
+</tr>
+<tr>
+<td>MAP</td>
+<td>MAP是一组键-值对元组集合，使用数组表示法可以访问数据。例如，如果某个列的数据类型是MAP，其中键-&gt;值对是’first’-&gt;’John’和’last’-&gt;’Doe’，那么可以通过字段名[‘last’]获取最后一个元素</td>
+<td>map()</td>
+</tr>
+<tr>
+<td>ARRAY</td>
+<td>数组是一组具有相同类型和名称的变量的集合。这些变量称为数组的元素，每个数组元素都有一个编号，编号从零开始。例如，数组值为[‘John’, ‘Doe’]，那么第2个元素可以通过数组名[1]进行引用。</td>
+<td>Array()</td>
+</tr>
+</tbody></table>
+<p>三种复杂的数据类型 array，map，struct。 array和map与java中的类似   struct与c语言中的struct类似</p>
+<p>以下为json格式以及hive建表 </p>
+<p>{</p>
+<p>  “name”: “songsong”,</p>
+<p>  “friends”: [“bingbing” , “lili”] ,    //列表Array, </p>
+<p>  “children”: {            //键值Map,</p>
+<p>​    “xiao song”: 18 ,</p>
+<p>​    “xiaoxiao song”: 19</p>
+<p>  }</p>
+<p>​    “address”: {            //结构Struct,</p>
+<p>​    “street”: “hui long guan” ,</p>
+<p>​    “city”: “beijing” </p>
+<p>  }</p>
+<p>}</p>
+<p>建表语句：</p>
+<p>name string,</p>
+<p>friends array<string>,</p>
+<p>children map&lt;string, int&gt;,</p>
+<p>address struct&lt;street:string, city:string&gt;</p>
+<h1 id="HIVE-高级使用"><a href="#HIVE-高级使用" class="headerlink" title="HIVE  高级使用"></a>HIVE  高级使用</h1><h2 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h2><p>创建一个库：create database  （if not  exits）  databasename  ；</p>
+<p>为了避免创建的数据库存在的错误   增加if  not exit 的判断  养成良好习惯</p>
+<p>当然在建库时我们可以指定表的hdfs上的位置：</p>
+<p>create database  （if not  exits）  databasename   location  ‘ location’</p>
+<h2 id="DML语句"><a href="#DML语句" class="headerlink" title="DML语句"></a>DML语句</h2><h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="压缩支持"><a href="#压缩支持" class="headerlink" title="压缩支持"></a>压缩支持</h2><h2 id="hive优化"><a href="#hive优化" class="headerlink" title="hive优化"></a>hive优化</h2><h1 id="HIVE-面试题"><a href="#HIVE-面试题" class="headerlink" title="HIVE 面试题"></a>HIVE 面试题</h1><ul>
 <li><p> 窗口函数开窗函数</p>
 </li>
 <li><p>行转列函数</p>
@@ -550,7 +705,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/hive-%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">hive  面试</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -729,9 +888,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="hive复习">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">hive复习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -754,6 +913,14 @@
                 </div>
 
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hive-%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">hive  面试</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
@@ -767,9 +934,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="leetcode刷题">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">leetcode刷题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -789,6 +956,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">算法 数据结构</span>
+                    </a>
+                    
                 </div>
                 
             </div>
