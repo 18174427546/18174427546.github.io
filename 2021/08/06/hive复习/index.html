@@ -618,11 +618,624 @@
 <p>friends array<string>,</p>
 <p>children map&lt;string, int&gt;,</p>
 <p>address struct&lt;street:string, city:string&gt;</p>
-<h1 id="HIVE-高级使用"><a href="#HIVE-高级使用" class="headerlink" title="HIVE  高级使用"></a>HIVE  高级使用</h1><h2 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h2><p>创建一个库：create database  （if not  exits）  databasename  ；</p>
+<h1 id="HIVE-高级使用"><a href="#HIVE-高级使用" class="headerlink" title="HIVE  高级使用"></a>HIVE  高级使用</h1><h2 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h2><h3 id="修改库的操作"><a href="#修改库的操作" class="headerlink" title="修改库的操作"></a>修改库的操作</h3><p>创建一个库：create database  （if not  exits）  databasename  ；</p>
 <p>为了避免创建的数据库存在的错误   增加if  not exit 的判断  养成良好习惯</p>
 <p>当然在建库时我们可以指定表的hdfs上的位置：</p>
 <p>create database  （if not  exits）  databasename   location  ‘ location’</p>
-<h2 id="DML语句"><a href="#DML语句" class="headerlink" title="DML语句"></a>DML语句</h2><h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="压缩支持"><a href="#压缩支持" class="headerlink" title="压缩支持"></a>压缩支持</h2><h2 id="hive优化"><a href="#hive优化" class="headerlink" title="hive优化"></a>hive优化</h2><h1 id="HIVE-面试题"><a href="#HIVE-面试题" class="headerlink" title="HIVE 面试题"></a>HIVE 面试题</h1><ul>
+<ol>
+<li><p>显示数据库：  show database  </p>
+</li>
+<li><p>过滤查询：show database  like ‘database*’        (想此类模糊查询多数会用到正则表达式)</p>
+</li>
+<li><p>显示数据库信息： desc  database  db_hive；</p>
+</li>
+<li><p>显示数据库详细信息：desc database  extended  db_hive；</p>
+</li>
+<li><p>切换当前数据库：use databasename;</p>
+</li>
+<li><p>修改数据库：alter database databasename set   {dbproperties(‘createtime’=’20170830’ ) };</p>
+<p>注意：ALTER database  命令只能为某个数据库的dbproperties   设置键值对而不能更改数据库的元信息（不过我试过可以去Mysql里面找到对应的表更改）</p>
+</li>
+<li><p>删除数据库：drop  database  databasename（if   not  exits）（这种方法用来删除空的数据库当然有强制删除不为空的数据库：drop database  databasename  cascade</p>
+</li>
+</ol>
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><p><em><strong>建表语句标准语法</strong></em></p>
+<p>CREATE [EXTERNAL] TABLE [IF NOT EXISTS] table_name        定义名字</p>
+<p>[(col_name data_type [COMMENT col_comment], …)]     定义列的信息</p>
+<p>[COMMENT table_comment]         为表和列添加注释信息</p>
+<p>[PARTITIONED BY (col_name data_type [COMMENT col_comment], …)]    创建分区 </p>
+<p>[CLUSTERED BY (col_name, col_name, …)         创建分桶</p>
+<p>[SORTED BY (col_name [ASC|DESC], …)] INTO num_buckets BUCKETS]    不常用 </p>
+<p>[ROW FORMAT row_format]     </p>
+<p>（DELIMITED [FIELDS TERMINATED BY char]   上列初始化  指定的分隔符</p>
+<p> [COLLECTION ITEMS TERMINATED BY char]    集合类数据类型指定分隔符</p>
+<p>​    在使用row  format时一般会带上这两句        ）</p>
+<p>[STORED AS file_format]     指定文件的存储类型</p>
+<p>[LOCATION hdfs_path]    指定表数据在HDFS上的数据</p>
+<p>***     like   允许用户复制现有的表结构    </p>
+<p>使用    create  table   tablename   like   tablename</p>
+<p>***    external   用来定义表是内部表还是外部表</p>
+<p>也叫做管理表或者非管理表</p>
+<h3 id="表的基本操作d"><a href="#表的基本操作d" class="headerlink" title="表的基本操作d"></a>表的基本操作d</h3><p>修改表名：alter table tablename rename  to new_tablename</p>
+<p>跟新列：alter table tablename change [column] old_colname  new_colname  column_type  </p>
+<p>增加和替换列：alter table tablename add|replace colums (col_name  datatype [COMMENT col_comment] ,  …….)</p>
+<p>删除表：drop table tablename</p>
+<h3 id="什么是管理表和非管理表"><a href="#什么是管理表和非管理表" class="headerlink" title="什么是管理表和非管理表"></a>什么是管理表和非管理表</h3><h4 id="管理表"><a href="#管理表" class="headerlink" title="管理表"></a>管理表</h4><p>默认创建的表都是所谓的管理表，有时也被称为内部表。因为这种表，Hive会（或多或少地）控制着数据的生命周期。Hive默认情况下会将这些表的数据存储在由配置项hive.metastore.warehouse.dir所定义的目录的子目录下。当我们删除一个管理表时，Hive也会删除这个表中数据。管理表不适合和其他工具共享数据。</p>
+<h4 id="外部表"><a href="#外部表" class="headerlink" title="外部表"></a>外部表</h4><p>因为表是外部表，所以Hive并非认为其完全拥有这份数据。删除该表并不会删除掉这份数据，不过描述表的元数据信息会被删除掉。</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>每天将收集到的网站日志定期流入HDFS文本文件。在外部表（原始日志表）的基础上做大量的统计分析，用到的中间表、结果表使用内部表存储，数据通过SELECT+INSERT进入内部表。</p>
+<h4 id="外部表和内部表的相互转换"><a href="#外部表和内部表的相互转换" class="headerlink" title="外部表和内部表的相互转换"></a>外部表和内部表的相互转换</h4><ul>
+<li>  desc  formatted   tablename       查看表的类型</li>
+<li>   alter  table tablename  set  tblproperties （‘EXTERNAL’ =‘false|ture ’）</li>
+</ul>
+<p>注意：(‘EXTERNAL’=’TRUE’)和(‘EXTERNAL’=’FALSE’)为固定写法，区分大小写！</p>
+<h3 id="什么是分区表"><a href="#什么是分区表" class="headerlink" title="什么是分区表"></a>什么是分区表</h3><p>分区表实际上就是对应一个HDFS文件系统上的独立的文件夹，该文件夹下是该分区所有的数据文件。Hive中的分区就是分目录，把一个大的数据集根据业务需要分割成小的数据集。在查询时通过WHERE子句中的表达式选择查询所需要的指定的分区，这样的查询效率会提高很多。</p>
+<p>在前面也有描述过如何分区</p>
+<h4 id="分区表操作"><a href="#分区表操作" class="headerlink" title="分区表操作"></a>分区表操作</h4><p>在建表语句后添加  partitoned  by  （fileds  name）</p>
+<p>增加分区：alter table  tablename add  partition（filedsname=’ 字段名称’ ）（同时添加多个分区 即多增加几个partition 即可   使用空格间隔）</p>
+<p>删除分区：alter table tablename drop  partiton （filedsname=’ 字段名称’）（删除多个分区与添加多个分区同理）</p>
+<p>查看有多少个分区：show partitons tablename</p>
+<p>查看分区表结构：desc  formatted  tablename</p>
+<p>创建二级分区：partitioned by (month string, day string)</p>
+<h3 id="把数据直接上传到分区目录上，让分区表和数据产生关联的三种方式"><a href="#把数据直接上传到分区目录上，让分区表和数据产生关联的三种方式" class="headerlink" title="把数据直接上传到分区目录上，让分区表和数据产生关联的三种方式"></a>把数据直接上传到分区目录上，让分区表和数据产生关联的三种方式</h3><p><em><strong>这种方式应用于数据已经在hdfs中存储好并且已经分好了文件夹的情况下进行hive数据的关联，也可以说是一种映射</strong></em></p>
+<h4 id="方式一：上传数据后修复"><a href="#方式一：上传数据后修复" class="headerlink" title="方式一：上传数据后修复"></a>方式一：上传数据后修复</h4><ol>
+<li>dfs -mkdir -p（传入hdfs的绝对路径  例如 /user/hive/warehouse/dept_partition2/month`=201709/day=12;） 上传数据 </li>
+<li>msck repair table tablename；    分区修复</li>
+</ol>
+<p>执行以上操作即可 </p>
+<h4 id="方式二：上传数据后添加分区"><a href="#方式二：上传数据后添加分区" class="headerlink" title="方式二：上传数据后添加分区"></a>方式二：上传数据后添加分区</h4><ol>
+<li>dfs -mkdir -p（传入hdfs的绝对路径  例如 /user/hive/warehouse/dept_partition2/month`=201709/day=12;）  上传数据</li>
+<li>alter table tablename add partition（filed=’filedname‘） 添加分区</li>
+</ol>
+<h4 id="方式三：创建文件夹后load数据到分区"><a href="#方式三：创建文件夹后load数据到分区" class="headerlink" title="方式三：创建文件夹后load数据到分区"></a>方式三：创建文件夹后load数据到分区</h4><p>dfs -mkdir -p （传入hdfs的绝对路径  例如 /user/hive/warehouse/dept_partition2/month`=201709/day=12;）</p>
+<p>load data local inpath  ‘’/opt/module/datas/dept.txt’ into table</p>
+<p> dept_partition2 partition(month=’201709’,day=’10’);’ 上传数据</p>
+<h2 id="DML语句"><a href="#DML语句" class="headerlink" title="DML语句"></a>DML语句</h2><p>load data [local] inpat ‘file://….’ [overwrite] into table student [partition (partition_col=val)]</p>
+<ol>
+<li>load data:表示加载数据</li>
+<li>local:表示从本地加载数据到hive表；否则从HDFS加载数据到hive表</li>
+<li>inpath:表示加载数据的路径</li>
+<li>overwrite:表示覆盖表中已有数据，否则表示追加</li>
+<li>into table:表示加载到哪张表</li>
+<li>student:表示具体的表</li>
+<li>partition:表示上传到指定分区</li>
+</ol>
+<h3 id="通过查询语句插入数据"><a href="#通过查询语句插入数据" class="headerlink" title="通过查询语句插入数据"></a>通过查询语句插入数据</h3><p>基本模式插入：insert overwrite table student partition(name=’lang’)</p>
+<p>​                            select * from student where name=’lang’</p>
+<p>多插入模式：</p>
+<p>​        from student</p>
+<p>​       insert overwrite table student partition(month=’201707’)</p>
+<p>​       select id, name where month=’201709’</p>
+<p>​       insert overwrite table student partition(month=’201706’)</p>
+<p>​       select id, name where month=’201709’;</p>
+<h3 id="查询语句中创建表并加载数据"><a href="#查询语句中创建表并加载数据" class="headerlink" title="查询语句中创建表并加载数据"></a>查询语句中创建表并加载数据</h3><p>create table if not exits tablename as select * from tablename</p>
+<h3 id="创建表时通过location指定加载数据路径"><a href="#创建表时通过location指定加载数据路径" class="headerlink" title="创建表时通过location指定加载数据路径"></a>创建表时通过location指定加载数据路径</h3><p> create table if not exists student5(</p>
+<p>​       id int, name string</p>
+<p>​       )</p>
+<p>​       row format delimited fields terminated by ‘\t’</p>
+<p>​       location ‘/user/hive/warehouse/student5’;</p>
+<p>此时向本地路径中加载数据便可以向表中加载数据</p>
+<h3 id="Import数据到指定Hive表中"><a href="#Import数据到指定Hive表中" class="headerlink" title="Import数据到指定Hive表中"></a>Import数据到指定Hive表中</h3><p>import table tablename partition (name=’lang’) from ‘file://….’</p>
+<h3 id="insert导出"><a href="#insert导出" class="headerlink" title="insert导出"></a>insert导出</h3><ol>
+<li><p>将数据导出到本地：</p>
+<p>​            insert overwrite local directory ‘file://…..’ </p>
+<p>​            select * from  student</p>
+</li>
+<li><p>将查询的结果格式化导出到本地：</p>
+<p>​        insert overwrite local directory ‘file://…..’ </p>
+<p>​        row format delimited fields terminated by  ‘\t’</p>
+<p>​        select * from student;</p>
+</li>
+<li><p>将查询的结果导出到hdfs上</p>
+<p>​        insert overwrite directory ‘hdfs://…..’ </p>
+<p>​        row format delimied fileds teminated by  ‘\t’</p>
+<p>​        select * from tablename;</p>
+</li>
+</ol>
+<h3 id="通过hive-shell-命令导出数据"><a href="#通过hive-shell-命令导出数据" class="headerlink" title="通过hive  shell  命令导出数据"></a>通过hive  shell  命令导出数据</h3><p>hive -e ‘select * from table;’ &gt;  ‘hdfs://…..’</p>
+<h3 id="Export导出到HDFS上"><a href="#Export导出到HDFS上" class="headerlink" title="Export导出到HDFS上"></a>Export导出到HDFS上</h3><p>export table tabelname to</p>
+<p> ‘hdfs://……’;</p>
+<h3 id="sqoop导出到mysql"><a href="#sqoop导出到mysql" class="headerlink" title="sqoop导出到mysql"></a>sqoop导出到mysql</h3><h3 id="清除表中数据"><a href="#清除表中数据" class="headerlink" title="清除表中数据"></a>清除表中数据</h3><p>truncate table  tablename</p>
+<p>***只能清除管理表的数据</p>
+<h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>SELECT [ALL | DISTINCT] select_expr, select_expr, …</p>
+<p> FROM table_reference</p>
+<p> [WHERE where_condition]    过滤条件</p>
+<p> [GROUP BY col_list]  分组</p>
+<p> [ORDER BY col_list]   全排序</p>
+<p> [CLUSTER BY col_list   分桶</p>
+<p>  | [DISTRIBUTE BY col_list] [SORT BY col_list]   排序</p>
+<p> ]</p>
+<p> [LIMIT number]   限制返回行</p>
+<p>查询的基本语法与sql类似所以在此并不多做  赘述</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h3><ol>
+<li>count 计数</li>
+<li>max  最大值</li>
+<li>min  最小值</li>
+<li>sum 综合</li>
+<li>avg  平均</li>
+</ol>
+<h3 id="比较符"><a href="#比较符" class="headerlink" title="比较符"></a>比较符</h3><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>支持的数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A=B</td>
+<td>基本数据类型</td>
+<td>如果A等于B则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A&lt;=&gt;B</td>
+<td>基本数据类型</td>
+<td>如果A和B都为NULL，则返回TRUE，其他的和等号（=）操作符的结果一致，如果任一为NULL则结果为NULL</td>
+</tr>
+<tr>
+<td>A&lt;&gt;B, A!=B</td>
+<td>基本数据类型</td>
+<td>A或者B为NULL则返回NULL；如果A不等于B，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A&lt;B</td>
+<td>基本数据类型</td>
+<td>A或者B为NULL，则返回NULL；如果A小于B，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A&lt;=B</td>
+<td>基本数据类型</td>
+<td>A或者B为NULL，则返回NULL；如果A小于等于B，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A&gt;B</td>
+<td>基本数据类型</td>
+<td>A或者B为NULL，则返回NULL；如果A大于B，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A&gt;=B</td>
+<td>基本数据类型</td>
+<td>A或者B为NULL，则返回NULL；如果A大于等于B，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A [NOT] BETWEEN B AND C</td>
+<td>基本数据类型</td>
+<td>如果A，B或者C任一为NULL，则结果为NULL。如果A的值大于等于B而且小于或等于C，则结果为TRUE，反之为FALSE。如果使用NOT关键字则可达到相反的效果。</td>
+</tr>
+<tr>
+<td>A IS NULL</td>
+<td>所有数据类型</td>
+<td>如果A等于NULL，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>A IS NOT NULL</td>
+<td>所有数据类型</td>
+<td>如果A不等于NULL，则返回TRUE，反之返回FALSE</td>
+</tr>
+<tr>
+<td>IN(数值1, 数值2)</td>
+<td>所有数据类型</td>
+<td>使用 IN运算显示列表中的值</td>
+</tr>
+<tr>
+<td>A [NOT] LIKE B</td>
+<td>STRING 类型</td>
+<td>B是一个SQL下的简单正则表达式，如果A与其匹配的话，则返回TRUE；反之返回FALSE。B的表达式说明如下：‘x%’表示A必须以字母‘x’开头，‘%x’表示A必须以字母’x’结尾，而‘%x%’表示A包含有字母’x’,可以位于开头，结尾或者字符串中间。如果使用NOT关键字则可达到相反的效果。</td>
+</tr>
+<tr>
+<td>A RLIKE B, A REGEXP B</td>
+<td>STRING 类型</td>
+<td>B是一个正则表达式，如果A与其匹配，则返回TRUE；反之返回FALSE。匹配使用的是JDK中的正则表达式接口实现的，因为正则也依据其中的规则。例如，正则表达式必须和整个字符串A相匹配，而不是只需与其字符串匹配。</td>
+</tr>
+</tbody></table>
+<h3 id="Like和RLike"><a href="#Like和RLike" class="headerlink" title="Like和RLike"></a>Like和RLike</h3><p>1.like运算选择类似值</p>
+<ul>
+<li>% 代表零个或多个字符(任意个字符)。</li>
+<li>_ 代表一个字符。</li>
+</ul>
+<p>2.rlike 子句时hive中的拓展功能  可以通过java的正则表达式来指定匹配条件</p>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AND</td>
+<td>逻辑并</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>逻辑否</td>
+</tr>
+</tbody></table>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>GROUP BY语句通常会和聚合函数一起使用，按照一个或者多个列队结果进行分组，然后对每个组执行聚合操作。</p>
+<p>例如：select t.deptno, avg(t.sal) avg_sal from emp t group by t.deptno;</p>
+<h3 id="having语句"><a href="#having语句" class="headerlink" title="having语句"></a>having语句</h3><p>having与where的不同：</p>
+<ol>
+<li>where针对表中的列发挥作用，查询数据；having针对查询结果中的列发挥作用，筛选数据</li>
+<li>where后面不能写分组函数，而having后面可以使用分组函数</li>
+<li>having只用于group by分组统计语句</li>
+</ol>
+<p>例如：select deptno, avg(sal) avg_sal from emp group by deptno having</p>
+<p> avg_sal &gt; 2000;</p>
+<h3 id="join语句"><a href="#join语句" class="headerlink" title="join语句"></a>join语句</h3><p>hive支持通常的sql  join  但只是支持等值连接 ，不支持非等值连接</p>
+<h3 id="表别名"><a href="#表别名" class="headerlink" title="表别名"></a>表别名</h3><ol>
+<li>使用别名可以简化查询</li>
+<li>使用表名前缀可以提高执行效率</li>
+</ol>
+<p>例如：select e.empno, e.ename, d.deptno from emp e join dept d on e.deptno</p>
+<p> = d.deptno;</p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><ol>
+<li><p>内连接   </p>
+<p>只有进行连接的两个表中都存在与连接条件相匹配的数据才会被保留下来</p>
+</li>
+<li><p>左外连接</p>
+<p>JOIN操作符左边表中符合WHERE子句的所有记录将会被返回</p>
+</li>
+<li><p>右外连接</p>
+<p>JOIN操作符右边表中符合WHERE子句的所有记录将会被返回。</p>
+</li>
+<li><p>满外连接</p>
+<p>将会返回所有表中符合WHERE语句条件的所有记录。如果任一表的指定字段没有符合条件的值的话，那么就使用NULL值替代</p>
+</li>
+<li><p>多表连接</p>
+<p>连接 n个表，至少需要n-1个连接条件。例如：连接三个表，至少需要两个连接条件。</p>
+</li>
+<li><p>笛卡尔积</p>
+<p>省略连接条件</p>
+<p>连接条件无效</p>
+<p>所有表中的所有行互相连接</p>
+<p>例如：select empno, dname from emp, dept;</p>
+</li>
+</ol>
+<p>注意在join连接词中不支持or</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>order  by  ：全局排序 一个reducer</p>
+<p>Sort  by：每个MapReduce内部排序  每个Reducer内部进行排序，对全局结果集来说不是排序</p>
+<p>Distribute by  ：分区排序 类似MR中的partition   进行分区  结合sort  by  使用</p>
+<p>​                            注意 hive 要求distrbute by  语句要在sort by 语句之前</p>
+<p>cluster by  ：当 distribute  by  和sorts by  字段相同 可以使用cluster by（只能时升序排序）</p>
+<h3 id="分桶"><a href="#分桶" class="headerlink" title="分桶"></a>分桶</h3><p>​        分区针对的是数据的存储路径；分桶针对的是数据文件。</p>
+<p>​        分区提供一个隔离数据和优化查询的便利方式。不过，并非所有的数据集都可形成合理的分区，特别是之前所提到过的要确定合适的划分大小这个疑虑。</p>
+<p>​        分桶是将数据集分解成更容易管理的若干部分的另一个技术。</p>
+<p>例如</p>
+<pre><code>   创建分桶表
+</code></pre>
+<p>create table stu_buck(id int, name string)</p>
+<p>clustered by(id)</p>
+<p> into 4 buckets</p>
+<p>row format delimited fields terminated by ‘\t’;</p>
+<p>​        查看表结构</p>
+<p>​    hive (default)&gt; desc formatted stu_buck;</p>
+<p>​    Num Buckets:       4   </p>
+<p>​        导入数据到分桶表中</p>
+<p>hive (default)&gt; load data local inpath ‘/opt/module/datas/student.txt’ into table</p>
+<p> stu_buck;</p>
+<p>注意：使用分桶表时需要设置个参数</p>
+<p>set hive.enforce.bucketing=true</p>
+<h3 id="分桶抽样查询"><a href="#分桶抽样查询" class="headerlink" title="分桶抽样查询"></a>分桶抽样查询</h3><p>基本语法：TABLESAMPLE(BUCKET x OUT OF y)</p>
+<p>   例如：select * from stu_buck tablesample(bucket 1 out of 4 on id);</p>
+<p><em><strong>y必须是table总bucket数的倍数或者因子。hive根据y的大小，决定抽样的比例。例如，table总共分了4份，当y=2时，抽取(4/2=)2个bucket的数据，当y=8时，抽取(4/8=)1/2个bucket的数据。</strong></em></p>
+<p><em><strong>x表示从第几个bucket开始抽取，如果需要取多个分区，以后的分区号为当前分区号加上y。例如，table总bucket数为4，tablesample(bucket 1 out of 2)，表示总共抽取（4/2=）2个bucket的数据，抽取第1(x)个和第3(x+y)个bucket的数据。</strong></em></p>
+<h2 id="常用查询函数"><a href="#常用查询函数" class="headerlink" title="常用查询函数"></a>常用查询函数</h2><ol>
+<li><p>NVL：给值为NULL的数据赋值，它的格式是NVL( string1, replace_with)。它的功能是如果string1为NULL，则NVL函数返回replace_with的值，否则返回string1的值，如果两个参数都为NULL ，则返回NULL</p>
+</li>
+<li><p>case when  ：是一个将值替换的函数</p>
+<p>例如：sum(case sex when ‘男’ then 1 else 0 end) male_count</p>
+</li>
+</ol>
+<h3 id="行转列函数"><a href="#行转列函数" class="headerlink" title="行转列函数"></a>行转列函数</h3><ol>
+<li>CONCAT(string A/col, string B/col…)：返回输入字符串连接后的结果，支持任意个输入字符串</li>
+<li>CONCAT_WS(separator, str1, str2,…)：它是一个特殊形式的 CONCAT()。第一个参数剩余参数间的分隔符。分隔符可以是与剩余参数一样的字符串。如果分隔符是 NULL，返回值也将为 NULL。这个函数会跳过分隔符参数后的任何 NULL 和空字符串。分隔符将被加到被连接的字符串之间;</li>
+<li>COLLECT_SET(col)：函数只接受基本数据类型，它的主要作用是将某字段的值进行去重汇总，产生array类型字段</li>
+</ol>
+<h3 id="列转行函数"><a href="#列转行函数" class="headerlink" title="列转行函数"></a>列转行函数</h3><p>EXPLODE(col)：将hive一列中复杂的array或者map结构拆分成多行。</p>
+<p>LATERAL VIEW：</p>
+<p>用法：LATERAL VIEW udtf(expression) tableAlias AS columnAlias</p>
+<p>解释：用于和split, explode等UDTF一起使用，它能够将一列数据拆成多行数据，在此基础上可以对拆分后的数据进行聚合。</p>
+<h3 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h3><p>over(): 指定分析函数工作的数据窗口大小 数据窗口的大小可能会随着行的变化变化</p>
+<ul>
+<li><p>current  row  ：当前行</p>
+</li>
+<li><p>n preceding：往前n行</p>
+</li>
+<li><p>n following ： 往后n行数据</p>
+</li>
+<li><p>unbounded ：起点</p>
+</li>
+<li><p>unbounded preceding 表示从前面的起点</p>
+</li>
+<li><p>unbounded following 表示到后面的终点</p>
+<p>lag    (col,n)  往后n行数据    此处前n行与上over不一样  指的是查询结果当前col 的前n行</p>
+</li>
+</ul>
+<p>lead（col ，n） 往后n行数据</p>
+<p>ntile（n） 把有序分区中的行分发到指定数据的组中，各个组的编号，编号从1开始，对于每一行，ntile返回此行所属的组的编号  </p>
+<h3 id="rank函数"><a href="#rank函数" class="headerlink" title="rank函数"></a>rank函数</h3><p>rank()  排行相同时排名重复  总数不变</p>
+<p>dense_rank（） 排行相同时会重复  总数减少</p>
+<p>row_number（）会根据顺序计算</p>
+<h3 id="系统内置函数"><a href="#系统内置函数" class="headerlink" title="系统内置函数"></a>系统内置函数</h3><p>可通过</p>
+<p>show function ；查看hive中系统自带的function</p>
+<h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><p>虽然说函数库相当丰富但对于一些无法完成的处理时我们就必须使用到自定义函数</p>
+<ol>
+<li><p>UDF（User-Defined-Function）</p>
+<p>一进一出</p>
+</li>
+<li><p>UDAF（User-Defined Aggregation Function）</p>
+<p>聚集函数，多进一出</p>
+</li>
+<li><p>UDTF（User-Defined Table-Generating Functions）</p>
+<p>一进多出</p>
+<p><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HivePlugins">https://cwiki.apache.org/confluence/display/Hive/HivePlugins</a></p>
+<p>可通过此网站查看官方文档</p>
+</li>
+</ol>
+<h3 id="编程步骤"><a href="#编程步骤" class="headerlink" title="编程步骤"></a>编程步骤</h3><ol>
+<li><p>继承org.apache.hadoop.hive.ql.UDF</p>
+</li>
+<li><p>需要实现evaluat函数  函数支持重载</p>
+</li>
+<li><p>在hive的命令行中创建函数</p>
+<p>add jar linux_jar_path   添加jar包</p>
+<p>create [temporary] function [dbname.]function_name AS class_name;   创建函数</p>
+</li>
+<li><p>在hive的命令行窗口删除函数</p>
+<p>Drop [temporary] function [if exists] [dbname.]function_name;</p>
+<p>实在删不掉有一种暴力的方法就是去删除mysql库中的元数据</p>
+</li>
+</ol>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><p>1．JDK解压、配置环境变量JAVA_HOME和PATH，验证<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/javase">java</a>-version(如下都需要验证是否配置成功)</p>
+<p>[root@hadoop101 software] # tar -zxf jdk-8u144-linux-x64.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 software]# vi /etc/profile</p>
+<p>#JAVA_HOMEexport JAVA_HOME=/opt/module/jdk1.8.0_144export PATH=$PATH:$JAVA_HOME/bin</p>
+<p>[root@hadoop101 software]#source /etc/profile</p>
+<p>验证命令：java -version</p>
+<p>2．Maven解压、配置 MAVEN_HOME和PATH</p>
+<p>[root@hadoop101 software]# tar -zxvf apache-maven-3.0.5-bin.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 apache-maven-3.0.5]# vi /etc/profile</p>
+<p>#MAVEN_HOMEexport MAVEN_HOME=/opt/module/apache-maven-3.0.5export PATH=$PATH:$MAVEN_HOME/bin</p>
+<p>[root@hadoop101 software]#source /etc/profile</p>
+<p>验证命令：mvn -version</p>
+<p>8.1.3 编译源码</p>
+<p>1．准备编译环境</p>
+<p>​    [root@hadoop101 software]# yum install svn</p>
+<p>​    [root@hadoop101 software]# yum install autoconf automake libtool cmake</p>
+<p>​    [root@hadoop101 software]# yum install ncurses-devel</p>
+<p>​    [root@hadoop101 software]# yum install openssl-devel</p>
+<p>​    [root@hadoop101 software]# yum install gcc*</p>
+<p>2．编译安装snappy</p>
+<p>​    [root@hadoop101 software]# tar -zxvf snappy-1.1.3.tar.gz -C /opt/module/</p>
+<p>​    [root@hadoop101 module]# cd snappy-1.1.3/</p>
+<p>​    [root@hadoop101 snappy-1.1.3]# ./configure</p>
+<p>​    [root@hadoop101 snappy-1.1.3]# make</p>
+<p>​    [root@hadoop101 snappy-1.1.3]# make install</p>
+<p>​    # 查看snappy库文件</p>
+<p>​    [root@hadoop101 snappy-1.1.3]# ls -lh /usr/local/lib |grep snappy</p>
+<p>3．编译安装protobuf</p>
+<p>​    [root@hadoop101 software]# tar -zxvf protobuf-2.5.0.tar.gz -C /opt/module/</p>
+<p>​    [root@hadoop101 module]# cd protobuf-2.5.0/</p>
+<p>​    [root@hadoop101 protobuf-2.5.0]# ./configure </p>
+<p>​    [root@hadoop101 protobuf-2.5.0]#  make </p>
+<p>​    [root@hadoop101 protobuf-2.5.0]#  make install</p>
+<p>​    #查看protobuf版本以测试是否安装成功</p>
+<p>​    [root@hadoop101 protobuf-2.5.0]# protoc –version</p>
+<p>4．编译hadoop native</p>
+<p>[root@hadoop101 software]# tar -zxvf hadoop-2.7.2-src.tar.gz</p>
+<p>[root@hadoop101 software]# cd hadoop-2.7.2-src/</p>
+<p>[root@hadoop101 software]# mvn clean package -DskipTests -Pdist,native -Dtar -Dsnappy.lib=/usr/local/lib -Dbundle.snappy</p>
+<p>执行成功后，/opt/software/hadoop-2.7.2-src/hadoop-dist/target/<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/hadoop">hadoop</a>-2.7.2.tar.gz即为新生成的支持snappy压缩的二进制安装包。</p>
+<p>以上是我从网上抄下来的如何让hadoop支持snappy压缩的方法</p>
+<p>当然支持压缩需要压缩的配置我们可以去hadoop的官网查看如何配置</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>阶段</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>io.compression.codecs  （在core-site.xml中配置）</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec, org.apache.hadoop.io.compress.GzipCodec, org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.Lz4Codec</td>
+<td>输入压缩</td>
+<td>Hadoop使用文件扩展名判断是否支持某种编解码器</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress</td>
+<td>false</td>
+<td>mapper输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress.codec</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+<td>mapper输出</td>
+<td>使用LZO、LZ4或snappy编解码器在此阶段压缩数据</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress</td>
+<td>false</td>
+<td>reducer输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.codec</td>
+<td>org.apache.hadoop.io.compress. DefaultCodec</td>
+<td>reducer输出</td>
+<td>使用标准工具或者编解码器，如gzip和bzip2</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.type</td>
+<td>RECORD</td>
+<td>reducer输出</td>
+<td>SequenceFile输出使用的压缩类型：NONE和BLOCK</td>
+</tr>
+</tbody></table>
+<h3 id="几种压缩的比较"><a href="#几种压缩的比较" class="headerlink" title="几种压缩的比较"></a>几种压缩的比较</h3><table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>工具</th>
+<th>算法</th>
+<th>文件扩展名</th>
+<th>是否可切分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEFAULT</td>
+<td>无</td>
+<td>DEFAULT</td>
+<td>.deflate</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Gzip</td>
+<td>gzip</td>
+<td>DEFAULT</td>
+<td>.gz</td>
+<td>否</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>.bz2</td>
+<td>是</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>lzop</td>
+<td>LZO</td>
+<td>.lzo</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>无</td>
+<td>Snappy</td>
+<td>.snappy</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>压缩算法</th>
+<th>原始文件大小</th>
+<th>压缩文件大小</th>
+<th>压缩速度</th>
+<th>解压速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>gzip</td>
+<td>8.3GB</td>
+<td>1.8GB</td>
+<td>17.5MB/s</td>
+<td>58MB/s</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>8.3GB</td>
+<td>1.1GB</td>
+<td>2.4MB/s</td>
+<td>9.5MB/s</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>8.3GB</td>
+<td>2.9GB</td>
+<td>49.3MB/s</td>
+<td>74.6MB/s</td>
+</tr>
+</tbody></table>
+<h3 id="如何开启map输出端压缩"><a href="#如何开启map输出端压缩" class="headerlink" title="如何开启map输出端压缩"></a>如何开启map输出端压缩</h3><ol>
+<li>set hive.exec.compress.intermediate=true;  开始hive中间数据压缩功能</li>
+<li>set mapreduce.map.output.compress=true;  开启mr中map输出压缩</li>
+<li>set mapreduce.map.output.compress.codec=org.apache.hadoop.io.compress.SnappyCodec;   设置map输出的压缩方式</li>
+</ol>
+<h3 id="开启reduce端压缩"><a href="#开启reduce端压缩" class="headerlink" title="开启reduce端压缩"></a>开启reduce端压缩</h3><ol>
+<li>set hive.exec.compress.output=true   开启hiev最终输出压缩功能</li>
+<li>set mapreduce.output.fileoutputformat.compress=true;   开启mr输出数据压缩</li>
+<li>set mapreduce.output.fileoutputformat.compress.codec = org.apache.hadoop.io.compress.SnappyCodec;   设置压缩方式</li>
+<li> set mapreduce.output.fileoutputformat.compress.type=BLOCK  最终压缩数据压缩成块;</li>
+</ol>
+<h3 id="文件存储格式"><a href="#文件存储格式" class="headerlink" title="文件存储格式"></a>文件存储格式</h3><h3 id="textfile："><a href="#textfile：" class="headerlink" title="textfile："></a>textfile：</h3><p>默认格式，数据不做压缩，磁盘开销大，数据解析开销大。可结合Gzip、Bzip2使用，但使用Gzip这种方式，hive不会对数据进行切分，从而无法对数据进行并行操作。</p>
+<p>sequencefile：</p>
+<h3 id="orc："><a href="#orc：" class="headerlink" title="orc："></a>orc：</h3><p>如图所示可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data，Row Data，Stripe Footer：</p>
+<p><img src="D:\blog\langBlog\public\img\wps1.jpg" alt="img"> </p>
+<pre><code>  1）Index Data：一个轻量级的index，默认是每隔1W行做一个索引。这里做的索引应该只是记录某行的各字段在Row Data中的offset。
+
+  2）Row Data：存的是具体的数据，先取部分行，然后对这些行按列进行存储。对每个列进行了编码，分成多个Stream来存储。
+
+  3）Stripe Footer：存的是各个Stream的类型，长度等信息。
+</code></pre>
+<p>每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
+<h3 id="parquet"><a href="#parquet" class="headerlink" title="parquet"></a>parquet</h3><p>：Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
+<p>通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如图6-12所示。</p>
+<p><img src="D:\blog\langBlog\public\img\wps2.jpg" alt="img"></p>
+<p>上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
+<p>1．行存储的特点</p>
+<p>查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
+<p>2．列存储的特点</p>
+<p>因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p>
+<p>TEXTFILE和SEQUENCEFILE的存储格式都是基于行存储的；</p>
+<p>ORC和PARQUET是基于列式存储的</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在实际的项目开发当中，hive表的数据存储格式一般选择：orc或parquet。压缩方式一般选择snappy，lzo。</p>
+<h2 id="hive优化"><a href="#hive优化" class="headerlink" title="hive优化"></a>hive优化</h2><h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><p>Fetch抓取是指，Hive中对某些情况的查询可以不必使用MapReduce计算</p>
+<p>例如：SELECT * FROM employees;在这种情况下，Hive可以简单地读取employee对应的存储目录下的文件，然后输出查询结果到控制台。</p>
+<p>该属性修改为more以后，在全局查找、字段查找、limit查找等都不走mapreduce。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;name&gt;hive.fetch.task.conversion&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">  &lt;value&gt;more&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;description&gt;</span><br><span class="line"></span><br><span class="line">   Expects one of [none, minimal, more].</span><br><span class="line"></span><br><span class="line">   Some select queries can be converted to single FETCH task minimizing latency.</span><br><span class="line"></span><br><span class="line">   Currently the query should be single sourced not having any subquery and should not have</span><br><span class="line"></span><br><span class="line">   any aggregations or distincts (which incurs RS), lateral views and joins.</span><br><span class="line"></span><br><span class="line">   \0. none : disable hive.fetch.task.conversion</span><br><span class="line"></span><br><span class="line">   \1. minimal : SELECT STAR, FILTER on partition columns, LIMIT only</span><br><span class="line"></span><br><span class="line">   \2. more  : SELECT, FILTER, LIMIT only (support TABLESAMPLE and virtual columns)</span><br><span class="line"></span><br><span class="line">  &lt;/description&gt;</span><br><span class="line"></span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地模式"><a href="#本地模式" class="headerlink" title="本地模式"></a>本地模式</h3><p>大多数的Hadoop Job是需要Hadoop提供的完整的可扩展性来处理大数据集的。不过，有时Hive的输入数据量是非常小的。在这种情况下，为查询触发执行任务消耗的时间可能会比实际job的执行时间要多的多。对于大多数这种情况，Hive可以通过本地模式在单台机器上处理所有的任务。对于小数据集，执行时间可以明显被缩短。</p>
+<p>用户可以通过设置hive.exec.mode.local.auto的值为true，来让Hive在适当的时候自动启动这个优化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.mode.local.auto=true;  //开启本地mr</span><br><span class="line">//设置local mr的最大输入数据量，当输入数据量小于这个值时采用local  mr的方式，默认为134217728，即128M</span><br><span class="line">set hive.exec.mode.local.auto.inputbytes.max=50000000;</span><br><span class="line">//设置local mr的最大输入文件个数，当输入文件个数小于这个值时采用local mr的方式，默认为4</span><br><span class="line">set hive.exec.mode.local.auto.input.files.max=10;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小表大表join"><a href="#小表大表join" class="headerlink" title="小表大表join"></a>小表大表join</h3><p>hive会自动优化所以在此我们不多说</p>
+<h3 id="大表join大表"><a href="#大表join大表" class="headerlink" title="大表join大表"></a>大表join大表</h3><p>1．空KEY过滤</p>
+<p>2．空key转换   因为大量的null值可以能会产生数据倾斜</p>
+<h3 id="mapjoin"><a href="#mapjoin" class="headerlink" title="mapjoin"></a>mapjoin</h3><p>如果不指定MapJoin或者不符合MapJoin的条件，那么Hive解析器会将Join操作转换成Common Join，即：在Reduce阶段完成join。容易发生数据倾斜。可以用MapJoin把小表全部加载到内存在map端进行join，避免reducer处理。</p>
+<p>set hive.auto.convert.join = true; 默认为true</p>
+<h3 id="Group-By"><a href="#Group-By" class="headerlink" title="Group By"></a>Group By</h3><p>默认情况下，Map阶段同一Key数据分发给一个reduce，当一个key数据过大时就倾斜了。</p>
+<p>并不是所有的聚合操作都需要在Reduce端完成，很多聚合操作都可以先在Map端进行部分聚合，最后在Reduce端得出最终结果。</p>
+<p>开启map端口聚合</p>
+<p>hive.map.aggr = true</p>
+<p>在map端进行聚合操作的条目数目</p>
+<p>hive.groupby.mapaggr.checkinterval = 100000</p>
+<p>有数据倾斜的时候进行负载均衡（默认是false）</p>
+<p>hive.groupby.skewindata = true</p>
+<p>当选项设定为 true，生成的查询计划会有两个MR Job。第一个MR Job中，Map的输出结果会随机分布到Reduce中，每个Reduce做部分聚合操作，并输出结果，这样处理的结果是相同的Group By Key有可能被分发到不同的Reduce中，从而达到负载均衡的目的；第二个MR Job再根据预处理的数据结果按照Group By Key分布到Reduce中（这个过程可以保证相同的Group By Key被分布到同一个Reduce中），最后完成最终的聚合操作。</p>
+<h3 id="Count-Distinct-去重统计"><a href="#Count-Distinct-去重统计" class="headerlink" title="Count(Distinct) 去重统计"></a>Count(Distinct) 去重统计</h3><p>数据量小的时候无所谓，数据量大的情况下，由于COUNT DISTINCT操作需要用一个Reduce Task来完成，这一个Reduce需要处理的数据量太大，就会导致整个Job很难完成，一般COUNT DISTINCT使用先GROUP BY再COUNT的方式替换</p>
+<h3 id="避免笛卡尔积"><a href="#避免笛卡尔积" class="headerlink" title="避免笛卡尔积"></a>避免笛卡尔积</h3><p>尽量避免笛卡尔积，join的时候不加on条件，或者无效的on条件，Hive只能使用1个reducer来完成笛卡尔积</p>
+<h3 id="行列过滤"><a href="#行列过滤" class="headerlink" title="行列过滤"></a>行列过滤</h3><p>列处理：在SELECT中，只拿需要的列，如果有，尽量使用分区过滤，少用SELECT *。</p>
+<p>行处理：在分区剪裁中，当使用外关联时，如果将副表的过滤条件写在Where后面，那么就会先全表关联，之后再过滤</p>
+<h3 id="分区和分桶"><a href="#分区和分桶" class="headerlink" title="分区和分桶"></a>分区和分桶</h3><h3 id="小文件合并"><a href="#小文件合并" class="headerlink" title="小文件合并"></a>小文件合并</h3><p>在map执行前合并小文件，减少map数：CombineHiveInputFormat具有对小文件进行合并的功能（系统默认的格式）。HiveInputFormat没有对小文件合并功能。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set hive.input.format= org.apache.hadoop.hive.ql.io.CombineHiveInputFormat;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂文件可以增加map数"><a href="#复杂文件可以增加map数" class="headerlink" title="复杂文件可以增加map数"></a>复杂文件可以增加map数</h3><p>当input的文件都很大，任务逻辑复杂，map执行非常慢的时候，可以考虑增加Map数，来使得每个map处理的数据量减少，从而提高任务的执行效率。</p>
+<h3 id="并行执行"><a href="#并行执行" class="headerlink" title="并行执行"></a><strong>并行执行</strong></h3><p>Hive会将一个查询转化成一个或者多个阶段。这样的阶段可以是MapReduce阶段、抽样阶段、合并阶段、limit阶段。或者Hive执行过程中可能需要的其他阶段。默认情况下，Hive一次只会执行一个阶段。不过，某个特定的job可能包含众多的阶段，而这些阶段可能并非完全互相依赖的，也就是说有些阶段是可以并行执行的，这样可能使得整个job的执行时间缩短。不过，如果有更多的阶段可以并行执行，那么job可能就越快完成。</p>
+<p>​    通过设置参数hive.exec.parallel值为true，就可以开启并发执行。不过，在共享集群中，需要注意下，如果job中并行阶段增多，那么集群利用率就会增加。</p>
+<p>set hive.exec.parallel=true;        //打开任务并行执行</p>
+<p>set hive.exec.parallel.thread.number=16;  //同一个sql允许最大并行度，默认为8。</p>
+<p>当然，得是在系统资源比较空闲的时候才有优势，否则，没资源，并行也起不来。</p>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>Hive提供了一个严格模式，可以防止用户执行那些可能意想不到的不好的影响的查询。</p>
+<p>​    通过设置属性hive.mapred.mode值为默认是非严格模式nonstrict 。开启严格模式需要修改hive.mapred.mode值为strict，开启严格模式可以禁止3种类型的查询。</p>
+<ol>
+<li><p>对于分区表，除非where语句中含有分区字段过滤条件来限制范围，否则不允许执行。换句话说，就是用户不允许扫描所有分区。进行这个限制的原因是，通常分区表都拥有非常大的数据集，而且数据增加迅速。没有进行分区限制的查询可能会消耗令人不可接受的巨大资源来处理这个表。</p>
+</li>
+<li><p>对于使用了order by语句的查询，要求必须使用limit语句。因为order by为了执行排序过程会将所有的结果数据分发到同一个Reducer中进行处理，强制要求用户增加这个LIMIT语句可以防止Reducer额外执行很长一段时间。</p>
+</li>
+<li><p>限制笛卡尔积的查询。对关系型数据库非常了解的用户可能期望在执行JOIN查询的时候不使用ON语句而是使用where语句，这样关系数据库的执行优化器就可以高效地将WHERE语句转化成那个ON语句。不幸的是，Hive并不会执行这种优化，因此，如果表足够大，那么这个查询就会出现不可控的情况。</p>
+</li>
+</ol>
+<h3 id="压缩-1"><a href="#压缩-1" class="headerlink" title="压缩"></a>压缩</h3><h3 id="jvm重用"><a href="#jvm重用" class="headerlink" title="jvm重用"></a>jvm重用</h3><p>JVM重用是Hadoop调优参数的内容，其对Hive的性能具有非常大的影响，特别是对于很难避免小文件的场景或task特别多的场景，这类场景大多数执行时间都很短。</p>
+<p>Hadoop的默认配置通常是使用派生JVM来执行map和Reduce任务的。这时JVM的启动过程可能会造成相当大的开销，尤其是执行的job包含有成百上千task任务的情况。JVM重用可以使得JVM实例在同一个job中重新使用N次。N的值可以在Hadoop的mapred-site.xml文件中进行配置。通常在10-20之间，具体多少需要根据具体业务场景测试</p>
+<h1 id="HIVE-面试题"><a href="#HIVE-面试题" class="headerlink" title="HIVE 面试题"></a>HIVE 面试题</h1><ul>
 <li><p> 窗口函数开窗函数</p>
 </li>
 <li><p>行转列函数</p>
