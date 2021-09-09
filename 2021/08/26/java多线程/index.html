@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="lang">
+    <meta name="keywords" content="多线程, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>lang</title>
+    <title>多线程 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">多线程</h1>
                 </div>
             </div>
         </div>
@@ -429,9 +429,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
+                                <span class="chip bg-color">多线程  java</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -464,7 +468,61 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><h2 id="线程的相关概念"><a href="#线程的相关概念" class="headerlink" title="线程的相关概念"></a>线程的相关概念</h2><p>程序：一组正在执行某些特定功能的代码的集合体，此时没有运行    </p>
+<p>进程：正在运行的代码，此时已经运行叫做进程</p>
+<p>线程：一个进程下同时开启的多个任务</p>
+<h2 id="线程的创建和启动-重点"><a href="#线程的创建和启动-重点" class="headerlink" title="线程的创建和启动(重点)"></a>线程的创建和启动(重点)</h2><p>线程创建的两种方式：</p>
+<ol>
+<li><p>线程继承thread重写run方法把需要运行的代码写在其中  在开启线程的时候不能调用run方法而是调用线程中的run方法。</p>
+<p>MyThreadOne mto = new  MyThreadOne()</p>
+</li>
+<li><p>需要我们创建的线程类实现Runable接口。实现run方法，把需要多线程调用的代码放在run方法中也不能使用run方法而是调用start方法</p>
+<p>MyThreadTwo  mtt = new MyThreadTwo();</p>
+<p>Thread thread = new Thread(mtt );//将我们定义的线程类的对象作为参数传递给thread对象。</p>
+</li>
+</ol>
+<h2 id="线程的停止"><a href="#线程的停止" class="headerlink" title="线程的停止"></a>线程的停止</h2><p>线程的停止一般分为三种情况</p>
+<ol>
+<li>线程正常执行完毕</li>
+<li>线程遇到异常异常停止</li>
+<li>调用线程的stop方法但是现在不建议采用</li>
+</ol>
+<h2 id="线程的常见方法-Thread-重点"><a href="#线程的常见方法-Thread-重点" class="headerlink" title="线程的常见方法(Thread)(重点)"></a>线程的常见方法(Thread)(重点)</h2><ol>
+<li><p>get/setname</p>
+<p>设置和获取线程的名称</p>
+</li>
+<li><p>set/getPriority</p>
+<p>获取和设置线程的优先级</p>
+</li>
+<li><p>yield</p>
+<p>线程的礼让方法</p>
+</li>
+<li><p>join</p>
+<p>线程的插队方法</p>
+</li>
+<li><p>sleep（long）</p>
+<p>线程的睡眠</p>
+</li>
+<li><p>interrupt</p>
+<p>线程的唤醒方法</p>
+</li>
+<li><p>setDaemon（boolean）</p>
+<p>设置线程的守护进程</p>
+</li>
+</ol>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p>线程的状态</p>
+<p>新建：当一个线程被Thread类或者其子类的对象被声明并且创建时，新生的线程对象就处于新建状态</p>
+<p>就绪：处于新建状态的线程被Start（）后，将进入线程队列等待CPU时间片</p>
+<p>运行：当就绪的线程获得了CPU资源之后就会由足就绪状态转为运行状态</p>
+<p>阻塞：在特殊情况下线程被人挂起或者执行输入输出时，让出了CPU的资源线程便会处于阻塞状态</p>
+<p>死亡：线程完成或被异常终止</p>
+<h2 id="线程的同步-重点"><a href="#线程的同步-重点" class="headerlink" title="线程的同步(重点)"></a>线程的同步(重点)</h2><p>线程安全问题是如何产生的:</p>
+<p>多个线程同时争抢一个公共资源。当一个线程执行到一半的时候，线程失去时间片，处于等待状态，其他线程修改公共资源。此时当这个属于等待状态的线程再回来的时候，继续操作的数据就是修改之后的，而这个时候两个线程都修改过这个资源，就容易造成问题</p>
+<p>如何解决：</p>
+<p>使用锁机制。在可能出现线程安全问题的代码块部分，加上锁，这么锁通常在普通方法的时候是this，在static方法的时候是类名.class这个对象。一个线程将一段代码加上锁之后，这个段代码不进行完，这个锁对象不会被释放。其他的线程即便准备执行这段代码由于拿不到锁对象也会无法执行。</p>
+<h3 id="线程加锁的方式"><a href="#线程加锁的方式" class="headerlink" title="线程加锁的方式"></a>线程加锁的方式</h3><p>对需要争夺的资源代码块添加synchronized关键字</p>
+<p>调用synchronized（this）方法</p>
+<h2 id="线程的通信-重点"><a href="#线程的通信-重点" class="headerlink" title="线程的通信(重点)"></a>线程的通信(重点)</h2><h2 id="线程的创建和启动：方式三-了解"><a href="#线程的创建和启动：方式三-了解" class="headerlink" title="线程的创建和启动：方式三(了解)"></a>线程的创建和启动：方式三(了解)</h2><h2 id="线程的创建和启动-方式四（线程池）-了解"><a href="#线程的创建和启动-方式四（线程池）-了解" class="headerlink" title="线程的创建和启动:方式四（线程池）(了解)"></a>线程的创建和启动:方式四（线程池）(了解)</h2>
                 
             </div>
             <hr/>
@@ -527,7 +585,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
+                                    <span class="chip bg-color">多线程  java</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -701,13 +763,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/26/Mysql%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/">
+                <a href="/2021/08/28/hadoop%E9%9D%A2%E8%AF%95%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="hadoop面试题">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">hadoop面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,7 +780,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-28
                         </span>
                         <span class="publish-author">
                             
@@ -727,6 +789,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -738,13 +808,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/26/javaIO%E6%B5%81/">
+                <a href="/2021/08/26/hbase%E5%A4%8D%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hbase面试题">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">hbase面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -764,6 +834,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95-hbase/">
+                        <span class="chip bg-color">面试  hbase</span>
+                    </a>
+                    
                 </div>
                 
             </div>
