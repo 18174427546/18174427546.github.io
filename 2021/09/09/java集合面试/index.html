@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="多线程, lang">
+    <meta name="keywords" content="java集合面试, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>多线程 | lang</title>
+    <title>java集合面试 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">多线程</h1>
+                    <h1 class="description center-align post-title">java集合面试</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                <span class="chip bg-color">多线程  java</span>
+                            <a href="/tags/java-%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">java  面试</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2021-09-09
                 </div>
                 
 
@@ -468,131 +468,67 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="线程的相关概念"><a href="#线程的相关概念" class="headerlink" title="线程的相关概念"></a>线程的相关概念</h1><p>程序：一组正在执行某些特定功能的代码的集合体，此时没有运行    </p>
-<p>进程：正在运行的代码，此时已经运行叫做进程</p>
-<p>线程：一个进程下同时开启的多个任务</p>
-<h1 id="线程的创建和启动-重点"><a href="#线程的创建和启动-重点" class="headerlink" title="线程的创建和启动(重点)"></a>线程的创建和启动(重点)</h1><p>线程创建的两种方式：</p>
-<ol>
-<li><p>线程继承thread重写run方法把需要运行的代码写在其中  在开启线程的时候不能调用run方法而是调用线程中的run方法。</p>
-<p>MyThreadOne mto = new  MyThreadOne()</p>
-</li>
-<li><p>需要我们创建的线程类实现Runable接口。实现run方法，把需要多线程调用的代码放在run方法中也不能使用run方法而是调用start方法</p>
-<p>MyThreadTwo  mtt = new MyThreadTwo();</p>
-<p>Thread thread = new Thread(mtt );//将我们定义的线程类的对象作为参数传递给thread对象。</p>
-</li>
-</ol>
-<h1 id="线程的停止"><a href="#线程的停止" class="headerlink" title="线程的停止"></a>线程的停止</h1><p>线程的停止一般分为三种情况</p>
-<ol>
-<li>线程正常执行完毕</li>
-<li>线程遇到异常异常停止</li>
-<li>调用线程的stop方法但是现在不建议采用</li>
-</ol>
-<h1 id="线程的常见方法-Thread-重点"><a href="#线程的常见方法-Thread-重点" class="headerlink" title="线程的常见方法(Thread)(重点)"></a>线程的常见方法(Thread)(重点)</h1><ol>
-<li><p>get/setname</p>
-<p>设置和获取线程的名称</p>
-</li>
-<li><p>set/getPriority</p>
-<p>获取和设置线程的优先级</p>
-</li>
-<li><p>yield</p>
-<p>线程的礼让方法</p>
-</li>
-<li><p>join</p>
-<p>线程的插队方法</p>
-</li>
-<li><p>sleep（long）</p>
-<p>线程的睡眠</p>
-</li>
-<li><p>interrupt</p>
-<p>线程的唤醒方法</p>
-</li>
-<li><p>setDaemon（boolean）</p>
-<p>设置线程的守护进程</p>
-</li>
-</ol>
-<h1 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h1><p>线程的状态</p>
-<p>新建：当一个线程被Thread类或者其子类的对象被声明并且创建时，新生的线程对象就处于新建状态</p>
-<p>就绪：处于新建状态的线程被Start（）后，将进入线程队列等待CPU时间片</p>
-<p>运行：当就绪的线程获得了CPU资源之后就会由足就绪状态转为运行状态</p>
-<p>阻塞：在特殊情况下线程被人挂起或者执行输入输出时，让出了CPU的资源线程便会处于阻塞状态</p>
-<p>死亡：线程完成或被异常终止</p>
-<h1 id="线程的同步-重点"><a href="#线程的同步-重点" class="headerlink" title="线程的同步(重点)"></a>线程的同步(重点)</h1><p>线程安全问题是如何产生的:</p>
-<p>多个线程同时争抢一个公共资源。当一个线程执行到一半的时候，线程失去时间片，处于等待状态，其他线程修改公共资源。此时当这个属于等待状态的线程再回来的时候，继续操作的数据就是修改之后的，而这个时候两个线程都修改过这个资源，就容易造成问题</p>
-<p>如何解决：</p>
-<p>使用锁机制。在可能出现线程安全问题的代码块部分，加上锁，这么锁通常在普通方法的时候是this，在static方法的时候是类名.class这个对象。一个线程将一段代码加上锁之后，这个段代码不进行完，这个锁对象不会被释放。其他的线程即便准备执行这段代码由于拿不到锁对象也会无法执行。</p>
-<h1 id="线程加锁的方式"><a href="#线程加锁的方式" class="headerlink" title="线程加锁的方式"></a>线程加锁的方式</h1><p>对需要争夺的资源代码块添加synchronized关键字</p>
-<p>调用synchronized（this）方法</p>
-<h1 id="线程的通信-重点"><a href="#线程的通信-重点" class="headerlink" title="线程的通信(重点)"></a>线程的通信(重点)</h1><ol>
-<li>使用 <em>volatile</em> 关键字</li>
-<li>使用Object类的wait() 和 notify() 方法</li>
-<li>使用JUC工具类 CountDownLatch</li>
-</ol>
-<h1 id="线程池的原理与使用"><a href="#线程池的原理与使用" class="headerlink" title="线程池的原理与使用"></a>线程池的原理与使用</h1><ol>
-<li>线程池判断核心线程池里的线程是否都在执行任务。如果不是，则创建一个新的工作线程来执行任务。如果核心线程池里的线程都在执行任务，则进入下个流程。</li>
-<li>线程池判断工作队列是否已经满。如果工作队列没有满，则将新提交的任务存储在这个工作队列里。如果工作队列满了，则进入下个流程。</li>
-<li>线程池判断线程池的线程是否都处于工作状态。如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务</li>
-</ol>
-<h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><h3 id="corePoolSize：核心线程池的线程数"><a href="#corePoolSize：核心线程池的线程数" class="headerlink" title="corePoolSize：核心线程池的线程数"></a>corePoolSize：核心线程池的线程数</h3><ul>
-<li>当线程数未达到核心线程最大值的时候，新任务进来，即使有空闲线程，也不会复用，仍然新建核心线程</li>
-<li>核心线程一般不会被销毁，即使是空闲的状态，但是如果通过方法 allowCoreThreadTimeOut(boolean value) 设置为 true 时，超时也同样会被销毁</li>
-<li>生产环境首次初始化的时候，可以调用 prestartCoreThread() 方法来预先创建所有核心线程，避免第一次调用缓慢</li>
-</ul>
-<h3 id="maximumPoolSize：核心线程-临时线程的最大上限"><a href="#maximumPoolSize：核心线程-临时线程的最大上限" class="headerlink" title="maximumPoolSize：核心线程 + 临时线程的最大上限"></a>maximumPoolSize：核心线程 + 临时线程的最大上限</h3><p>当核心线程和  线程等待队列都满了之后会申请创建临时线程来处理任务</p>
-<p>临时线程有一个超时机制一旦超过了空闲时间便会被销毁</p>
-<h3 id="keepAliveTime"><a href="#keepAliveTime" class="headerlink" title="keepAliveTime"></a>keepAliveTime</h3><p>核心线程池和临时线程的最大空闲时间，默认用于非核心线程，通过设置allowCoreThreadTimeOut（boolean value） 也可以将此参数用于核心线程</p>
-<h3 id="unit"><a href="#unit" class="headerlink" title="unit"></a>unit</h3><p>配合keepAliveTime的参数  用来设定时分秒</p>
-<h3 id="workQueue"><a href="#workQueue" class="headerlink" title="workQueue"></a>workQueue</h3><p>即是上述申请核心进程的等待队列  分为有界队列和无界队列</p>
+                <h1 id="List、Set、Map的区别"><a href="#List、Set、Map的区别" class="headerlink" title="List、Set、Map的区别"></a>List、Set、Map的区别</h1><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>collection的一个子接口 </p>
 <ul>
-<li>有界队列： 队列的长度有上限，当核心线程满载的时候，新任务进来进入队列，当达到上限，如果没有核心线程去即时取走处理，这个时候，就会创建临时线程。（警惕临时线程无限增加的风险）</li>
-<li>无界队列： 队列没有上限的，当没有核心线程空闲的时候，新来的任务可以无止境的向队列中添加，而永远也不会创建临时线程。（警惕任务队列无限堆积的风险）</li>
+<li>无序的一个容器</li>
+<li>不包含重复的元素</li>
+<li>检查元素效率低下，删除和插入的效率高，插入和删除不会引起元素的位置变化</li>
+<li> 常用实现类—HashSet：以哈希表的形式存放元素，插入删除速度很快</li>
 </ul>
-<h3 id="threadFactory"><a href="#threadFactory" class="headerlink" title="threadFactory"></a>threadFactory</h3><p>它是一个接口，用于实现生成线程的方式、定义线程名格式、是否后台执行等等，可以用 Executors.defaultThreadFactory() 默认的实现  它最重要的地方应该就是定义线程名称的格式，便于排查问题</p>
-<h2 id="handler"><a href="#handler" class="headerlink" title="handler"></a>handler</h2><p>即是前文中提到的取舍策略  当临时线程加上核心线程数量以及唱过maximumPoolsize是所用到的取舍策略</p>
+<p><strong>TreeSet：在集中以升序对对象排序的集的实现，这意味着从一个TreeSet对象获得第一个迭代器将按照升序来提供对象，TreeSet类使用了一个TreeMap</strong></p>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>collcetion的一个子接口</p>
 <ul>
-<li>ThreadPoolExecutor.AbortPolicy：直接抛出异常，这是默认策略</li>
-<li>ThreadPoolExecutor.DiscardPolicy：直接丢弃任务，但是不抛出异常</li>
-<li>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后将新来的任务加入等待队列</li>
-<li>ThreadPoolExecutor.CallerRunsPolicy：由线程池所在的线程处理该任务，比如在 main 函数中创建线程池，如果执行此策略，将有 main 线程来执行该任务</li>
+<li>可以允许重复的对象</li>
+<li>可以插入多个NULL元素</li>
+<li>是一个有序的容器，保持了每个元素的插入顺序，输出的顺序就是插入的顺序</li>
+<li>常用的实现类有Arraylist，Linkedlist和Vector </li>
+<li>和数组类似，List可以动态增长，查找元素的效率较高，插入元素和删除元素效率低，因为会引起其他元素位置发生变化</li>
 </ul>
-<h4 id="向线程中提交任务"><a href="#向线程中提交任务" class="headerlink" title="向线程中提交任务"></a>向线程中提交任务</h4><ul>
-<li>execute()</li>
-<li>submit()</li>
-</ul>
-<p>submit() 方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象，通过这个 Future 对象可以判断任务是否执行成功，并且可以通过 Future 的 get() 方法来获取返回值，get() 方法会阻塞当前线程直到任务完成，而使用 get（long timeout，TimeUnit unit）方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。</p>
-<h3 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h3><p>shutdown 或 shutdownNow </p>
-<h3 id="使用线程池的建议"><a href="#使用线程池的建议" class="headerlink" title="使用线程池的建议"></a>使用线程池的建议</h3><p>区分 CPU 密集型还是 IO 密集型：CPU 密集型任务应配置尽可能少的线程，如配置 CPU核心数 + 1 个线程的线程池。而对于 IO 密集型任务，它的线程并不是一直在执行任务，则应配置尽可能多的线程，如 CPU核心数 * 2<br>如果对于任务的优先级有要求：那么构建线程池时，BlockingQueue 可以使用 PriorityBlockingQueue ，它是一个阻塞的优先级队列，可以让优先级高的任务先执行<br>阻塞队列最好使用有界队列</p>
-<h1 id="互斥，自旋，读写，悲观锁，乐观锁"><a href="#互斥，自旋，读写，悲观锁，乐观锁" class="headerlink" title="互斥，自旋，读写，悲观锁，乐观锁"></a>互斥，自旋，读写，悲观锁，乐观锁</h1><h3 id="互斥锁与自旋锁"><a href="#互斥锁与自旋锁" class="headerlink" title="互斥锁与自旋锁"></a>互斥锁与自旋锁</h3><p>是两种最底层的锁，很多高级锁都是由他们两实现的</p>
-<p>我们都知道线程给一个共享资源加锁后，其他线程加锁就会失败这样就可以避免多线程导致共享数据错乱的问题</p>
-<p>当一个线程加锁后，其他线程加锁就会失败，互斥锁和自旋锁对加锁失败后的处理方式是不一样的</p>
-<ul>
-<li>互斥锁加锁失败后会放弃，释放自己获取到的cpu资源，给其他线程</li>
-<li>自旋锁加锁失败后，线程会忙等待，直到他拿到锁</li>
-</ul>
-<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>读写锁适用于能明确区分读操作和写操作的场景</p>
-<ul>
-<li>当「写锁」没有被线程持有时，多个线程能够并发地持有读锁，这大大提高了共享资源的访问效率，因为「读锁」是用于读取共享资源的场景，所以多个线程同时持有读锁也不会破坏共享资源的数据</li>
-<li>但是，一旦「写锁」被线程持有后，读线程的获取读锁的操作会被阻塞，而且其他写线程的获取写锁的操作也会被阻塞</li>
-</ul>
-<p>读写锁在读多写少的场景，能发挥出优势</p>
-<p>公平读写锁比较简单的一种方式是：用队列把获取锁的线程排队，不管是写线程还是读线程都按照先进先出的原则加锁即可，这样读线程仍然可以并发，也不会出现「饥饿」的现象</p>
-<h3 id="悲观锁乐观锁"><a href="#悲观锁乐观锁" class="headerlink" title="悲观锁乐观锁"></a>悲观锁乐观锁</h3><ul>
-<li>悲观锁做事比较悲观，它认为多线程同时修改共享资源的概率比较高，于是很容易出现冲突，所以访问共享资源前，先要上锁</li>
-<li><ul>
-<li>乐观锁做事比较乐观，它假定冲突的概率很低，它的工作方式是：先修改完共享资源，再验证这段时间内有没有发生冲突，如果没有其他线程在修改资源，那么操作完成，如果发现有其他线程已经修改过这个资源，就放弃本次操作         </li>
-<li>乐观锁全程并没有加锁，所以它也叫无锁编程  </li>
-<li>只有在冲突概率非常低，且加锁成本非常高的场景时，才考虑使用乐观锁。</li>
-</ul>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><ul>
+<li><p>不是继承collection的接口而是继承Iterator</p>
+</li>
+<li><p>按定义，该接口描述了从不重复的键到值的映射</p>
+</li>
+<li><p>常用实现类</p>
+<p><strong>HashMap</strong>： 实现一个映象，允许存储空对象，而且允许键是空（由于键必须是唯一的，当然只能有一个）</p>
+<p>treeMap</p>
 </li>
 </ul>
-<h1 id="Volatile，Threadloacl"><a href="#Volatile，Threadloacl" class="headerlink" title="Volatile，Threadloacl"></a>Volatile，Threadloacl</h1><p>原子性<br>一个或多个操作。要么全部执行完成并且执行过程不会被打断，要么不执行。最常见的例子：i++/i–操作。不是原子性操作，如果不做好同步性就容易造成线程安全问题</p>
-<p>可见性<br>多个线程访问同一个变量，一个线程改变了这个变量的值，其他线程可以立即看到修改的值。可见性的问题，有两种方式保证。一是volatile关键字，二是通过synchronized和lock。详细在后面</p>
-<p>有序性<br>程序执行的顺序按照代码的先后顺序执行。</p>
-<h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><p>一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰后，就具备了两层语义：保证了不同线程对这个变量进行操作时的可见性和禁止了指令重排序。</p>
-<p>使用volatile关键字时必须具备两个条件：</p>
-<p>1、对变量的写操作不依赖于当前值。</p>
-<p>2、该变量没有包含在具有其他变量的不变式中。</p>
-<h3 id="Threadloacl"><a href="#Threadloacl" class="headerlink" title="Threadloacl"></a>Threadloacl</h3><p>ThreadLocal 是一个线程的局部变量(其实就是一个Map),ThreadLocal会为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，将对象的可见范围限制在同一个线程内，而不会影响其它线程所对应的副本。<br>这样做其实就是以空间换时间的方式(与synchronized相反)，以耗费内存为代价，单大大减少了线程同步(如synchronized)所带来性能消耗以及减少了线程并发控制的复杂度</p>
-<p>ThreadLocal中的内存泄露问题：<br>如果ThreadLocal被设置为null后，并且没有任何强引用指向它，根据垃圾回收的可达性分析算法，ThreadLocal将被回收。这样的话，ThreadLocalMap中就会含有key为null的Entry，而且ThreadLocalMap是在Thread中的，只要线程迟迟不结束，这些无法访问到的value就会形成内存泄露。为了解决这个问题，ThreadLocalMap中的getEntry()、set()和remove()函数都会清理key为null的Entry</p>
+<h3 id="什么是iterator"><a href="#什么是iterator" class="headerlink" title="什么是iterator"></a>什么是iterator</h3><p>一些集合类提供了内容遍历的功能，通过java.util.Iterator接口。这些接口允许遍历对象的集合。依次操作每个元素对象。当使用 Iterators时，在获得Iterator的时候包含一个集合快照。通常在遍历一个Iterator的时候不建议修改集合本身</p>
+<h3 id="Iterator与ListIterator有什么区别"><a href="#Iterator与ListIterator有什么区别" class="headerlink" title="Iterator与ListIterator有什么区别"></a>Iterator与ListIterator有什么区别</h3><p>Iterator：只能正向遍历集合，适用于获取移除元素。ListIerator：继承Iterator，可以双向列表的遍历，同样支持元素的修改</p>
+<h1 id="HashMap与HashTable、HashSet、TreeSet的区别"><a href="#HashMap与HashTable、HashSet、TreeSet的区别" class="headerlink" title="HashMap与HashTable、HashSet、TreeSet的区别"></a>HashMap与HashTable、HashSet、TreeSet的区别</h1><h3 id="HashMap与HashTable"><a href="#HashMap与HashTable" class="headerlink" title="HashMap与HashTable"></a>HashMap与HashTable</h3><ul>
+<li>HashMap和Hashtable大致是等同的，除了非同步和空值（HashMap允许null值作为key和value，而Hashtable不可以）</li>
+<li>HashMap没法保证映射的顺序一直不变，但是作为HashMap的子类LinkedHashMap，如果想要预知的顺序迭代（默认按照插入顺序），你可以很轻易的置换为HashMap，如果使用Hashtable就没那么容易了</li>
+<li>HashMap不是同步的，而Hashtable是同步的</li>
+<li>迭代HashMap采用快速失败机制，而Hashtable不是，所以这是设计的考虑点</li>
+</ul>
+<p>从高级别层次来说快速失败是一个系统或软件对于其故障做出的响应。一个快速失败系统设计用来即时报告可能会导致失败的任何故障情况，它通常用来停止正常的操作而不是尝试继续做可能有缺陷的工作。当有问题发生时，快速失败系统即时可见地发错错误告警。在Java中，快速失败与iterators有关。如果一个iterator在集合对象上创建了，其它线程欲“结构化”的修改该集合对象，并发修改异常 （ConcurrentModificationException） 抛出</p>
+<p>可以使用Map m =Collection.sychronizedMap（HashMap）来实现HashMap的同步</p>
+<p>如果你使用需要按照可预测的按顺序迭代你可以方便的使用LinkdeHashMap来替换HashMap</p>
+<h3 id="HashSet、TreeSet"><a href="#HashSet、TreeSet" class="headerlink" title="HashSet、TreeSet"></a>HashSet、TreeSet</h3><p>1.HashSet是一个无序的集合，基于HashMap实现；TreeSet是一个有序的集合，基于TreeMap实现。</p>
+<p>2.HashSet集合中允许有null元素，TreeSet集合中不允许有null元素。</p>
+<p>3.HashSet和TreeSet都是非同步！在使用Iterator进行迭代的时候要注意fail-fast。</p>
+<h1 id="HashMap的底层实现"><a href="#HashMap的底层实现" class="headerlink" title="HashMap的底层实现"></a>HashMap的底层实现</h1><p>附上一篇博客</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Yao_shen_yun/article/details/94451122?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163124147316780262520331%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163124147316780262520331&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-94451122.pc_search_insert_download&amp;utm_term=hashmap%E5%BA%95%E5%B1%82&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/Yao_shen_yun/article/details/94451122?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163124147316780262520331%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163124147316780262520331&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-94451122.pc_search_insert_download&amp;utm_term=hashmap%E5%BA%95%E5%B1%82&amp;spm=1018.2226.3001.4187</a></p>
+<h1 id="ConcurrentHashMap与HashMap的区别"><a href="#ConcurrentHashMap与HashMap的区别" class="headerlink" title="ConcurrentHashMap与HashMap的区别"></a>ConcurrentHashMap与HashMap的区别</h1><ol>
+<li>HashMap不支持并发操作，没有同步方法，ConcurrentHashMap支持并发操作，通过继承 ReentrantLock（JDK1.7重入锁）/CAS和synchronized(JDK1.8内置锁)来进行加锁（分段锁），每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。</li>
+<li>JDK1.8之前HashMap的结构为数组+链表，JDK1.8之后HashMap的结构为数组+链表+红黑树；JDK1.8之前ConcurrentHashMap的结构为segment数组+数组+链表，JDK1.8之后ConcurrentHashMap的结构为数组+链表+红黑树。</li>
+</ol>
+<h1 id="ConcurrentHashMap底层实现"><a href="#ConcurrentHashMap底层实现" class="headerlink" title="ConcurrentHashMap底层实现"></a>ConcurrentHashMap底层实现</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ToBe_Coder/article/details/86996665?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163124247616780269836407%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163124247616780269836407&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-86996665.pc_search_insert_download&amp;utm_term=ConcurrentHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0&amp;spm=1018.2226.3001.4187">https://blog.csdn.net/ToBe_Coder/article/details/86996665?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163124247616780269836407%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163124247616780269836407&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-86996665.pc_search_insert_download&amp;utm_term=ConcurrentHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0&amp;spm=1018.2226.3001.4187</a></p>
+<h1 id="comparable与Comparator的区别"><a href="#comparable与Comparator的区别" class="headerlink" title="comparable与Comparator的区别"></a>comparable与Comparator的区别</h1><p>实现了comparable的对象直接就可以成为一个可以比较的对象，不过得在类中进行方法定义；comparator在对象外比较，不修改实体类</p>
+<h1 id="ArrayList、LinkedList、Vector的区别"><a href="#ArrayList、LinkedList、Vector的区别" class="headerlink" title="ArrayList、LinkedList、Vector的区别"></a>ArrayList、LinkedList、Vector的区别</h1><ol>
+<li><p>ArrayList：数组  非线程安全  自动增长原数组的50%。</p>
+</li>
+<li><p>Vector：数组   线程安全  缺省的情况下，增长为原数组长度的一倍。说到缺省，说明他其实是可以自主设置初始化大小的</p>
+<p>其实Vector又是线程不安全的   虽然官方帮你加上了同步锁，保证同一时间只会又一个线程操作同一个方法，但是他不能控制多个线程同时操作多个方法，也就是说，删除和添加是可以同时进行的，这就产生一个问题</p>
+</li>
+<li><p>LinkedList：双向链表  非线程安全 </p>
+</li>
+</ol>
+<h1 id="HashSet如何检查重复"><a href="#HashSet如何检查重复" class="headerlink" title="HashSet如何检查重复"></a>HashSet如何检查重复</h1><ol>
+<li>计算hashcode</li>
+<li>调用equals方法</li>
+</ol>
 
                 
             </div>
@@ -619,7 +555,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</a>
+                    <a href="https://18174427546.github.io/2021/09/09/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95/">https://18174427546.github.io/2021/09/09/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -657,8 +593,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                    <span class="chip bg-color">多线程  java</span>
+                                <a href="/tags/java-%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">java  面试</span>
                                 </a>
                             
                         </div>
@@ -834,13 +770,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/28/hadoop%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                <a href="/2021/09/09/java%E5%8F%8D%E5%B0%84%E9%9D%A2%E8%AF%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="hadoop面试题">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="java反射面试">
                         
-                        <span class="card-title">hadoop面试题</span>
+                        <span class="card-title">java反射面试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -851,7 +787,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
                         </span>
                         <span class="publish-author">
                             
@@ -864,8 +800,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
-                        <span class="chip bg-color">面试</span>
+                    <a href="/tags/java-%E5%8F%8D%E5%B0%84-%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">java 反射  面试</span>
                     </a>
                     
                 </div>
@@ -879,13 +815,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/26/hbase%E5%A4%8D%E4%B9%A0/">
+                <a href="/2021/09/08/java%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hbase面试题">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java常见设计模式">
                         
-                        <span class="card-title">hbase面试题</span>
+                        <span class="card-title">java常见设计模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -896,7 +832,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
                             </span>
                         <span class="publish-author">
                             
@@ -909,8 +845,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%9D%A2%E8%AF%95-hbase/">
-                        <span class="chip bg-color">面试  hbase</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
