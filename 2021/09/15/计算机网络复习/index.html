@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="多线程, lang">
+    <meta name="keywords" content="计算机网络, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>多线程 | lang</title>
+    <title>计算机网络 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">多线程</h1>
+                    <h1 class="description center-align post-title">计算机网络</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                <span class="chip bg-color">多线程  java</span>
+                            <a href="/tags/%E7%BD%91%E8%B7%AF-%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">网路,面试</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2021-09-15
                 </div>
                 
 
@@ -468,132 +468,90 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="线程的相关概念"><a href="#线程的相关概念" class="headerlink" title="线程的相关概念"></a>线程的相关概念</h1><p>程序：一组正在执行某些特定功能的代码的集合体，此时没有运行    </p>
-<p>进程：正在运行的代码，此时已经运行叫做进程</p>
-<p>线程：一个进程下同时开启的多个任务</p>
-<h1 id="线程的创建和启动-重点"><a href="#线程的创建和启动-重点" class="headerlink" title="线程的创建和启动(重点)"></a>线程的创建和启动(重点)</h1><p>线程创建的两种方式：</p>
-<ol>
-<li><p>线程继承thread重写run方法把需要运行的代码写在其中  在开启线程的时候不能调用run方法而是调用线程中的run方法。</p>
-<p>MyThreadOne mto = new  MyThreadOne()</p>
+                <h1 id="osi七层网络模型"><a href="#osi七层网络模型" class="headerlink" title="osi七层网络模型"></a>osi七层网络模型</h1><p>应用层、表示层、会话层、传输层、网络层、数据链路层、物理层</p>
+<p>物理层：网卡，网线，集线器，中继器，调制解调器</p>
+<p>数据链路层：网桥，交换机</p>
+<p>网络层：路由器</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><p>物理层的媒体包括电缆、光纤等。正因为物理媒体会有很多差异，所以物理层的作用正是尽可能地屏蔽这些差异，使上面的数据链路曾感觉不到这些差异。其主要任务就是确定与传输媒体的接口有关的一些特性，如机械特性、电气特性等。</p>
+<p>在这一层，数据的单位为比特（bit）</p>
+<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>封装成帧：就是在数据前后分别添加首部和尾部，这样就构成了 帧</p>
+<p>透明传输：用字节填充法（在非帧边界的控制字符插入转义字符）解决透明传输的问题</p>
+<p>差错检测；：传输过程中可能会出现差错（比特差错），为保证可靠性，在数据链路层广泛使用了循环冗余检验CRC的检错技术 数据链路层的协议的代表包括PPP STP SDLC等，</p>
+<p>这一层的单位是帧</p>
+<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>网络层的任务就是选择合适的网间路由和交换结点，数据包是包含在帧中，包中封装了网络层包头，如源站点、目的站点信息等</p>
+<p>此外还有一些路由协议的地址解析协议（ARP）,网络层还可以实现拥塞控制、网际互连等，这一层，数据的单位为数据包。网络协议代表有IP IPX RIP OSPF 等</p>
+<p>数据的单位为数据包</p>
+<h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p>IP数据报中的首部明确标记了两个主机的IP地址，但是“两个主机之间的通信”说法不清楚，因为真正进行通信的实体是主机中的进程。根据应用程序的不用需求，运输层需要两种不同的运输协议，即面向连接的TCP和无连接的UDP。</p>
+<p>TCP数据单元为段 而UDP中数据单元为数据报</p>
+<h3 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h3><p>会话单位的控制层，其主要功能是按照在应用进程之间约定的原则，按照正确的顺序收、发数据，进行各种形态的对话</p>
+<h3 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h3><p>数据表示形式的控制层，其主要功能是把应用层提供的信息变换为能够共同理解的形式，提供字符代码、数据格式、控制信息格式、加密等的统一表示。</p>
+<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>OSI参考模型的最高层。其功能是实现应用进程（如用户程序、终端操作员等）之间的信息交换。同时，还具有一系列业务处理所需要的服务功能。应用层许多协议都是基于客户服务器方式</p>
+<h1 id="TCP-IP四层网络模型"><a href="#TCP-IP四层网络模型" class="headerlink" title="TCP/IP四层网络模型"></a>TCP/IP四层网络模型</h1><p>应用层：应用程序间沟通的层，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等。 </p>
+<p>传输层：在此层中，它提供了节点间的数据传送服务，如传输控制协议（TCP）、用户数据报协议（UDP）等，TCP和UDP给数据包加入传输数据并把它传输到下一层中，这一层负责传送数据，并且确定数据已被送达并接收。 </p>
+<p>互连网络层：负责提供基本的数据封包传送功能，让每一块数据包都能够到达目的主机（但不检查是否被正确接收），如网际协议（IP）。 </p>
+<p>网络接口层：对实际的网络媒体的管理，定义如何使用实际网络（如Ethernet、Serial Line等）来传送数据</p>
+<h1 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP/IP协议"></a>TCP/IP协议</h1><h1 id="TCP三次握手和四次挥手"><a href="#TCP三次握手和四次挥手" class="headerlink" title="TCP三次握手和四次挥手"></a>TCP三次握手和四次挥手</h1><h1 id="TCP与UDP区别"><a href="#TCP与UDP区别" class="headerlink" title="TCP与UDP区别"></a>TCP与UDP区别</h1><ul>
+<li>TCP 是面向连接的、可靠的流协议。流就是指不间断的数据结构，当应用程序采用 TCP 发送消息时，虽然可以保证发送的顺序，但还是犹如没有任何间隔的数据流发送给接收端。TCP 为提供可靠性传输，实行“顺序控制”或“重发控制”机制。此外还具备“流控制（流量控制）”、“拥塞控制”、提高网络利用率等众多功能。</li>
+<li>UDP 是不具有可靠性的数据报协议。细微的处理它会交给上层的应用去完成。在 UDP 的情况下，虽然可以确保发送消息的大小，却不能保证消息一定会到达。因此，应用有时会根据自己的需要进行重发处理。</li>
+<li>TCP 和 UDP 的优缺点无法简单地、绝对地去做比较：TCP 用于在传输层有必要实现可靠传输的情况；而在一方面，UDP 主要用于那些对高速传输和实时性有较高要求的通信或广播通信。TCP 和 UDP 应该根据应用的目的按需使用。</li>
+</ul>
+<h1 id="TCP如何保证可靠传输"><a href="#TCP如何保证可靠传输" class="headerlink" title="TCP如何保证可靠传输"></a>TCP如何保证可靠传输</h1><p>校验和</p>
+<p>确认应答与序列号</p>
+<p>超时重传</p>
+<p>连接管理</p>
+<p>流量控制</p>
+<p>拥塞控制</p>
+<h1 id="浏览器输入URL到显示页面过程"><a href="#浏览器输入URL到显示页面过程" class="headerlink" title="浏览器输入URL到显示页面过程"></a>浏览器输入URL到显示页面过程</h1><ul>
+<li>域名解析</li>
+<li>为了将消息从你的PC上传到服务器上.需要用到1P协议、ARP协议和0SPF协议</li>
+<li>发起TCP的3次握手</li>
+<li>建立TCP连接后发起http请求</li>
+<li>服务器响应htp请求</li>
+<li>浏览器解析htm代码,并请求html代码中的资源(如js、css、图片等）</li>
+<li>断开TCP连接</li>
+<li>浏览器对页面进行渲染呈现给用户</li>
+</ul>
+<h1 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h1><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>安全性上，HTTPS是安全超文本协议，在HTTP基础上有更强的安全性。简单来说，HTTPS是使用TLS/SSL加密的HTTP协议</p>
+<p>申请证书上，HTTPS需要使用ca申请证书</p>
+<p>传输协议上, HTTP是超文本传输协议，明文传输；HTTPS是具有安全性的 SSL 加密传输协议</p>
+<p>连接方式与端口上，http的连接简单，是无状态的，端口是 80； https 在http的基础上使用了ssl协议进行加密传输，端口是 443</p>
+<h3 id="HTTP的工作过程"><a href="#HTTP的工作过程" class="headerlink" title="HTTP的工作过程"></a>HTTP的工作过程</h3><ol>
+<li><p>地址解析。域名系统DNS解析域名得到主机的IP地址</p>
 </li>
-<li><p>需要我们创建的线程类实现Runable接口。实现run方法，把需要多线程调用的代码放在run方法中也不能使用run方法而是调用start方法</p>
-<p>MyThreadTwo  mtt = new MyThreadTwo();</p>
-<p>Thread thread = new Thread(mtt );//将我们定义的线程类的对象作为参数传递给thread对象。</p>
+<li><p>封装HTTP请求数据包。封装的内容有以上部分结合本机自己的信息。</p>
+</li>
+<li><p>封装成TCP包，建立TCP连接（TCP的三次握手）</p>
+</li>
+<li><p>客户机发送请求命令。 建立连接后，客户机向服务器发送一个请求</p>
+</li>
+<li><p>服务器响应。服务器接到请求后，给予相应的响应信息</p>
+</li>
+<li><p>服务器关闭TCP连接。一般Web服务器向浏览器发送了请求数据，它要关闭TCP连接</p>
 </li>
 </ol>
-<h1 id="线程的停止"><a href="#线程的停止" class="headerlink" title="线程的停止"></a>线程的停止</h1><p>线程的停止一般分为三种情况</p>
-<ol>
-<li>线程正常执行完毕</li>
-<li>线程遇到异常异常停止</li>
-<li>调用线程的stop方法但是现在不建议采用</li>
-</ol>
-<h1 id="线程的常见方法-Thread-重点"><a href="#线程的常见方法-Thread-重点" class="headerlink" title="线程的常见方法(Thread)(重点)"></a>线程的常见方法(Thread)(重点)</h1><ol>
-<li><p>get/setname</p>
-<p>设置和获取线程的名称</p>
+<h3 id="HTTPS工作过程"><a href="#HTTPS工作过程" class="headerlink" title="HTTPS工作过程"></a>HTTPS工作过程</h3><ol>
+<li><p>客户端和服务器端通过TCP建立连接。</p>
 </li>
-<li><p>set/getPriority</p>
-<p>获取和设置线程的优先级</p>
+<li><p>客户端向服务器发送HTTPS请求。</p>
 </li>
-<li><p>yield</p>
-<p>线程的礼让方法</p>
+<li><p>服务器响应请求，并将数字证书发送给客户端，数字证书包括公共秘钥、域名、申请证书的公司。</p>
 </li>
-<li><p>join</p>
-<p>线程的插队方法</p>
+<li><p>客户端收到服务器端的数字证书之后，会验证数字证书的合法性。</p>
 </li>
-<li><p>sleep（long）</p>
-<p>线程的睡眠</p>
+<li><p>如果公钥合格，那么客户端会生成一个用于进行对称加密的密钥client key，并用服务器的公钥对客户端密钥进行非对称加密。</p>
 </li>
-<li><p>interrupt</p>
-<p>线程的唤醒方法</p>
+<li><p>客户端会发起HTTPS中的第二个HTTP请求，将加密之后的客户端密钥发送给服务器。</p>
 </li>
-<li><p>setDaemon（boolean）</p>
-<p>设置线程的守护进程</p>
+<li><p>服务器接收到客户端发来的密文之后，会用私钥对其进行非对称解密，得到客户端秘钥。并使用客户端秘钥进行对称加密，生成密文并发送。</p>
+</li>
+<li><p>客户端收到密文，并使用客户端秘钥进行解密，渲染网页。</p>
 </li>
 </ol>
-<h1 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h1><p>线程的状态</p>
-<p>新建：当一个线程被Thread类或者其子类的对象被声明并且创建时，新生的线程对象就处于新建状态</p>
-<p>就绪：处于新建状态的线程被Start（）后，将进入线程队列等待CPU时间片</p>
-<p>运行：当就绪的线程获得了CPU资源之后就会由足就绪状态转为运行状态</p>
-<p>阻塞：在特殊情况下线程被人挂起或者执行输入输出时，让出了CPU的资源线程便会处于阻塞状态</p>
-<p>死亡：线程完成或被异常终止</p>
-<h1 id="线程的同步-重点"><a href="#线程的同步-重点" class="headerlink" title="线程的同步(重点)"></a>线程的同步(重点)</h1><p>线程安全问题是如何产生的:</p>
-<p>多个线程同时争抢一个公共资源。当一个线程执行到一半的时候，线程失去时间片，处于等待状态，其他线程修改公共资源。此时当这个属于等待状态的线程再回来的时候，继续操作的数据就是修改之后的，而这个时候两个线程都修改过这个资源，就容易造成问题</p>
-<p>如何解决：</p>
-<p>使用锁机制。在可能出现线程安全问题的代码块部分，加上锁，这么锁通常在普通方法的时候是this，在static方法的时候是类名.class这个对象。一个线程将一段代码加上锁之后，这个段代码不进行完，这个锁对象不会被释放。其他的线程即便准备执行这段代码由于拿不到锁对象也会无法执行。</p>
-<h1 id="线程加锁的方式"><a href="#线程加锁的方式" class="headerlink" title="线程加锁的方式"></a>线程加锁的方式</h1><p>对需要争夺的资源代码块添加synchronized关键字</p>
-<p>调用synchronized（this）方法</p>
-<h1 id="线程的通信-重点"><a href="#线程的通信-重点" class="headerlink" title="线程的通信(重点)"></a>线程的通信(重点)</h1><ol>
-<li>使用 <em>volatile</em> 关键字</li>
-<li>使用Object类的wait() 和 notify() 方法</li>
-<li>使用JUC工具类 CountDownLatch</li>
-</ol>
-<h1 id="线程池的原理与使用"><a href="#线程池的原理与使用" class="headerlink" title="线程池的原理与使用"></a>线程池的原理与使用</h1><ol>
-<li>线程池判断核心线程池里的线程是否都在执行任务。如果不是，则创建一个新的工作线程来执行任务。如果核心线程池里的线程都在执行任务，则进入下个流程。</li>
-<li>线程池判断工作队列是否已经满。如果工作队列没有满，则将新提交的任务存储在这个工作队列里。如果工作队列满了，则进入下个流程。</li>
-<li>线程池判断线程池的线程是否都处于工作状态。如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务</li>
-</ol>
-<h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><h3 id="corePoolSize：核心线程池的线程数"><a href="#corePoolSize：核心线程池的线程数" class="headerlink" title="corePoolSize：核心线程池的线程数"></a>corePoolSize：核心线程池的线程数</h3><ul>
-<li>当线程数未达到核心线程最大值的时候，新任务进来，即使有空闲线程，也不会复用，仍然新建核心线程</li>
-<li>核心线程一般不会被销毁，即使是空闲的状态，但是如果通过方法 allowCoreThreadTimeOut(boolean value) 设置为 true 时，超时也同样会被销毁</li>
-<li>生产环境首次初始化的时候，可以调用 prestartCoreThread() 方法来预先创建所有核心线程，避免第一次调用缓慢</li>
-</ul>
-<h3 id="maximumPoolSize：核心线程-临时线程的最大上限"><a href="#maximumPoolSize：核心线程-临时线程的最大上限" class="headerlink" title="maximumPoolSize：核心线程 + 临时线程的最大上限"></a>maximumPoolSize：核心线程 + 临时线程的最大上限</h3><p>当核心线程和  线程等待队列都满了之后会申请创建临时线程来处理任务</p>
-<p>临时线程有一个超时机制一旦超过了空闲时间便会被销毁</p>
-<h3 id="keepAliveTime"><a href="#keepAliveTime" class="headerlink" title="keepAliveTime"></a>keepAliveTime</h3><p>核心线程池和临时线程的最大空闲时间，默认用于非核心线程，通过设置allowCoreThreadTimeOut（boolean value） 也可以将此参数用于核心线程</p>
-<h3 id="unit"><a href="#unit" class="headerlink" title="unit"></a>unit</h3><p>配合keepAliveTime的参数  用来设定时分秒</p>
-<h3 id="workQueue"><a href="#workQueue" class="headerlink" title="workQueue"></a>workQueue</h3><p>即是上述申请核心进程的等待队列  分为有界队列和无界队列</p>
-<ul>
-<li>有界队列： 队列的长度有上限，当核心线程满载的时候，新任务进来进入队列，当达到上限，如果没有核心线程去即时取走处理，这个时候，就会创建临时线程。（警惕临时线程无限增加的风险）</li>
-<li>无界队列： 队列没有上限的，当没有核心线程空闲的时候，新来的任务可以无止境的向队列中添加，而永远也不会创建临时线程。（警惕任务队列无限堆积的风险）</li>
-</ul>
-<h3 id="threadFactory"><a href="#threadFactory" class="headerlink" title="threadFactory"></a>threadFactory</h3><p>它是一个接口，用于实现生成线程的方式、定义线程名格式、是否后台执行等等，可以用 Executors.defaultThreadFactory() 默认的实现  它最重要的地方应该就是定义线程名称的格式，便于排查问题</p>
-<h2 id="handler"><a href="#handler" class="headerlink" title="handler"></a>handler</h2><p>即是前文中提到的取舍策略  当临时线程加上核心线程数量以及唱过maximumPoolsize是所用到的取舍策略</p>
-<ul>
-<li>ThreadPoolExecutor.AbortPolicy：直接抛出异常，这是默认策略</li>
-<li>ThreadPoolExecutor.DiscardPolicy：直接丢弃任务，但是不抛出异常</li>
-<li>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后将新来的任务加入等待队列</li>
-<li>ThreadPoolExecutor.CallerRunsPolicy：由线程池所在的线程处理该任务，比如在 main 函数中创建线程池，如果执行此策略，将有 main 线程来执行该任务</li>
-</ul>
-<h4 id="向线程中提交任务"><a href="#向线程中提交任务" class="headerlink" title="向线程中提交任务"></a>向线程中提交任务</h4><ul>
-<li>execute()</li>
-<li>submit()</li>
-</ul>
-<p>submit() 方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象，通过这个 Future 对象可以判断任务是否执行成功，并且可以通过 Future 的 get() 方法来获取返回值，get() 方法会阻塞当前线程直到任务完成，而使用 get（long timeout，TimeUnit unit）方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。</p>
-<h3 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h3><p>shutdown 或 shutdownNow </p>
-<h3 id="使用线程池的建议"><a href="#使用线程池的建议" class="headerlink" title="使用线程池的建议"></a>使用线程池的建议</h3><p>区分 CPU 密集型还是 IO 密集型：CPU 密集型任务应配置尽可能少的线程，如配置 CPU核心数 + 1 个线程的线程池。而对于 IO 密集型任务，它的线程并不是一直在执行任务，则应配置尽可能多的线程，如 CPU核心数 * 2<br>如果对于任务的优先级有要求：那么构建线程池时，BlockingQueue 可以使用 PriorityBlockingQueue ，它是一个阻塞的优先级队列，可以让优先级高的任务先执行<br>阻塞队列最好使用有界队列</p>
-<h1 id="互斥，自旋，读写，悲观锁，乐观锁"><a href="#互斥，自旋，读写，悲观锁，乐观锁" class="headerlink" title="互斥，自旋，读写，悲观锁，乐观锁"></a>互斥，自旋，读写，悲观锁，乐观锁</h1><h3 id="互斥锁与自旋锁"><a href="#互斥锁与自旋锁" class="headerlink" title="互斥锁与自旋锁"></a>互斥锁与自旋锁</h3><p>是两种最底层的锁，很多高级锁都是由他们两实现的</p>
-<p>我们都知道线程给一个共享资源加锁后，其他线程加锁就会失败这样就可以避免多线程导致共享数据错乱的问题</p>
-<p>当一个线程加锁后，其他线程加锁就会失败，互斥锁和自旋锁对加锁失败后的处理方式是不一样的</p>
-<ul>
-<li>互斥锁加锁失败后会放弃，释放自己获取到的cpu资源，给其他线程</li>
-<li>自旋锁加锁失败后，线程会忙等待，直到他拿到锁</li>
-</ul>
-<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>读写锁适用于能明确区分读操作和写操作的场景</p>
-<ul>
-<li>当「写锁」没有被线程持有时，多个线程能够并发地持有读锁，这大大提高了共享资源的访问效率，因为「读锁」是用于读取共享资源的场景，所以多个线程同时持有读锁也不会破坏共享资源的数据</li>
-<li>但是，一旦「写锁」被线程持有后，读线程的获取读锁的操作会被阻塞，而且其他写线程的获取写锁的操作也会被阻塞</li>
-</ul>
-<p>读写锁在读多写少的场景，能发挥出优势</p>
-<p>公平读写锁比较简单的一种方式是：用队列把获取锁的线程排队，不管是写线程还是读线程都按照先进先出的原则加锁即可，这样读线程仍然可以并发，也不会出现「饥饿」的现象</p>
-<h3 id="悲观锁乐观锁"><a href="#悲观锁乐观锁" class="headerlink" title="悲观锁乐观锁"></a>悲观锁乐观锁</h3><ul>
-<li>悲观锁做事比较悲观，它认为多线程同时修改共享资源的概率比较高，于是很容易出现冲突，所以访问共享资源前，先要上锁</li>
-<li><ul>
-<li>乐观锁做事比较乐观，它假定冲突的概率很低，它的工作方式是：先修改完共享资源，再验证这段时间内有没有发生冲突，如果没有其他线程在修改资源，那么操作完成，如果发现有其他线程已经修改过这个资源，就放弃本次操作         </li>
-<li>乐观锁全程并没有加锁，所以它也叫无锁编程  </li>
-<li>只有在冲突概率非常低，且加锁成本非常高的场景时，才考虑使用乐观锁。</li>
-</ul>
-</li>
-</ul>
-<h1 id="Volatile，Threadloacl"><a href="#Volatile，Threadloacl" class="headerlink" title="Volatile，Threadloacl"></a>Volatile，Threadloacl</h1><p>原子性<br>一个或多个操作。要么全部执行完成并且执行过程不会被打断，要么不执行。最常见的例子：i++/i–操作。不是原子性操作，如果不做好同步性就容易造成线程安全问题</p>
-<p>可见性<br>多个线程访问同一个变量，一个线程改变了这个变量的值，其他线程可以立即看到修改的值。可见性的问题，有两种方式保证。一是volatile关键字，二是通过synchronized和lock。详细在后面</p>
-<p>有序性<br>程序执行的顺序按照代码的先后顺序执行。</p>
-<h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><p>一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰后，就具备了两层语义：保证了不同线程对这个变量进行操作时的可见性和禁止了指令重排序。</p>
-<p>使用volatile关键字时必须具备两个条件：</p>
-<p>1、对变量的写操作不依赖于当前值。</p>
-<p>2、该变量没有包含在具有其他变量的不变式中。</p>
-<h3 id="Threadloacl"><a href="#Threadloacl" class="headerlink" title="Threadloacl"></a>Threadloacl</h3><p>ThreadLocal 是一个线程的局部变量(其实就是一个Map),ThreadLocal会为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，将对象的可见范围限制在同一个线程内，而不会影响其它线程所对应的副本。<br>这样做其实就是以空间换时间的方式(与synchronized相反)，以耗费内存为代价，单大大减少了线程同步(如synchronized)所带来性能消耗以及减少了线程并发控制的复杂度</p>
-<p>ThreadLocal中的内存泄露问题：<br>如果ThreadLocal被设置为null后，并且没有任何强引用指向它，根据垃圾回收的可达性分析算法，ThreadLocal将被回收。这样的话，ThreadLocalMap中就会含有key为null的Entry，而且ThreadLocalMap是在Thread中的，只要线程迟迟不结束，这些无法访问到的value就会形成内存泄露。为了解决这个问题，ThreadLocalMap中的get·Entry()、set()和remove()函数都会清理key为null的Entry</p>
-
+<h1 id="HTTP1-0与1-1"><a href="#HTTP1-0与1-1" class="headerlink" title="HTTP1.0与1.1"></a>HTTP1.0与1.1</h1><h3 id="长连接"><a href="#长连接" class="headerlink" title="长连接"></a>长连接</h3><p>: 在HTTP/1.0中，默认使用的是短连接，也就是说每次请求都要重新建立一次连接。HTTP 是基于TCP/IP协议的,每一次建立或者断开连接都需要三次握手四次挥手的开销，如果每次请求都要这样的话，开销会比较大。因此最好能维持一个长连接，可以用个长连接来发多个请求。HTTP 1.1起，默认使用长连接 ,默认开启Connection： keep-alive。 HTTP/1.1的持续连接有非流水线方式和流水线方式 。流水线方式是客户在收到HTTP的响应报文之前就能接着发送新的请求报文。与之相对应的非流水线方式是客户在收到前一个响应后才能发送下一个请求。</p>
+<h3 id="错误状态响应码"><a href="#错误状态响应码" class="headerlink" title="错误状态响应码"></a>错误状态响应码</h3><p> :在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</p>
+<h3 id="缓存处理"><a href="#缓存处理" class="headerlink" title="缓存处理 :"></a>缓存处理 :</h3><p>在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</p>
+<h3 id="带宽优化及网络连接的使用"><a href="#带宽优化及网络连接的使用" class="headerlink" title="带宽优化及网络连接的使用"></a>带宽优化及网络连接的使用</h3><p>:HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</p>
+<h1 id="Cookie与Session的作用"><a href="#Cookie与Session的作用" class="headerlink" title="Cookie与Session的作用"></a>Cookie与Session的作用</h1>
                 
             </div>
             <hr/>
@@ -619,7 +577,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</a>
+                    <a href="https://18174427546.github.io/2021/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/">https://18174427546.github.io/2021/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -657,8 +615,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                    <span class="chip bg-color">多线程  java</span>
+                                <a href="/tags/%E7%BD%91%E8%B7%AF-%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">网路,面试</span>
                                 </a>
                             
                         </div>
@@ -834,13 +792,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/28/hadoop%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                <a href="/2021/09/17/%E5%8D%97%E4%BA%AC%E7%83%BD%E7%81%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="hadoop面试题">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="南京烽火复盘">
                         
-                        <span class="card-title">hadoop面试题</span>
+                        <span class="card-title">南京烽火复盘</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -851,7 +809,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-17
                         </span>
                         <span class="publish-author">
                             
@@ -879,13 +837,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/26/hbase%E5%A4%8D%E4%B9%A0/">
+                <a href="/2021/09/12/mysql%E9%9D%A2%E8%AF%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hbase面试题">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="MySQL复习">
                         
-                        <span class="card-title">hbase面试题</span>
+                        <span class="card-title">MySQL复习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -896,7 +854,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-12
                             </span>
                         <span class="publish-author">
                             
@@ -909,8 +867,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%9D%A2%E8%AF%95-hbase/">
-                        <span class="chip bg-color">面试  hbase</span>
+                    <a href="/tags/MySQL-%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">MySQL  面试</span>
                     </a>
                     
                 </div>

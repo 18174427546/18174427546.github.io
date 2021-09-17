@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="多线程, lang">
+    <meta name="keywords" content="面试题目, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>多线程 | lang</title>
+    <title>面试题目 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">多线程</h1>
+                    <h1 class="description center-align post-title">面试题目</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                <span class="chip bg-color">多线程  java</span>
+                            <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">面试</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2021-09-17
                 </div>
                 
 
@@ -468,132 +468,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="线程的相关概念"><a href="#线程的相关概念" class="headerlink" title="线程的相关概念"></a>线程的相关概念</h1><p>程序：一组正在执行某些特定功能的代码的集合体，此时没有运行    </p>
-<p>进程：正在运行的代码，此时已经运行叫做进程</p>
-<p>线程：一个进程下同时开启的多个任务</p>
-<h1 id="线程的创建和启动-重点"><a href="#线程的创建和启动-重点" class="headerlink" title="线程的创建和启动(重点)"></a>线程的创建和启动(重点)</h1><p>线程创建的两种方式：</p>
-<ol>
-<li><p>线程继承thread重写run方法把需要运行的代码写在其中  在开启线程的时候不能调用run方法而是调用线程中的run方法。</p>
-<p>MyThreadOne mto = new  MyThreadOne()</p>
-</li>
-<li><p>需要我们创建的线程类实现Runable接口。实现run方法，把需要多线程调用的代码放在run方法中也不能使用run方法而是调用start方法</p>
-<p>MyThreadTwo  mtt = new MyThreadTwo();</p>
-<p>Thread thread = new Thread(mtt );//将我们定义的线程类的对象作为参数传递给thread对象。</p>
-</li>
-</ol>
-<h1 id="线程的停止"><a href="#线程的停止" class="headerlink" title="线程的停止"></a>线程的停止</h1><p>线程的停止一般分为三种情况</p>
-<ol>
-<li>线程正常执行完毕</li>
-<li>线程遇到异常异常停止</li>
-<li>调用线程的stop方法但是现在不建议采用</li>
-</ol>
-<h1 id="线程的常见方法-Thread-重点"><a href="#线程的常见方法-Thread-重点" class="headerlink" title="线程的常见方法(Thread)(重点)"></a>线程的常见方法(Thread)(重点)</h1><ol>
-<li><p>get/setname</p>
-<p>设置和获取线程的名称</p>
-</li>
-<li><p>set/getPriority</p>
-<p>获取和设置线程的优先级</p>
-</li>
-<li><p>yield</p>
-<p>线程的礼让方法</p>
-</li>
-<li><p>join</p>
-<p>线程的插队方法</p>
-</li>
-<li><p>sleep（long）</p>
-<p>线程的睡眠</p>
-</li>
-<li><p>interrupt</p>
-<p>线程的唤醒方法</p>
-</li>
-<li><p>setDaemon（boolean）</p>
-<p>设置线程的守护进程</p>
-</li>
-</ol>
-<h1 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h1><p>线程的状态</p>
-<p>新建：当一个线程被Thread类或者其子类的对象被声明并且创建时，新生的线程对象就处于新建状态</p>
-<p>就绪：处于新建状态的线程被Start（）后，将进入线程队列等待CPU时间片</p>
-<p>运行：当就绪的线程获得了CPU资源之后就会由足就绪状态转为运行状态</p>
-<p>阻塞：在特殊情况下线程被人挂起或者执行输入输出时，让出了CPU的资源线程便会处于阻塞状态</p>
-<p>死亡：线程完成或被异常终止</p>
-<h1 id="线程的同步-重点"><a href="#线程的同步-重点" class="headerlink" title="线程的同步(重点)"></a>线程的同步(重点)</h1><p>线程安全问题是如何产生的:</p>
-<p>多个线程同时争抢一个公共资源。当一个线程执行到一半的时候，线程失去时间片，处于等待状态，其他线程修改公共资源。此时当这个属于等待状态的线程再回来的时候，继续操作的数据就是修改之后的，而这个时候两个线程都修改过这个资源，就容易造成问题</p>
-<p>如何解决：</p>
-<p>使用锁机制。在可能出现线程安全问题的代码块部分，加上锁，这么锁通常在普通方法的时候是this，在static方法的时候是类名.class这个对象。一个线程将一段代码加上锁之后，这个段代码不进行完，这个锁对象不会被释放。其他的线程即便准备执行这段代码由于拿不到锁对象也会无法执行。</p>
-<h1 id="线程加锁的方式"><a href="#线程加锁的方式" class="headerlink" title="线程加锁的方式"></a>线程加锁的方式</h1><p>对需要争夺的资源代码块添加synchronized关键字</p>
-<p>调用synchronized（this）方法</p>
-<h1 id="线程的通信-重点"><a href="#线程的通信-重点" class="headerlink" title="线程的通信(重点)"></a>线程的通信(重点)</h1><ol>
-<li>使用 <em>volatile</em> 关键字</li>
-<li>使用Object类的wait() 和 notify() 方法</li>
-<li>使用JUC工具类 CountDownLatch</li>
-</ol>
-<h1 id="线程池的原理与使用"><a href="#线程池的原理与使用" class="headerlink" title="线程池的原理与使用"></a>线程池的原理与使用</h1><ol>
-<li>线程池判断核心线程池里的线程是否都在执行任务。如果不是，则创建一个新的工作线程来执行任务。如果核心线程池里的线程都在执行任务，则进入下个流程。</li>
-<li>线程池判断工作队列是否已经满。如果工作队列没有满，则将新提交的任务存储在这个工作队列里。如果工作队列满了，则进入下个流程。</li>
-<li>线程池判断线程池的线程是否都处于工作状态。如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务</li>
-</ol>
-<h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><h3 id="corePoolSize：核心线程池的线程数"><a href="#corePoolSize：核心线程池的线程数" class="headerlink" title="corePoolSize：核心线程池的线程数"></a>corePoolSize：核心线程池的线程数</h3><ul>
-<li>当线程数未达到核心线程最大值的时候，新任务进来，即使有空闲线程，也不会复用，仍然新建核心线程</li>
-<li>核心线程一般不会被销毁，即使是空闲的状态，但是如果通过方法 allowCoreThreadTimeOut(boolean value) 设置为 true 时，超时也同样会被销毁</li>
-<li>生产环境首次初始化的时候，可以调用 prestartCoreThread() 方法来预先创建所有核心线程，避免第一次调用缓慢</li>
-</ul>
-<h3 id="maximumPoolSize：核心线程-临时线程的最大上限"><a href="#maximumPoolSize：核心线程-临时线程的最大上限" class="headerlink" title="maximumPoolSize：核心线程 + 临时线程的最大上限"></a>maximumPoolSize：核心线程 + 临时线程的最大上限</h3><p>当核心线程和  线程等待队列都满了之后会申请创建临时线程来处理任务</p>
-<p>临时线程有一个超时机制一旦超过了空闲时间便会被销毁</p>
-<h3 id="keepAliveTime"><a href="#keepAliveTime" class="headerlink" title="keepAliveTime"></a>keepAliveTime</h3><p>核心线程池和临时线程的最大空闲时间，默认用于非核心线程，通过设置allowCoreThreadTimeOut（boolean value） 也可以将此参数用于核心线程</p>
-<h3 id="unit"><a href="#unit" class="headerlink" title="unit"></a>unit</h3><p>配合keepAliveTime的参数  用来设定时分秒</p>
-<h3 id="workQueue"><a href="#workQueue" class="headerlink" title="workQueue"></a>workQueue</h3><p>即是上述申请核心进程的等待队列  分为有界队列和无界队列</p>
+                <h1 id="callable和runnable的区别"><a href="#callable和runnable的区别" class="headerlink" title="callable和runnable的区别"></a>callable和runnable的区别</h1><p>1.callable的核心方法是call   runable 核心方法是run  前者方法有返回值</p>
+<p>2.callable 方法可以抛出异常   run方法</p>
+<p>3.callable  和runable 都可以用于executors  而thread类支持runable</p>
 <ul>
-<li>有界队列： 队列的长度有上限，当核心线程满载的时候，新任务进来进入队列，当达到上限，如果没有核心线程去即时取走处理，这个时候，就会创建临时线程。（警惕临时线程无限增加的风险）</li>
-<li>无界队列： 队列没有上限的，当没有核心线程空闲的时候，新来的任务可以无止境的向队列中添加，而永远也不会创建临时线程。（警惕任务队列无限堆积的风险）</li>
+<li>使用callable创建线程时 必须要用到 FutureTask  再把这个当成参数传入到Thread中才能创建一个线程</li>
+<li>还有就是如果需要获取callable线程返回的参数必须将获取操作放在线程执行操作之后</li>
+<li>在使用这个东西的时候顺便用到了泛型来写这个程序</li>
+<li>一想到泛型总不能能简简单单就用个泛型   咱得玩点花的   </li>
+<li>在使用&lt; ？ extend  object&gt;  和&lt; ？ super  object &gt;的时候后面一定要使用类  不能使用接口</li>
 </ul>
-<h3 id="threadFactory"><a href="#threadFactory" class="headerlink" title="threadFactory"></a>threadFactory</h3><p>它是一个接口，用于实现生成线程的方式、定义线程名格式、是否后台执行等等，可以用 Executors.defaultThreadFactory() 默认的实现  它最重要的地方应该就是定义线程名称的格式，便于排查问题</p>
-<h2 id="handler"><a href="#handler" class="headerlink" title="handler"></a>handler</h2><p>即是前文中提到的取舍策略  当临时线程加上核心线程数量以及唱过maximumPoolsize是所用到的取舍策略</p>
-<ul>
-<li>ThreadPoolExecutor.AbortPolicy：直接抛出异常，这是默认策略</li>
-<li>ThreadPoolExecutor.DiscardPolicy：直接丢弃任务，但是不抛出异常</li>
-<li>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后将新来的任务加入等待队列</li>
-<li>ThreadPoolExecutor.CallerRunsPolicy：由线程池所在的线程处理该任务，比如在 main 函数中创建线程池，如果执行此策略，将有 main 线程来执行该任务</li>
-</ul>
-<h4 id="向线程中提交任务"><a href="#向线程中提交任务" class="headerlink" title="向线程中提交任务"></a>向线程中提交任务</h4><ul>
-<li>execute()</li>
-<li>submit()</li>
-</ul>
-<p>submit() 方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象，通过这个 Future 对象可以判断任务是否执行成功，并且可以通过 Future 的 get() 方法来获取返回值，get() 方法会阻塞当前线程直到任务完成，而使用 get（long timeout，TimeUnit unit）方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。</p>
-<h3 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h3><p>shutdown 或 shutdownNow </p>
-<h3 id="使用线程池的建议"><a href="#使用线程池的建议" class="headerlink" title="使用线程池的建议"></a>使用线程池的建议</h3><p>区分 CPU 密集型还是 IO 密集型：CPU 密集型任务应配置尽可能少的线程，如配置 CPU核心数 + 1 个线程的线程池。而对于 IO 密集型任务，它的线程并不是一直在执行任务，则应配置尽可能多的线程，如 CPU核心数 * 2<br>如果对于任务的优先级有要求：那么构建线程池时，BlockingQueue 可以使用 PriorityBlockingQueue ，它是一个阻塞的优先级队列，可以让优先级高的任务先执行<br>阻塞队列最好使用有界队列</p>
-<h1 id="互斥，自旋，读写，悲观锁，乐观锁"><a href="#互斥，自旋，读写，悲观锁，乐观锁" class="headerlink" title="互斥，自旋，读写，悲观锁，乐观锁"></a>互斥，自旋，读写，悲观锁，乐观锁</h1><h3 id="互斥锁与自旋锁"><a href="#互斥锁与自旋锁" class="headerlink" title="互斥锁与自旋锁"></a>互斥锁与自旋锁</h3><p>是两种最底层的锁，很多高级锁都是由他们两实现的</p>
-<p>我们都知道线程给一个共享资源加锁后，其他线程加锁就会失败这样就可以避免多线程导致共享数据错乱的问题</p>
-<p>当一个线程加锁后，其他线程加锁就会失败，互斥锁和自旋锁对加锁失败后的处理方式是不一样的</p>
-<ul>
-<li>互斥锁加锁失败后会放弃，释放自己获取到的cpu资源，给其他线程</li>
-<li>自旋锁加锁失败后，线程会忙等待，直到他拿到锁</li>
-</ul>
-<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>读写锁适用于能明确区分读操作和写操作的场景</p>
-<ul>
-<li>当「写锁」没有被线程持有时，多个线程能够并发地持有读锁，这大大提高了共享资源的访问效率，因为「读锁」是用于读取共享资源的场景，所以多个线程同时持有读锁也不会破坏共享资源的数据</li>
-<li>但是，一旦「写锁」被线程持有后，读线程的获取读锁的操作会被阻塞，而且其他写线程的获取写锁的操作也会被阻塞</li>
-</ul>
-<p>读写锁在读多写少的场景，能发挥出优势</p>
-<p>公平读写锁比较简单的一种方式是：用队列把获取锁的线程排队，不管是写线程还是读线程都按照先进先出的原则加锁即可，这样读线程仍然可以并发，也不会出现「饥饿」的现象</p>
-<h3 id="悲观锁乐观锁"><a href="#悲观锁乐观锁" class="headerlink" title="悲观锁乐观锁"></a>悲观锁乐观锁</h3><ul>
-<li>悲观锁做事比较悲观，它认为多线程同时修改共享资源的概率比较高，于是很容易出现冲突，所以访问共享资源前，先要上锁</li>
-<li><ul>
-<li>乐观锁做事比较乐观，它假定冲突的概率很低，它的工作方式是：先修改完共享资源，再验证这段时间内有没有发生冲突，如果没有其他线程在修改资源，那么操作完成，如果发现有其他线程已经修改过这个资源，就放弃本次操作         </li>
-<li>乐观锁全程并没有加锁，所以它也叫无锁编程  </li>
-<li>只有在冲突概率非常低，且加锁成本非常高的场景时，才考虑使用乐观锁。</li>
-</ul>
-</li>
-</ul>
-<h1 id="Volatile，Threadloacl"><a href="#Volatile，Threadloacl" class="headerlink" title="Volatile，Threadloacl"></a>Volatile，Threadloacl</h1><p>原子性<br>一个或多个操作。要么全部执行完成并且执行过程不会被打断，要么不执行。最常见的例子：i++/i–操作。不是原子性操作，如果不做好同步性就容易造成线程安全问题</p>
-<p>可见性<br>多个线程访问同一个变量，一个线程改变了这个变量的值，其他线程可以立即看到修改的值。可见性的问题，有两种方式保证。一是volatile关键字，二是通过synchronized和lock。详细在后面</p>
-<p>有序性<br>程序执行的顺序按照代码的先后顺序执行。</p>
-<h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><p>一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰后，就具备了两层语义：保证了不同线程对这个变量进行操作时的可见性和禁止了指令重排序。</p>
-<p>使用volatile关键字时必须具备两个条件：</p>
-<p>1、对变量的写操作不依赖于当前值。</p>
-<p>2、该变量没有包含在具有其他变量的不变式中。</p>
-<h3 id="Threadloacl"><a href="#Threadloacl" class="headerlink" title="Threadloacl"></a>Threadloacl</h3><p>ThreadLocal 是一个线程的局部变量(其实就是一个Map),ThreadLocal会为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，将对象的可见范围限制在同一个线程内，而不会影响其它线程所对应的副本。<br>这样做其实就是以空间换时间的方式(与synchronized相反)，以耗费内存为代价，单大大减少了线程同步(如synchronized)所带来性能消耗以及减少了线程并发控制的复杂度</p>
-<p>ThreadLocal中的内存泄露问题：<br>如果ThreadLocal被设置为null后，并且没有任何强引用指向它，根据垃圾回收的可达性分析算法，ThreadLocal将被回收。这样的话，ThreadLocalMap中就会含有key为null的Entry，而且ThreadLocalMap是在Thread中的，只要线程迟迟不结束，这些无法访问到的value就会形成内存泄露。为了解决这个问题，ThreadLocalMap中的get·Entry()、set()和remove()函数都会清理key为null的Entry</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span>  <span class="title">cable</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">HashSet</span>&gt; </span>&#123;</span><br><span class="line">    HashSet s=<span class="keyword">new</span> HashSet();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HashSet <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">20</span> ; i++) &#123;</span><br><span class="line">            s.add(i);</span><br><span class="line">            System.out.println(s.size());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> s ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">rable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    Set s=<span class="keyword">new</span> HashSet();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">20</span> ; i++) &#123;</span><br><span class="line">            s.add(i);</span><br><span class="line">            System.out.println(s.size());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        cable ca=<span class="keyword">new</span> cable();</span><br><span class="line">        rable ra=<span class="keyword">new</span> rable();</span><br><span class="line">        Thread t1=<span class="keyword">new</span> Thread(ra);</span><br><span class="line">        FutureTask&lt;? extends HashSet&gt; task=<span class="keyword">new</span> FutureTask(ca);</span><br><span class="line">        Thread t2=<span class="keyword">new</span> Thread(task);</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        System.out.println(hs);</span><br><span class="line">        HashSet hs= task.get();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="四种线程池"><a href="#四种线程池" class="headerlink" title="四种线程池"></a>四种线程池</h1><h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><p>建立一个线程数量固定的线程池 使用的是一个无界队列来作为等待队列 有可能会OOM</p>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><p>创建一个只有一个线程的线程池 跟FixedThreadPool一样也会内存溢出</p>
+<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><p>缓存型线程池，在核心线程达到最大值之前，有任务进来就会创建新的核心线程，并加入核心线程池，即时有空闲的线程，也不会复用。达到最大核心线程数后，新任务进来，如果有空闲线程，则直接拿来使用，如果没有空闲线程，则新建临时线程。并且线程的允许空闲时间都很短，如果超过空闲时间没有活动，则销毁临时线程。关键点就在于它使用 SynchronousQueue 作为等待队列，它不会保留任务，新任务进来后，直接创建临时线程处理，这样一来，也就容易造成无限制的创建线程，造成 OOM。</p>
+<h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h3><p>计划型线程池，可以设置固定时间的延时或者定期执行任务，同样是看线程池中有没有空闲线程，如果有，直接拿来使用，如果没有，则新建线程加入池。使用的是 DelayedWorkQueue 作为等待队列，这中类型的队列会保证只有到了指定的延时时间，才会执行任务</p>
+<h3 id="线程池的四种拥塞策略"><a href="#线程池的四种拥塞策略" class="headerlink" title="线程池的四种拥塞策略"></a>线程池的四种拥塞策略</h3><p>ThreadPoolExecutor.AbortPolicy：直接抛出异常，这是默认策略；<br>ThreadPoolExecutor.DiscardPolicy：直接丢弃任务，但是不抛出异常。<br>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后将新来的任务加入等待队列<br>ThreadPoolExecutor.CallerRunsPolicy：由线程池所在的线程处理该任务，比如在 main 函数中创建线程池，如果执行此策略，将有 main 线程来执行该任务</p>
+<h1 id="JVM-发生GC的情况"><a href="#JVM-发生GC的情况" class="headerlink" title="JVM  发生GC的情况"></a>JVM  发生GC的情况</h1><ul>
+<li>当新生代无法放下新空间时候会进行  minor  GC当minor  GC发生后需要往老年代放的对象大于老年代剩余空间是会发生 Full  gc</li>
+<li>方法区空间不足是 也会发生Full  GC</li>
+<li>当一个大对象创建后 eden 区域 中放不下这个大对象是 会直接保存再老年代中  如果老年代空间不醉就会产生Full GC</li>
+<li>在发生YGC是会判断，是否安全，这里的安全指的是，当前老年代空间可以容纳YGC晋升的对象的平均大小，如果不安全，就不会执行YGC,转而执行Full GC</li>
+</ul>
+<h1 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h1><p>加载—–连接（验证—–准备 —–解析）——-初始化 ——使用 —–卸载</p>
+<h1 id="JVM优化参数"><a href="#JVM优化参数" class="headerlink" title="JVM优化参数"></a>JVM优化参数</h1><p>Xmx4G   设置堆空间最大大小4G</p>
+<p>Xms4G    设置对空间初始大小4G</p>
+<p>Xmn1200m  设置新生代1200M</p>
+<p>XX:NewRatio  设置新生代与老年代比例</p>
+<p>XX：SurvivorRatio： 设置新生代区域 幸存者与eden区域比例</p>
+<p>XX：permsize=   设置永久代大小</p>
+<p>XX：MaxPermSize=设置永久代最大大小</p>
+<p>XX：MaxTenuringThreshold=15 设置新生代最大的年龄</p>
+<p>XX：ParallelGCThread =8  新生代并行收集器的线程数</p>
+<p>XX：MaxDirectMemorySize =1G 直接内存  </p>
+<h1 id="spark的job中task是如何分类的"><a href="#spark的job中task是如何分类的" class="headerlink" title="spark的job中task是如何分类的"></a>spark的job中task是如何分类的</h1><p>在处理数据时候会将文件分成block   由多个block和成一个inputfilesplit 每个inputfilesplit对应一个task</p>
+<h1 id="hbase的rowkey设计原则"><a href="#hbase的rowkey设计原则" class="headerlink" title="hbase的rowkey设计原则"></a>hbase的rowkey设计原则</h1><h3 id="长度原则"><a href="#长度原则" class="headerlink" title="长度原则"></a>长度原则</h3><p>rowkey是一个二进制码流 可以为任意字符串  最大长为64KB</p>
+<p>越短越好不要超过16字节</p>
+<h3 id="散列原则"><a href="#散列原则" class="headerlink" title="散列原则"></a>散列原则</h3><h3 id="唯一原则"><a href="#唯一原则" class="headerlink" title="唯一原则"></a>唯一原则</h3><h2 id="rowkey的设计方法"><a href="#rowkey的设计方法" class="headerlink" title="rowkey的设计方法"></a>rowkey的设计方法</h2>
                 
             </div>
             <hr/>
@@ -619,7 +531,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">https://18174427546.github.io/2021/08/26/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</a>
+                    <a href="https://18174427546.github.io/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/">https://18174427546.github.io/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -657,8 +569,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-java/">
-                                    <span class="chip bg-color">多线程  java</span>
+                                <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">面试</span>
                                 </a>
                             
                         </div>
@@ -830,17 +742,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/08/28/hadoop%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                <a href="/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="hadoop面试题">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="面试题目">
                         
-                        <span class="card-title">hadoop面试题</span>
+                        <span class="card-title">面试题目</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -850,9 +763,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -861,6 +774,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -879,13 +793,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/26/hbase%E5%A4%8D%E4%B9%A0/">
+                <a href="/2021/09/17/%E5%8D%97%E4%BA%AC%E7%83%BD%E7%81%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hbase面试题">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="南京烽火复盘">
                         
-                        <span class="card-title">hbase面试题</span>
+                        <span class="card-title">南京烽火复盘</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -896,7 +810,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-17
                             </span>
                         <span class="publish-author">
                             
@@ -909,8 +823,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%9D%A2%E8%AF%95-hbase/">
-                        <span class="chip bg-color">面试  hbase</span>
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
                     </a>
                     
                 </div>
