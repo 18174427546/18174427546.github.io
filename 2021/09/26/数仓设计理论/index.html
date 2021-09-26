@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="面试题目, lang">
+    <meta name="keywords" content="数仓设计理论, lang">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>面试题目 | lang</title>
+    <title>数仓设计理论 | lang</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">面试题目</h1>
+                    <h1 class="description center-align post-title">数仓设计理论</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%9D%A2%E8%AF%95/">
-                                <span class="chip bg-color">面试</span>
+                            <a href="/tags/%E6%95%B0%E4%BB%93/">
+                                <span class="chip bg-color">数仓</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-17
+                    2021-09-26
                 </div>
                 
 
@@ -468,86 +468,125 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="callable和runnable的区别"><a href="#callable和runnable的区别" class="headerlink" title="callable和runnable的区别"></a>callable和runnable的区别</h1><p>1.callable的核心方法是call   runable 核心方法是run  前者方法有返回值</p>
-<p>2.callable 方法可以抛出异常   run方法</p>
-<p>3.callable  和runable 都可以用于executors  而thread类支持runable</p>
-<ul>
-<li>使用callable创建线程时 必须要用到 FutureTask  再把这个当成参数传入到Thread中才能创建一个线程</li>
-<li>还有就是如果需要获取callable线程返回的参数必须将获取操作放在线程执行操作之后</li>
-<li>在使用这个东西的时候顺便用到了泛型来写这个程序</li>
-<li>一想到泛型总不能能简简单单就用个泛型   咱得玩点花的   </li>
-<li>在使用&lt; ？ extend  object&gt;  和&lt; ？ super  object &gt;的时候后面一定要使用类  不能使用接口</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span>  <span class="title">cable</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">HashSet</span>&gt; </span>&#123;</span><br><span class="line">    HashSet s=<span class="keyword">new</span> HashSet();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HashSet <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">20</span> ; i++) &#123;</span><br><span class="line">            s.add(i);</span><br><span class="line">            System.out.println(s.size());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> s ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">rable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    Set s=<span class="keyword">new</span> HashSet();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">20</span> ; i++) &#123;</span><br><span class="line">            s.add(i);</span><br><span class="line">            System.out.println(s.size());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        cable ca=<span class="keyword">new</span> cable();</span><br><span class="line">        rable ra=<span class="keyword">new</span> rable();</span><br><span class="line">        Thread t1=<span class="keyword">new</span> Thread(ra);</span><br><span class="line">        FutureTask&lt;? extends HashSet&gt; task=<span class="keyword">new</span> FutureTask(ca);</span><br><span class="line">        Thread t2=<span class="keyword">new</span> Thread(task);</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        System.out.println(hs);</span><br><span class="line">        HashSet hs= task.get();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="四种线程池"><a href="#四种线程池" class="headerlink" title="四种线程池"></a>四种线程池</h1><h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><p>建立一个线程数量固定的线程池 使用的是一个无界队列来作为等待队列 有可能会OOM</p>
-<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><p>创建一个只有一个线程的线程池 跟FixedThreadPool一样也会内存溢出</p>
-<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><p>缓存型线程池，在核心线程达到最大值之前，有任务进来就会创建新的核心线程，并加入核心线程池，即时有空闲的线程，也不会复用。达到最大核心线程数后，新任务进来，如果有空闲线程，则直接拿来使用，如果没有空闲线程，则新建临时线程。并且线程的允许空闲时间都很短，如果超过空闲时间没有活动，则销毁临时线程。关键点就在于它使用 SynchronousQueue 作为等待队列，它不会保留任务，新任务进来后，直接创建临时线程处理，这样一来，也就容易造成无限制的创建线程，造成 OOM。</p>
-<h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h3><p>计划型线程池，可以设置固定时间的延时或者定期执行任务，同样是看线程池中有没有空闲线程，如果有，直接拿来使用，如果没有，则新建线程加入池。使用的是 DelayedWorkQueue 作为等待队列，这中类型的队列会保证只有到了指定的延时时间，才会执行任务</p>
-<h3 id="线程池的四种拥塞策略"><a href="#线程池的四种拥塞策略" class="headerlink" title="线程池的四种拥塞策略"></a>线程池的四种拥塞策略</h3><p>ThreadPoolExecutor.AbortPolicy：直接抛出异常，这是默认策略；<br>ThreadPoolExecutor.DiscardPolicy：直接丢弃任务，但是不抛出异常。<br>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后将新来的任务加入等待队列<br>ThreadPoolExecutor.CallerRunsPolicy：由线程池所在的线程处理该任务，比如在 main 函数中创建线程池，如果执行此策略，将有 main 线程来执行该任务</p>
-<h1 id="JVM-发生GC的情况"><a href="#JVM-发生GC的情况" class="headerlink" title="JVM  发生GC的情况"></a>JVM  发生GC的情况</h1><ul>
-<li>当新生代无法放下新空间时候会进行  minor  GC当minor  GC发生后需要往老年代放的对象大于老年代剩余空间是会发生 Full  gc</li>
-<li>方法区空间不足是 也会发生Full  GC</li>
-<li>当一个大对象创建后 eden 区域 中放不下这个大对象是 会直接保存再老年代中  如果老年代空间不醉就会产生Full GC</li>
-<li>在发生YGC是会判断，是否安全，这里的安全指的是，当前老年代空间可以容纳YGC晋升的对象的平均大小，如果不安全，就不会执行YGC,转而执行Full GC</li>
-</ul>
-<h1 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h1><p>加载—–连接（验证—–准备 —–解析）——-初始化 ——使用 —–卸载</p>
-<h1 id="JVM优化参数"><a href="#JVM优化参数" class="headerlink" title="JVM优化参数"></a>JVM优化参数</h1><p>Xmx4G   设置堆空间最大大小4G</p>
-<p>Xms4G    设置对空间初始大小4G</p>
-<p>Xmn1200m  设置新生代1200M</p>
-<p>XX:NewRatio  设置新生代与老年代比例</p>
-<p>XX：SurvivorRatio： 设置新生代区域 幸存者与eden区域比例</p>
-<p>XX：permsize=   设置永久代大小</p>
-<p>XX：MaxPermSize=设置永久代最大大小</p>
-<p>XX：MaxTenuringThreshold=15 设置新生代最大的年龄</p>
-<p>XX：ParallelGCThread =8  新生代并行收集器的线程数</p>
-<p>XX：MaxDirectMemorySize =1G 直接内存  </p>
-<h1 id="spark的job中task是如何分类的"><a href="#spark的job中task是如何分类的" class="headerlink" title="spark的job中task是如何分类的"></a>spark的job中task是如何分类的</h1><p>在处理数据时候会将文件分成block   由多个block和成一个inputfilesplit 每个inputfilesplit对应一个task</p>
-<h1 id="hbase的rowkey设计原则"><a href="#hbase的rowkey设计原则" class="headerlink" title="hbase的rowkey设计原则"></a>hbase的rowkey设计原则</h1><h3 id="长度原则"><a href="#长度原则" class="headerlink" title="长度原则"></a>长度原则</h3><p>rowkey是一个二进制码流 可以为任意字符串  最大长为64KB</p>
-<p>越短越好不要超过16字节</p>
-<h3 id="散列原则"><a href="#散列原则" class="headerlink" title="散列原则"></a>散列原则</h3><p>如果rowkey按照时间戳底层   不要将时间放在二进制码前面 建议将 rowkey  的高位字节采用散列字段处理  由程序随机生成 这样将提高数据均衡分布  各个regionServer 负载均衡的几率</p>
-<h3 id="唯一原则"><a href="#唯一原则" class="headerlink" title="唯一原则"></a>唯一原则</h3><p>保证唯一性，rowkey 是按照字典顺序排序存储的，因此 设计rowkey的时候要利用排序的点  将经常读取的数据放到同一个region上  将可能会被访问的数据放到一块 但是量不能太大  避免热点问题</p>
-<h2 id="rowkey的设计方法"><a href="#rowkey的设计方法" class="headerlink" title="rowkey的设计方法"></a>rowkey的设计方法</h2><h3 id="加盐"><a href="#加盐" class="headerlink" title="加盐"></a>加盐</h3><p>说白了就是在设计rowkey的时候在前面加数字来将数据房补不同的分区（当然是在不同业务下有不同的场景）</p>
-<h3 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h3><p>就是预先创建hbase表分区。这需要我们明确rowkey的取值范围和构成逻辑</p>
-<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>将rowkey中的数据 传入哈希函数当中，将得到的哈希值模以hash值，余数添加到rowkey首部中，再结合预分区设计方法，就能将数据均匀分布到regionServer当中</p>
-<h3 id="反转"><a href="#反转" class="headerlink" title="反转"></a>反转</h3><p>通过反转固定长度或者数字格式的rowkey。这样可以使得rowkey中经常改变的部分（最没有意义的部分）放在前面。这样可以有效的随机rowkey，但是牺牲了rowkey的有序性。</p>
-<h1 id="hbase中get和scan区别"><a href="#hbase中get和scan区别" class="headerlink" title="hbase中get和scan区别"></a>hbase中get和scan区别</h1><h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>按照RowKey获取唯一一条记录。get的方法处理分两种：设置了ClosestRowBefore和没有设置ClosestRowBefore的RowLock。主要用来保证行的事务性，即每个get是以一个row来标记的</p>
-<h3 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h3><p>按照指定的条件获取一批记录。</p>
-<ul>
-<li>可以通过setCaching和setBatch方法提高速度；</li>
-<li>可以通过setStartRow与setEndRow来限定范围；</li>
-<li>可以通过setFilter方法添加过滤器，这也是分页、多条件查询的基础；</li>
-</ul>
-<h3 id="rowfitler"><a href="#rowfitler" class="headerlink" title="rowfitler"></a>rowfitler</h3><p>operator    description<br>less        小于<br>less_or_equal         小于等于<br>equal     等于<br>not_equal     不等于<br>greater_or_equal     大于等于<br>greater     大于<br>no_op     排除所有<br>Comparator    description<br>BinaryComparator    使用bytes.comparaTo()比较<br>BinaryPrefixComparator    和BinaryComparator差不多，从前面开始比较<br>RegexStringComparator    正则表达式<br>subStringComparator    把数字当成字符串，用contains()来判断</p>
-<h1 id="hbase中compact的策略"><a href="#hbase中compact的策略" class="headerlink" title="hbase中compact的策略"></a>hbase中compact的策略</h1><h2 id="minor-compact"><a href="#minor-compact" class="headerlink" title="minor compact"></a>minor compact</h2><h3 id="RatioBasedCompactionPolicy"><a href="#RatioBasedCompactionPolicy" class="headerlink" title="RatioBasedCompactionPolicy"></a>RatioBasedCompactionPolicy</h3><p>(基于倍数的合并策略)（当满足以下任意任意一种情况便合并）再0.96版本后就被弃用</p>
-<ol>
-<li>当前文件大小 &lt; 比它更新的所有文件大小总和 * ratio  ratio 也就是指定的一个比例  高峰期为1.2  非高峰期为5</li>
-<li>当前所剩候选文件数&gt;= hbase.store.conpaction.min(默认为3)</li>
-<li>当前所剩候选文件数&lt;= hbase.store.conpaction.max(默认为5)</li>
-</ol>
-<p>停止扫描后 待合并文件就选出来了  即  当前扫描文件+比它新的所有文件进行合并</p>
-<h3 id="ExploringCompaction默认算法"><a href="#ExploringCompaction默认算法" class="headerlink" title="ExploringCompaction默认算法"></a>ExploringCompaction默认算法</h3><ol>
-<li>根据【该文件&lt;(所有文件大小-该文件大小)*比例因子】公式，该公式不再强调顺序性，而是把所有的文件都遍历一遍，若满足公式就把该文件放进待合并队列组合中。</li>
-<li>根据hbase.store.compaction.min和hbase.store.compaction.max两个参数选挑选出多个文件组合</li>
-<li>在得到多个组合后，组合里面选择文件数最多，文件数一样多时进一步选择文件总size最小的，目的在于尽可能多地合并文件并且因compact带来的IO压力越小越好；</li>
-</ol>
-<p>相比较前者  这一种方法会在检测到需要合并时  将合并文件添加到一个队列中 根据算法对不同策略进行比较在进行选择  （先选择文件个数  再在相同的文件个数中选择文件大小最小的那一个组合进行合并）</p>
-<h3 id="FIFOCompationPolicy-删除策略"><a href="#FIFOCompationPolicy-删除策略" class="headerlink" title="FIFOCompationPolicy(删除策略)"></a>FIFOCompationPolicy(删除策略)</h3><ol>
-<li>场景在TTL特别短，比如存储一些业务中间表，Mapreduce计算过程中暂时存取数据，用完这些数据就没有用了，该场景下很容易出现整个块的每一个单元格都过期了</li>
-<li>BlockCache够大，可以把整个RegionServer上存储的数据都放进去，因此没有必要合并任何文件，因为基本可以走缓存即可。</li>
-<li>因为MemStore在LSM整理时，对于TTL过期只要不写入HFile文件就算是删除了，所以FIFOCompationPolicy策略在合并时直接删除所有单元格都过期的块（不落盘而已），可以看到过期的块被整个删除掉了，没有过期的块完全没有操作。整体上只有删除没有复制和移动，优点就是对CPU/IO几乎没有压力</li>
-</ol>
-<p>不适用场景</p>
-<p>表没有设置TTL，或者TTL=FOREVER</p>
-<p>表设置了MIN_VERSIONs,并且MIN_VERSIONs&gt;0</p>
-<p>其实因为是  理解成 快进快出 不是先进先出 数据进来了马上就被删除了 </p>
-<h3 id="DateTieredCompactionPolicy（朋友圈原理）"><a href="#DateTieredCompactionPolicy（朋友圈原理）" class="headerlink" title="DateTieredCompactionPolicy（朋友圈原理）"></a>DateTieredCompactionPolicy（朋友圈原理）</h3><p>用通俗易懂的话来说  朋友圈原理即是  用箩筐装垃圾  搞卫生的人每隔一段时间就来倒一次垃圾  不管你的垃圾满没满 是什么类型  我都不管  反正就是隔一段时间就倒一次 </p>
-<p>这样做的好处是什么  </p>
-<p>因为我们在读取数据时大多数都是对新的数据进行访问   我们在对新数据进行查找时 只需要对当前或者附近的时间哐进行查找  而不需要对所有的文件进行遍历</p>
-<p>这样就可以将新老数据区分开来    在一个时间窗里面我采用的合并策略也是ExploringCompaction来进行合并的</p>
-<p>不适合的 </p>
-<p>因为触发不了major  compact </p>
-<h3 id="StripeCompactionPolicy（文件分层合并）"><a href="#StripeCompactionPolicy（文件分层合并）" class="headerlink" title="StripeCompactionPolicy（文件分层合并）"></a>StripeCompactionPolicy（文件分层合并）</h3><p>根据    首先对数据进行分层   将数据分成两层  当数据被metastore  flush形成hfile时   再key来对不同数据进行分区    </p>
+                <h1 id="Kimball"><a href="#Kimball" class="headerlink" title="Kimball"></a>Kimball</h1><p>首先我们要学习一个东西  理解他的定义  是最基本的也是最重要的  我们很多时候会发现 我们学了很多东西 知道他怎么用   最后却不知道这个东西存在的意义   所以认清楚定义是很重要的</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>是一种自底向上的，从数据集市再到数据仓库再到数据源的一种敏捷 开发方法  数据源往往是  若干个数据库表  数据稳定关系复杂   需要从OLTP产生的事务性数据结构抽取出 分析型数据结构 再放入数据集市种方便下一步的 BI和决策支持</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>以任务为导向  在得到数据后需要先做数据的探索  尝试将数据按照目标先拆分出不同的表需求  </p>
+<p>在明确数据的依赖之后通过ETL由Stage层转化到DM层   DM层数据由若干个事实表和维度表组曾  接着 在完成DM层的事实表 裁缝之后 数据集市一方面可以直接向BI环节输出数据了  另一方面可以先DW层 输出数据 </p>
+<p>kimball  往往意味着快速交付  敏捷迭代   不会对数据仓库架构做过多的设计  </p>
+<h1 id="Inmon"><a href="#Inmon" class="headerlink" title="Inmon"></a>Inmon</h1><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>是一种自顶向下的  从数据源到数据仓库再到数据集市  的一种瀑布流开发方法  对于 Inmon 数据源往往是异构的  </p>
+<p>主要的数据工作集中在对异构数据的清洗 包括数据类型检验  数据值范围检验 以及其他的一些复杂规则  </p>
+<p>数据无法从stage层直接输出到dm层  必须先通过etl将数据的格式清洗后放入dw层  再从dw层选择徐娅殴打数据组合输出到dm层 在inmod模式中 并不强调事实表和维度表的概念  因为数据源变化的可能性较大  需要更加强调数据的清洗工作  从中抽取实体-关系</p>
+<h3 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a>流程</h3><p>以数据源头为导向   探索性地去获取尽量符合预期的数据  数据按照预期划分为不同的表需求明确数据的清洗规则后将各个任务通过ETL由Stage层转化到DW层，这里DW层通常涉及到较多的UDF开发，将数据抽象为实体-关系模型。接着，在完成DW的数据治理之后，可以将数据输出到数据集市中做基本的数据组合。最后，将数据集市中的数据输出到BI系统中去辅助具体业务。</p>
+<h2 id="特征对比"><a href="#特征对比" class="headerlink" title="特征对比"></a>特征对比</h2><p><img src="%5Cimg%5Cwatermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0x1b21pbmdrdWkxMTA5,size_16,color_FFFFFF,t_70" alt="img"></p>
+<table>
+<thead>
+<tr>
+<th><em>*<em>*</em>*特性****</em>*</th>
+<th><em>*<em>*</em>*Kimball****</em>*</th>
+<th><em>*<em>*</em>*Inmon****</em>*</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据摄取</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>stage</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>ETL</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>数据集市</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>商业需求</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>数据时间属性</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>数据仓库优先</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>事实维度拆分</td>
+<td>yes</td>
+<td></td>
+</tr>
+<tr>
+<td>关系表维护</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>处理导向</td>
+<td>yes</td>
+<td></td>
+</tr>
+<tr>
+<td>数据模型泛化</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>精心设计</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>缓慢变化维</td>
+<td>yes</td>
+<td></td>
+</tr>
+<tr>
+<td>连续变化维</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>快速交付</td>
+<td>路漫漫其修远兮</td>
+</tr>
+<tr>
+<td>开发难度</td>
+<td>小</td>
+<td>大</td>
+</tr>
+<tr>
+<td>维护难度</td>
+<td>大</td>
+<td>小</td>
+</tr>
+<tr>
+<td>技能要求</td>
+<td>入门级</td>
+<td>专家级</td>
+</tr>
+<tr>
+<td>数据要求</td>
+<td>特定业务</td>
+<td>企业级</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 
                 
             </div>
@@ -574,7 +613,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://18174427546.github.io/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/">https://18174427546.github.io/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/</a>
+                    <a href="https://18174427546.github.io/2021/09/26/%E6%95%B0%E4%BB%93%E8%AE%BE%E8%AE%A1%E7%90%86%E8%AE%BA/">https://18174427546.github.io/2021/09/26/%E6%95%B0%E4%BB%93%E8%AE%BE%E8%AE%A1%E7%90%86%E8%AE%BA/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -612,8 +651,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%9D%A2%E8%AF%95/">
-                                    <span class="chip bg-color">面试</span>
+                                <a href="/tags/%E6%95%B0%E4%BB%93/">
+                                    <span class="chip bg-color">数仓</span>
                                 </a>
                             
                         </div>
@@ -785,9 +824,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/09/26/%E6%95%B0%E4%BB%93%E8%AE%BE%E8%AE%A1%E7%90%86%E8%AE%BA/">
                     <div class="card-image">
@@ -805,9 +845,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -816,6 +856,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -834,13 +875,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/17/%E5%8D%97%E4%BA%AC%E7%83%BD%E7%81%AB/">
+                <a href="/2021/09/17/%E7%9B%98%E7%82%B9%E9%9D%A2%E8%AF%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="南京烽火复盘">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="面试题目">
                         
-                        <span class="card-title">南京烽火复盘</span>
+                        <span class="card-title">面试题目</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
